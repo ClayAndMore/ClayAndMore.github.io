@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        unity之shader｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/27/unity之shader/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>unity之shader</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-27
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#shader"
+                           title="shader">shader</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            unity之shader
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>shader：着色器，负责unity所有的渲染工作，实际上就是一小段程序，将Mesh（网格）指定的方式和输入的贴图或者颜色一起作用，然后输出。</li>
+<li><p>将shader和输入参数打包储存在一起就是一个Material（材质），将材质赋予合适的renderer(渲染器)来进行渲染（输出）。</p>
+<p>  Shader总体上可以分为两类：</p>
+</li>
+</ul>
+<pre><code>* Surface Shader ：表面着色器，简单技巧可以实现不错的效果。
+* Fragment Shader：底层上进行更复杂的开发。
+  我们主要研究surface shader 
+</code></pre><ul>
+<li>UV mapping的作用是将一个2D贴图上的点按照一定规则映射到3D模型上，是3D渲染中最常见的一种顶点处理手段</li>
+</ul>
+<h3 id="Shader程序的基本结构"><a href="#Shader程序的基本结构" class="headerlink" title="Shader程序的基本结构"></a>Shader程序的基本结构</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/shader%E7%BB%93%E6%9E%84.png" alt=""></p>
+<a id="more"></a>
+<ol>
+<li>首先是一些属性定义，用来指定这段代码将有哪些输入。</li>
+<li>接下来是一个或者多个的子着色器，在实际运行中，哪一个子着色器被使用是由运行的平台所决定的。子着色器是代码的主体，每一个子着色器中包含一个或者多个的Pass。</li>
+<li>在计算着色时，平台先选择最优先可以使用的着色器，然后依次运行其中的Pass，然后得到输出的结果。最后指定一个回滚，用来处理所有Subshader都不能运行的情况（比如目标设备实在太老，所有Subshader中都有其不支持的特性）。</li>
+<li>需要提前说明的是，在实际进行表面着色器的开发时，<strong>我们将直接在Subshader这个层次上写代码</strong>，系统将把我们的代码编译成若干个合适的Pass。</li>
+</ol>
+<h3 id="Hello-Shader"><a href="#Hello-Shader" class="headerlink" title="Hello Shader"></a>Hello Shader</h3><p>在unity工程项目Project处新建一个shader（右键新建），我将其命名为firstShader.打开，下面为初始代码，我们一点一点来说。</p>
+<pre><code>Shader &quot;Custom/firstShader&quot; {                        //指定了名字，可以在材质中找到这个shader，见下图
+    Properties {                                     //这里定义了着色器属性，将被输入给子着色器
+        _Color (&quot;Color&quot;, Color) = (1,1,1,1)          //颜色RGBA（红绿蓝透明度），0～1定义的rgba颜色，比如(1,1,1,1)；
+        _MainTex (&quot;Albedo (RGB)&quot;, 2D) = &quot;white&quot; {}   /2D/Rect/Cube - 对于贴图来说，默认值可以为一个代表默认tint颜色的字符串，可以是空字符串或者”white”,”black”,”gray”,”bump”中的一个 一张2阶数大小（256，512）之类的贴图。这张贴图将在采样后被转为对应基于模型UV的每个像素的颜色，最终被显示出来；
+        _Glossiness (&quot;Smoothness&quot;, Range(0,1)) = 0.5  //Range(min, max) - 一个介于最小值和最大值之间的浮点数，一般用来当作调整Shader某些特性的参数（比如透明度渲染的截止值可以是从0至1的值等
+        _Metallic (&quot;Metallic&quot;, Range(0,1)) = 0.0
+    }
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; } 
+        //表面着色器可以被若干的标签（tags）所修饰，而硬件将通过判定这些标签来决定什么时候调用该着色器。
+        //比如我们的例子中SubShader的第一句Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }告诉了系统应该在渲染非透明物体时调用我们，看下面后续。
+
+        LOD 200  //下面有补充
+
+        CGPROGRAM  //开始标记，表明这是一段CG程序，最后一行ENDCG与之对应，表明结束
+
+
+        // Physically based Standard lighting model, and enable shadows on all light types
+        #pragma surface surf Standard fullforwardshadows //它声明了我们要写一个表面Shader，并指定了光照模型。它的写法是这样的
+        //语法：   #pragma surface surfaceFunction lightModel [optionalparams]
+        //    surface - 声明的是一个表面着色器
+        //   surfaceFunction - 着色器代码的方法的名字
+        //   lightModel - 使用的光照模型。
+</code></pre><p>​<br>            // Use shader model 3.0 target, to get nicer looking lighting</p>
+<pre><code>        #pragma target 3.0
+
+        sampler2D _MainTex;  //sampler2D简单理解的话，所谓加载以后的texture（贴图）,后有补充
+
+        struct Input {
+            float2 uv_MainTex;   //float和vec都可以在之后加入一个2到4的数字，来表示被打包在一起的2到4个同类型数
+            //声明了一个叫做uv_MainTex的包含两个浮点数的变量。
+            //在CG程序中，我们有这样的约定，在一个贴图变量（在我们例子中是_MainTex）之前加上uv两个字母，就代表提取它的uv值（其实就是两个代表贴图上点的二维坐标 ）。
+            //我们之后就可以在surf程序中直接通过访问uv_MainTex来取得这张贴图当前需要计算的点的坐标值了。
+        };
+
+        half _Glossiness;   //这里的half和我们常见float与double类似，都表示浮点数，只不过精度不一样。也许你很熟悉单精度浮点数（float或者single）和双精度浮点数（double），这里的half指的是半精度浮点数，精度最低，运算性能相对比高精度浮点数高一些，因此被大量使用。
+        half _Metallic;
+        fixed4 _Color;
+
+        void surf (Input IN, inout SurfaceOutputStandard o) {   //这段代码是我们的着色器的工作核心。我们已经说过不止一次，着色器就是给定了输入，然后给出输出进行着色的代码。
+        //CG规定了声明为表面着色器的方法（就是我们这里的surf）的参数类型和名字，因此我们没有权利决定surf的输入输出参数的类型，只能按照规定写。
+        //这个规定就是第一个参数是一个Input结构，第二个参数是一个inout的SurfaceOutputStandard结构。后补。
+            // Albedo comes from a texture tinted by color
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;  //这里用到了一个tex2d函数，这是CG程序中用来在一张贴图中对一个点进行采样的方法，返回一个float4。
+            o.Albedo = c.rgb;
+            // Metallic and smoothness come from slider variables
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
+            o.Alpha = c.a;
+        }
+        ENDCG
+    } 
+    FallBack &quot;Diffuse&quot;
+}
+</code></pre><p>###对上面代码的补充</p>
+<ul>
+<li>在材质中找到shader的实例，custom有定制的意思，我的弱渣英语。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/%E6%9D%90%E8%B4%A8%E4%B8%8A%E9%80%89%E6%8B%A9shader.png" alt=""></li>
+<li><p>对Tags的补充：</p>
+<pre><code>Unity定义了一些列这样的渲染过程，与RenderType是Opaque相对应的显而易见的是&quot;RenderType&quot; = &quot;Transparent&quot;，表示渲染含有**透明效果的物体**时调用。在这里Tags其实暗示了你的Shader输出的是什么，如果输出中都是非透明物体，那写在Opaque里；如果想渲染透明或者半透明的像素，那应该写在Transparent中。
+另外比较有用的标签还有&quot;IgnoreProjector&quot;=&quot;True&quot;（不被Projectors影响），&quot;ForceNoShadowCasting&quot;=&quot;True&quot;（从不产生阴影）以及&quot;Queue&quot;=&quot;xxx&quot;（指定渲染顺序队列）。这里想要着重说一下的是Queue这个标签，如果你使用Unity做过一些透明和不透明物体的混合的话，很可能已经遇到过不透明物体无法呈现在透明物体之后的情况。这种情况很可能是由于Shader的渲染顺序不正确导致的。Queue指定了物体的渲染顺序，预定义的Queue有：
+</code></pre><ul>
+<li>Background - 最早被调用的渲染，用来渲染天空盒或者背景</li>
+<li>Geometry - 这是默认值，用来渲染非透明物体（普通情况下，场景中的绝大多数物体应该是非透明的）</li>
+<li>AlphaTest - 用来渲染经过Alpha Test的像素，单独为AlphaTest设定一个Queue是出于对效率的考虑</li>
+<li>Transparent - 以从后往前的顺序渲染透明物体</li>
+<li>Overlay - 用来渲染叠加的效果，是渲染的最后阶段（比如镜头光晕等特效）</li>
+</ul>
+<p>这些预定义的值本质上是一组定义整数，Background = 1000， Geometry = 2000, AlphaTest = 2450， Transparent = 3000，最后Overlay = 4000。在我们实际设置Queue值时，不仅能使用上面的几个预定义值，我们也可以指定自己的Queue值，写成类似这样：”Queue”=”Transparent+100”，表示一个在Transparent之后100的Queue上进行调用。通过调整Queue值，我们可以确保某些物体一定在另一些物体之前或者之后渲染，这个技巧有时候很有用处。</p>
+</li>
+<li><p>LOD </p>
+<pre><code>LOD很简单，它是Level of Detail的缩写，在这里例子里我们指定了其为200（其实这是Unity的内建Diffuse着色器的设定值）。这个数值决定了我们能用什么样的Shader。在Unity的Quality Settings中我们可以设定允许的最大LOD，当设定的LOD小于SubShader所指定的LOD时，这个SubShader将不可用。Unity内建Shader定义了一组LOD的数值，我们在实现自己的Shader的时候可以将其作为参考来设定自己的LOD数值，这样在之后调整根据设备图形性能来调整画质时可以进行比较精确的控制。
+
+    VertexLit及其系列 = 100
+    Decal, Reflective VertexLit = 150
+    Diffuse = 200
+    Diffuse Detail, Reflective Bumped Unlit, Reflective Bumped VertexLit = 250
+    Bumped, Specular = 300
+    Bumped Specular = 400
+    Parallax = 500
+    Parallax Specular = 600
+</code></pre></li>
+<li>解释通了sampler2D是什么之后，还需要解释下为什么在这里需要一句对_MainTex的声明，之前我们不是已经在Properties里声明过它是贴图了么。答案是我们用来实例的这个shader其实是由两个相对独立的块组成的，外层的属性声明，回滚等等是Unity可以直接使用和编译的ShaderLab；而现在我们是在CGPROGRAM…ENDCG这样一个代码块中，这是一段CG程序。对于这段CG程序，要想访问在Properties中所定义的变量的话，<strong>必须使用和之前变量相同的名字进行声明</strong>。于是其实sampler2D _MainTex;做的事情就是再次声明并链接了_MainTex，使得接下来的CG程序能够使用这个变量。    </li>
+<li><p>SurfaceOutputStandard结构</p>
+<pre><code>struct SurfaceOutputStandard
+{
+    fixed3 Albedo;      // base (diffuse or specular) color
+    fixed3 Normal;      // tangent space normal, if written
+    half3 Emission;
+    half Metallic;      // 0=non-metal, 1=metal  金属的，含金属的
+    half Smoothness;    // 0=rough, 1=smooth    平滑
+    half Occlusion;     // occlusion (default 1)
+    fixed Alpha;        // alpha for transparencies
+};     
+</code></pre></li>
+</ul>
+<hr>
+<p>本笔记摘抄整理于<a href="http://www.360doc.com/content/13/0923/15/12282510_316492286.shtml" target="_blank" rel="external">http://www.360doc.com/content/13/0923/15/12282510_316492286.shtml</a><br>更多部分以及进阶在<a href="http://www.360doc.com/content/2015/0207/10/6432946_446860748.shtml" target="_blank" rel="external">http://www.360doc.com/content/2015/0207/10/6432946_446860748.shtml</a><br>​<br>​        </p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/27/unity之shader/"
+                     data-title="unity之shader"
+                     data-url="http://haojen.github.io/2016/06/27/unity之shader/"
+                     data-images=""
+                     data-content="基本概念
+shader：着色器，负责unity所有的渲染工作，实际上就是一小段程序，将Mesh... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/29/Mecanim人形动画系统/" data-toggle="tooltip" data-placement="top"
+                           title="Mecanim人形动画系统">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/25/unity network和unet多人游戏/" data-toggle="tooltip" data-placement="top"
+                           title="unity network和unet多人游戏">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/27/unity之shader/"
+                         data-title="unity之shader"
+                         data-url="http://haojen.github.io/2016/06/27/unity之shader/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shader程序的基本结构"><span class="toc-text">Shader程序的基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hello-Shader"><span class="toc-text">Hello Shader</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#shader"
+                           title="shader">shader</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

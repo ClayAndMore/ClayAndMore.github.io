@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        c#委托,事件,接口｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/04/20/c# 委托、事件、接口/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>c#委托,事件,接口</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-04-20
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            c#委托,事件,接口
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/%E5%A7%94%E6%89%98.png" alt=""></p>
+<p>委托可以理解为为当事人辩护的律师。</p>
+<a id="more"></a>
+<ul>
+<li>委托格式上比方法多了个delegate,但是它可以理解成类，本质就是个类。</li>
+<li>可以认为委托是持有一个或多个<strong>方法</strong>的对象</li>
+<li><p>和类相似，声明委托，和方法声明类似，但是没有实现块。 使用该委托类型声明一个<strong>委托变量</strong>，创建委托类型的对象，把它赋值给委托变量。</p>
+</li>
+<li><p>可以为委托对象添加其他方法，这些方法必须与定义的委托类型有相同的签名和返回类型。</p>
+</li>
+<li>像调用方法一样调用委托，其包含的每一个方法都会被执行。</li>
+<li><p>关键字delegate看作一个包含有序方法列表的对象</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">delegate void MyDel(int x); //声明委托类型</div><div class="line"></div><div class="line">MyDel delVar; //声明委托变量</div><div class="line"></div><div class="line">delVar=new MyDel(myInstObj.MyM1);//括号内为实例方法,创建委托并保存引用，这个方法的结构和委托一样</div><div class="line">delVar=new MyDel(SClass.OtherrM2);//括号内为静态方法，创建委托并保存引用，这个方法的结构和委托一样。</div><div class="line">//快捷语法,因为在方法名称和其相应的委托类型之间存在隐式转换。</div><div class="line">delVar=myInstObj.MyM1;</div><div class="line">delVar=SClass.OtherrM2</div></pre></td></tr></table></figure>
+<p> 一个实例，更好的帮助理解：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Program&#123;</div><div class="line">   //1.使用delegate关键字来定义一个委托类型</div><div class="line">   delegate void MyDelegate(int x,int y);</div><div class="line">   </div><div class="line">   static void Main(string[] args)&#123;</div><div class="line">       //2.声明一个委托变量</div><div class="line">       MyDelegate d ;</div><div class="line">       //3.实例化委托变量（可以传静态方法，也可以是实例方法,注意不带括号)</div><div class="line">       d=new MyDelegate(new Program().Add);</div><div class="line">       //4.将委托作为参数给另一个方法。</div><div class="line">       MyMethod(d);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   void Add(int a,int b)&#123;</div><div class="line">       int c = a+b;</div><div class="line">       Console.WriteLine(&quot;两个数的和为:&quot;+sum);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   //方法的参数是委托类型，可以把这个方法理解成法官，法官先调用委托律师，律师陈述了当事人的情况（方法）</div><div class="line">   private static void MyMethod(MyDelegate myDelegate)&#123;</div><div class="line">   //在方法中调用委托。</div><div class="line">       myDelegate(1.2);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>组合委托</strong> 一个委托由其他委托构成<br>​      </p>
+<pre><code>MyDel delA=myInstobj.MyM1;
+MyDel delB=SClass.Other2;
+
+MyDel delC=delA+delB; 
+</code></pre></li>
+<li>增加方法 ： <code>delVar+=SCL.m3;</code></li>
+<li>移除方法 ： <code>delVar-=SCL.m3;</code></li>
+<li><strong>语法糖</strong>： 像上面这样加减是强大的Cshap编译器为我们做的工作，将原本很复杂的代码编译成简介的代码，我们管这样的结构叫做语法糖</li>
+<li><p><strong>调用委托</strong></p>
+<pre><code>![](http://7xs1eq.com1.z0.glb.clouddn.com/delegate.jpg)
+</code></pre><ul>
+<li><p>调用引用参数的委托</p>
+<pre><code>delegate void MyDel(ref int x);
+
+class MyClass{
+public void add2(ref int x){x+=2;}
+public void add3(ref int x){x+=3;}
+static void Main(){
+MyClass mc=new MyClass();
+
+MyDel mDel=mc.add2;
+mDel+=mc.add3;
+mDel+=mc.add2;
+
+int x=5;
+mDel(ref x);
+
+Console.WriteLine(&quot;Value:{0}&quot;,x);
+}
+}  //输出  Value：12
+</code></pre></li>
+</ul>
+</li>
+<li><p><strong>匿名方法</strong></p>
+<pre><code>如果方法只会被使用一次--用来初始化委托，这种情况没有必要创建独立的具名方法，可以用匿名方法
+
+        class Program                              |  class Program
+        {                                          |{
+            public static int Add20(int x){        | 
+                return x+20;                       |
+            }                                      |
+        }                                          |}   
+                                                   |
+        delegate int OtherDel(int InParam);        | delegate int OtherDel(int InParam); 
+        static void Main(){                        | static void Main(){            
+            OtherDel del=Add20;                    |  OtherDel del =delegate(int x)  //关键字 （参数列表 ） {语句块}
+                                                   |   {
+                                                   |        return x+20;
+                                                   |   }       
+            Console.WriteLine(&quot;{0}&quot;,del(5));       |   Console.WriteLine(&quot;{0}&quot;,del(5)); 
+            Console.WriteLine(&quot;{0}&quot;,del(6));       |   Console.WriteLine(&quot;{0}&quot;,del(6));
+        }                                          |  }  
+可以通过使圆括号为空或省略圆括号来简化匿名方法的参数列表，
+</code></pre><ul>
+<li>委托的参数列表不包含任何out参数；</li>
+<li><p>匿名方法不适用任何参数；</p>
+<pre><code>delegate void SomeDel(int x);
+SomeDel SDel=delegate{
+ PrintMessage();   //方法没有使用任何参数
+ };
+</code></pre></li>
+</ul>
+</li>
+<li>如果参数列表包含params参数，匿名方法的参数列表将忽略params关键字。<pre><code>​      
+          delegate void SomeDel(int x,params int[] Y);
+          SomeDel mDel=delegate(int x,int[] y){};  //省略了params关键字
+</code></pre></li>
+</ul>
+<p>在匿名方法内声明的变量，作用域仅在大括号内。外部变量，可在方法括号内使用（方法捕获）。</p>
+<ul>
+<li><p><strong>Lambda（λ）表达式</strong></p>
+<pre><code>c#2.0引入的匿名方法，3.0引入的λ表达式，简化了匿名方法的语法
+</code></pre><ul>
+<li>删除了delegate关键字</li>
+<li>在参数裂变和主体之间放Lambda运算符=&gt;，读作“goes to”<br><code>MyDel del=delegate(int x) {returen x+1;};</code><br><code>Mydel del=        (int x)=&gt;{return x+1;};</code><br>编译器可以从委托的声明中知道参数的类型最后lambda表达式可以简化成：<br><code>mMyDel del=            x=&gt;         x+1;</code></li>
+<li>lambda表达式中参数列表中的参数必须在<strong>参数数量、类型、和位置</strong>上和委托相匹配。</li>
+<li>有ref.out参数必须注名参数列表中的参数类型。</li>
+<li><strong>如果只用一个参数，并且是隐式类型的，圆括号可以省略，否则必须有括号</strong><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3>当一个特定的程序事件发生时，程序的其他部分可以得知该事件的发生<br><strong>发布者/订阅者模式</strong>  发布者定义事件，其他类可以“注册”，以便事件发生时可以通知它们。</li>
+</ul>
+</li>
+<li><p>声明事件 </p>
+<ul>
+<li>声明事件在一个类中，他需要<strong>委托类型的名称</strong></li>
+<li>注册的处理程序必须与委托类型的签名和返回类型匹配</li>
+<li><p>声明public，其他类和结构可以在它上面注册事件处理程序。</p>
+<pre><code>class Incrementer{
+ public event/关键字 EventHandler/委托类型 CountedADozen/事件名；
+ public event EventHandler MyEvent1,MyEvent2,MyEvent3; //可连续声明多个事件。
+ public static event EventHandler CouterADozen;//可以声明为静态
+</code></pre></li>
+<li>BCL声明了一个叫做<strong>EventHandler</strong>的委托，专门用于系统事件。</li>
+</ul>
+</li>
+<li><p>订阅事件(或注册)</p>
+<pre><code>Incrementer.CoutedADozen+=IncrementDozensCount;//实例方法
+Incermenter.CouterADozen+=new EventHandler(CC.CounterHandlerC);//委托形式
+Incermenter.CouterADozen+=()=&gt;DozenCout++;//lambda表达式
+Incermenter.CouterADozen+= delegate{DozensCount++;}; //匿名方法
+</code></pre></li>
+<li>事件触发<pre><code>` if(CouterAdozen!=null)//确认有方法可以执行 CountedADozen/事件名(source,args)/参数列表;` 
+</code></pre></li>
+<li><p><strong>标准的事件用法</strong>，windowsGUI编程广泛的使用了事件，.NET提供了一个标准模式。System命名空间声明的EventHandler委托类型</p>
+<pre><code>` public delegate void EventHandler(object sender,EventArgs e);`
+</code></pre><ul>
+<li>第一个参数用来保存触发事件的对象的引用，object可以匹配任何类的实例，可以理解成监视的对象。</li>
+<li><p>第二个参数用来保存状态信息，指明什么类型适用于该应用程序。它是EventArgs的对象，但它不用于传递数据，如果希望传递，需要声明一个派生EventArgs的类，可以理解为监视的数据。</p>
+<pre><code>//发布者
+class Incrementer{
+public event EventHandler CAD;    //使用系统定义的委托。
+
+public void DoCount(){
+    for(i=1,i&lt;100,i++)
+     if(i%12==0&amp;&amp;CAD!=null)  
+      CAD(this,null);        //触发事件时使用EventHandler的参数
+}
+}
+//订阅者
+class Dozens{
+public int DozensCount{get;private set;}
+
+public Dozens(Incrementer incrementer){
+ DozensCount=0;
+ incrementer.CAD+=theWay;
+}
+
+void theWay(object source,EventArs e) //事件处理程序的签名必须与委托的签名匹配
+ {
+    DozensCount++；
+}
+}
+
+class Program{
+ static void Main(){
+   Incrementer incrementer=new Incrementer();
+   Dozens d=new Dozens(incrementer);
+   incrementer.DoCount();
+   Console.WriteLine(&quot;Number of dozen={0}&quot;,d.DozensCount);
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<p>看一个更通俗的例子，新郎发请帖：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">namespace eventTest</div><div class="line">&#123;</div><div class="line">	//新郎官类</div><div class="line">	class Bridegroom</div><div class="line">	&#123;</div><div class="line">		//自定义委托</div><div class="line">		public delegate void MarryHandler(string msg);</div><div class="line"></div><div class="line">		//自定义事件,事件名为MarryEvent</div><div class="line">		public event MarryHandler MarryEvent;</div><div class="line"></div><div class="line">		//发出事件</div><div class="line">		public void OnMarryComing(string msg)&#123;</div><div class="line">			//判断是否绑定了事件处理方法</div><div class="line">			if(MarryEvent != null)&#123;</div><div class="line">				//触发事件</div><div class="line">				MarryEvent(msg);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">			</div><div class="line">		public static void Main (string[] args)</div><div class="line">		&#123;</div><div class="line">			Bridegroom birdegroom = new Bridegroom ();</div><div class="line">			Friend f1 = new Friend (&quot;张三&quot;);</div><div class="line">			Friend f2= new Friend (&quot;李四&quot;);</div><div class="line">			Friend f3 = new Friend (&quot;王五&quot;);</div><div class="line"></div><div class="line">			//订阅事件</div><div class="line">			birdegroom.MarryEvent+=new MarryHandler(f1.SendMessage);</div><div class="line">			birdegroom.MarryEvent+=new MarryHandler(f2.SendMessage);</div><div class="line">			//发出通知，只有订阅事件的对象才能接到通知</div><div class="line">			birdegroom.OnMarryComing(&quot;朋友们，我结婚了，到时候准时参加婚礼&quot;);</div><div class="line">			Console.WriteLine (&quot;-------------------&quot;);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//朋友类</div><div class="line">	class Friend</div><div class="line">	&#123;</div><div class="line">		public string Name;</div><div class="line"></div><div class="line">		public Friend(string name)&#123;</div><div class="line">			Name = name;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		//事件处理函数</div><div class="line">		public void SendMessage(string message)&#123;</div><div class="line">			Console.WriteLine (message);</div><div class="line">			Console.WriteLine (this.Name + &quot;收到了，到时准时参加&quot;);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>通过扩展EventArgs来传递数据<br>  我们需要声明一个派生自EventArgs的自定义类保存我们需要传入的数据。<br>​      <pre><code>public class IncrenmentEventArgs:EventArgs{
+public int IterationCount{get;set;}//存储整数}
+</code></pre></li>
+<li>要获得该类，用泛型版本的委托EventHandler&lt;&gt;(后续介绍泛型)，将自定义的类名称放在&lt;&gt;里<br>  <code>public event EventHandler&lt;IncrenmentEventArgs&gt; CountedADozen/事件名;</code></li>
+<li>移除事件处理程序<br><code>p.SimpleEvent-=s.MethodB;</code>//移除使劲按处理程序MethodB</li>
+<li><p>事件访问器<br>+=和-=是事件允许的位移运算符。看到这里我们应该知道，这些运算符有预定义的行为。这是高级主题我们不会深入研究<br> 有两个访问器：add和remove 和声明一个属性差不多。</p>
+<pre><code>public event EventHandler CountedADozen{
+ add{
+  ...}
+ remove{
+ ...}
+ }
+</code></pre><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口用于定义一组属性，方法和事件，但不能包含字段，接口的成员无需修饰，全部是公开的。<br>接口是指定一组函数成员而不实现他们的引用类型。所以只能类和结构实现接口，这么说比较抽象，先看一个例子：</p>
+<p>  class CA{</p>
+<pre><code>public string name;
+public int age;
+</code></pre><p>  }<br>  class CB{</p>
+<pre><code>public string Fisrt;
+public string Last;
+public double PersonsAge;
+</code></pre><p>  }<br>  class Program{</p>
+<pre><code>static void PrintInfo(CA item){
+    Console.WriteLine(&quot;name:{0},age {1}&quot;,item,name,item.age);
+}
+
+static void Main(){
+    CA a=new CA() {name=&quot;john&quot;,age=15};
+    PrintInfo(a);
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p>PrintInfo要传入的是CA类型，比如这个方法很用，如果想传入CB对象，这这时我们需要用到接口</p>
+<pre><code>interface IInfo      //声明接口
+{
+    string GetName();
+    string GetAge();
+}
+
+class CA:IInfo      //声明实现接口的CA类
+{
+    public string Name;
+    public string Age;
+    public string GetName(){return Name;}   //在CA类中实现两个接口方法
+    public string GetAge(){return Age;}
+}
+
+class CB:IInfo      //声明实现接口的CB类
+{
+    public string First;
+    public string Last;
+    public double PersonsAge;
+    public string GetName(){return First+&quot;&quot;+Last;} //在CB类中实现两个接口方法
+    public string GetAge(){return PersonsAge.ToString();}
+}
+
+class Program
+{
+    static void PrintInfo(IInfo item){    //传入接口的引用
+        Console.WriteLine(&quot;Name:{0},Age{1}&quot;,item.GetName,item(),GetAge());
+    }
+    static void Main(){
+        CA a=new CA(){Name=&quot;john doe&quot;,Age=35};
+        CB b=new CB(){First=&quot;john&quot;,Last=&quot;doe&quot;,PersonsAge=33};
+        PrintInfo(a);    //对象的引用能自动转换成它们实现的接口的引用
+        PrintInfo(b);
+    }
+}
+</code></pre><ul>
+<li>声明接口</li>
+</ul>
+<ol>
+<li>不能包含<strong>数据成员</strong>和<strong>静态成员</strong>；</li>
+<li>函数成员不能包含任何实现代码，每个成员声明的主题后必须使用分号；</li>
+<li>惯例，接口名字必须从大写字母I开始（如：ISaveable);</li>
+<li>和类一样，接口声明还可以分割成部分接口声明。</li>
+<li><p>接口声明可有任何修饰符，而接口成员是<strong>隐式public</strong>,不允许有任何修饰符，包括public</p>
+<pre><code>interface IMyInterface  //关键字+接口名称
+{
+    int Dostuff(int nvar1,long lvar2); //分号代替了主体
+    double Doothe(sting s,long x);     //分号代替了主体
+}
+</code></pre></li>
+</ol>
+<ul>
+<li>实现接口</li>
+</ul>
+<ol>
+<li>只有类和结构才能实现接口</li>
+<li>在基类列表中包含接口名称</li>
+<li><p>为接口每一个成员提供实现</p>
+<pre><code>class MyClass:IMyInterface  //冒号 和 接口名
+{
+    int Dostuff (int nvar1,long lvar2)
+    {....} //实现代码 
+    double Doothe(sting s,long x)
+    {....} //实现代码 
+}
+</code></pre></li>
+<li><p>若类从基类继承并实现了接口，基类在接口名前面，只能有一个基类，其他为接口名<br><code>class Derived : MyBaseClass,IIfc1,IEnumerable,IComparaple{...}</code> //此处应实现多个接口。</p>
+</li>
+<li>若派生类有:接口名，基类没有，但基类实现了接口的方法，那么，派生类即使是空的也能实现接口</li>
+<li>在类中显式实现接口,但这时，只能通过几口的引用来访问<br> <code>void IIfc.PrinOut(string s) {...}</code> //显式实现接口<br> <code>((Iifc)mc).PrintOut(&quot;&quot;):</code>  //只能通过接口的引用来访问。</li>
+</ol>
+<ul>
+<li>接口和as运算符<ul>
+<li>接口不仅仅是类或结构要实现的成员列表，它是一个引用类型。<br>我们可以把类对象引用强制转换为接口类型来获取指向接口的引用，然后可以用点号来调用接口方法。<br><code>IIfc1 ifc=(IIfc1) mc</code><br> IIfc1/接口  ifc/接口引用  = (IIfic1)/转换为接口   mc/类对象引用;<br><code>ifc.PrintOut();</code> //使用接口方法。</li>
+<li>但是另一更好的方式是使用<strong>as运算符</strong>，强制转换容易会抛出异常。<br><code>ILiveBirth b = a as ILiveBirth;</code><br>ILiveBirth/接口名，b/接口引用，a/类对象引用<br><code>if(b!=null)  Console.WriteLine(&quot;baby is called:{0}&quot;,b.BabyCalled());</code><br>如果类实现了接口，表达式返回指向接口的引用，如果没有实现接口，表达式返回null而不是抛出异常。</li>
+<li>抽象类和接口<br>相同点：<br>(1) 都可以被继承<br>(2) 都不能被实例化<br>(3) 都可以包含方法声明<br>(4) 派生类必须实现未实现的方法<br>区 别：<br>(1) 抽象基类可以定义字段、属性、方法实现。接口只能定义属性、索引器、事件、和方法声明，不能包含字段。<br>(2) 抽象类是一个不完整的类，需要进一步细化，而接口是一个行为规范。微软的自定义接口总是后带able字段，证明其是表述一类“我能做。。。”<br>(3) <strong>接口可以被多重实现，抽象类只能被单一继承</strong><br>(4) 抽象类更多的是定义在一系列紧密相关的类间，而接口大多数是关系疏松但都实现某一功能的类中<br>(5) 抽象类是从一系列相关对象中抽象出来的概念， 因此反映的是事物的内部共性；接口是为了满足外部调用而定义的一个功能约定， 因此反映的是事物的外部特性<br>(6) 接口基本上不具备继承的任何具体特点,它仅仅承诺了能够调用的方法<br>(7) 接口可以用于支持回调,而继承并不具备这个特点<br>(8) 抽象类实现的具体方法默认为虚的，但实现接口的类中的接口方法却默认为非虚的，当然您也可以声明为虚的<br>(9) 如果抽象类实现接口，则可以把接口中方法映射到抽象类中作为抽象方法而不必实现，而在抽象类的子类中实现接口中方法</li>
+</ul>
+</li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/20/c# 委托、事件、接口/"
+                     data-title="c#委托,事件,接口"
+                     data-url="http://haojen.github.io/2016/04/20/c# 委托、事件、接口/"
+                     data-images=""
+                     data-content="委托
+委托可以理解为为当事人辩护的律师。
+
+
+委托格式上比方法多了个delegate,但是它可... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/23/c#枚举器、迭代器/" data-toggle="tooltip" data-placement="top"
+                           title="c#枚举器、迭代器、LINQ">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/12/c#part2/" data-toggle="tooltip" data-placement="top"
+                           title="c#基础part2">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/20/c# 委托、事件、接口/"
+                         data-title="c#委托,事件,接口"
+                         data-url="http://haojen.github.io/2016/04/20/c# 委托、事件、接口/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#委托"><span class="toc-text">委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件"><span class="toc-text">事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-text">接口</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

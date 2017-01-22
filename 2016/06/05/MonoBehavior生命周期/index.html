@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        MonoBehavior生命周期｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/05/MonoBehavior生命周期/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>MonoBehavior生命周期</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-05
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            MonoBehavior生命周期
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="Awake-脚本唤醒"><a href="#Awake-脚本唤醒" class="headerlink" title="Awake() 脚本唤醒"></a>Awake() 脚本唤醒</h3><p>当游戏对象被创建的时候，游戏对象绑定的这个脚本会在该帧执行Awake()函数，无论脚本时候处于激活状态都会执行。</p>
+<h3 id="Star-脚本激活时执行"><a href="#Star-脚本激活时执行" class="headerlink" title="Star() 脚本激活时执行"></a>Star() 脚本激活时执行</h3><p>在Awake()之后，脚本激活才执行（就是脚本那个勾选上），MonoBehaviour.enable = false,这个函数是不会执行的。</p>
+<ul>
+<li>需要注意的是Awake和Start在一个游戏物体的生命周期中只调用一次，但是OnEnable会在每次激活脚本的时候再次执行。</li>
+</ul>
+<a id="more"></a>
+<h3 id="Update-脚本激活执行"><a href="#Update-脚本激活执行" class="headerlink" title="Update() 脚本激活执行"></a>Update() 脚本激活执行</h3><p>在每一帧里调用该函数。</p>
+<h3 id="LateUpdata-延迟更行函数，脚本激活执行"><a href="#LateUpdata-延迟更行函数，脚本激活执行" class="headerlink" title="LateUpdata() 延迟更行函数，脚本激活执行"></a>LateUpdata() 延迟更行函数，脚本激活执行</h3><p>每一帧在Update()执行之后执行该函数，通常用来调整代码的顺序。<br>比如玩家的角色需要一个摄像机来跟随，主角位置更新放在Update()里，摄像机的跟随放在LateUpdate()里，这样确保主角位置计算完毕后，在来调整相机。</p>
+<h3 id="FixedUpdate-固定更行"><a href="#FixedUpdate-固定更行" class="headerlink" title="FixedUpdate() 固定更行"></a>FixedUpdate() 固定更行</h3><p>每一帧处理的时间是不固定的，固定间隔时间处理代码时就要用到此函数，导航栏-&gt; Edit -&gt; Project Settings —&gt; Time. Inspector 视图里会出现时间管理器，Fixed Timestep 选项用于设置 FixedUpdate()的更新频率，默认频率是0.02s。常用于物体的移动，这样能使物体移动均匀。</p>
+<h3 id="OnGUI-绘制界面函数"><a href="#OnGUI-绘制界面函数" class="headerlink" title="OnGUI() 绘制界面函数"></a>OnGUI() 绘制界面函数</h3><p>有UGUI ,这个函数作为测试功能使用，如创建按钮等。<br>它的更新频率要比Update()快：</p>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/ongui.png" alt=""></p>
+<p>既然说到这，我们来看一下OnGUI的用法，在该函数中实现UI脚本：</p>
+<ul>
+<li>它一共有两种形式<ul>
+<li>GUI.xxx(): 手动填写处于屏幕的位置。</li>
+<li>GUILayout.xxx()：自动为我们排版 </li>
+</ul>
+</li>
+<li>测试中我们用的少，只介绍三种：</li>
+<li>GUILayout.Lable(string str)  : 标签，显式文本。</li>
+<li>GUILayout.Button(string str) : 按钮，用于触发事件。参数为按钮显示的名字。</li>
+<li><p>GUILayout.TextField (str)    : 编辑框，输入文本，参数为显式的文本。用户可以接收参数的文本，就是你输入的文本：</p>
+<pre><code>string str = &quot;&quot;;
+  str = GUILayout.TextField(str);
+</code></pre></li>
+</ul>
+<h3 id="OnDestory"><a href="#OnDestory" class="headerlink" title="OnDestory()"></a>OnDestory()</h3><p>脚本销毁时调用，我们在这里可以写删除时要处理的逻辑。</p>
+<h3 id="OnEnable-激活函数"><a href="#OnEnable-激活函数" class="headerlink" title="OnEnable() 激活函数"></a>OnEnable() 激活函数</h3><p>当脚本被激活时调用.</p>
+<h3 id="OnDisable"><a href="#OnDisable" class="headerlink" title="OnDisable()"></a>OnDisable()</h3><p>当脚本被禁用时调用。<br>所用继承MonoBehaviour的脚本都有一个为enable的bool值开关，enable的值对应脚本名称左侧的勾。如果脚本没有任何生命周期函数，没有勾。<br>当enable为true时，生命周期各个阶段对应的函数将会被调用，当变为true时执行OnEnable(),false执行OnDisable().</p>
+<h3 id="unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。"><a href="#unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。" class="headerlink" title="unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。"></a>unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。</h3><p>Awake –&gt;OnEnable –&gt; Start  –&gt; Update –&gt; FixedUpdate –&gt; LateUpdate –&gt; OnGUI –&gt; Reset –&gt; OnDisable –&gt; OnDestroy</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/05/MonoBehavior生命周期/"
+                     data-title="MonoBehavior生命周期"
+                     data-url="http://haojen.github.io/2016/06/05/MonoBehavior生命周期/"
+                     data-images=""
+                     data-content="Awake() 脚本唤醒当游戏对象被创建的时候，游戏对象绑定的这个脚本会在该帧执行Awake(... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/08/unity中的向量与数学/" data-toggle="tooltip" data-placement="top"
+                           title="unity中的向量与数学">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/03/unity函数和细节整理/" data-toggle="tooltip" data-placement="top"
+                           title="unity函数和细节整理">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/05/MonoBehavior生命周期/"
+                         data-title="MonoBehavior生命周期"
+                         data-url="http://haojen.github.io/2016/06/05/MonoBehavior生命周期/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Awake-脚本唤醒"><span class="toc-text">Awake() 脚本唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Star-脚本激活时执行"><span class="toc-text">Star() 脚本激活时执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-脚本激活执行"><span class="toc-text">Update() 脚本激活执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LateUpdata-延迟更行函数，脚本激活执行"><span class="toc-text">LateUpdata() 延迟更行函数，脚本激活执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FixedUpdate-固定更行"><span class="toc-text">FixedUpdate() 固定更行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OnGUI-绘制界面函数"><span class="toc-text">OnGUI() 绘制界面函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OnDestory"><span class="toc-text">OnDestory()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OnEnable-激活函数"><span class="toc-text">OnEnable() 激活函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OnDisable"><span class="toc-text">OnDisable()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。"><span class="toc-text">unity3d从唤醒到销毁有一段生命周期，请列出系统自己调用的几个重要方法。</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

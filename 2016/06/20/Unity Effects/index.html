@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Unity Effects｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/20/Unity Effects/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Unity Effects</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-20
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Unity Effects
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>这篇文章主要介绍unity的高级功能，Effects和Image Effect相关的功能。<br>unity 自带的Effect资源包邮不少资源，点击导航菜单栏-&gt;Assets-&gt;Import Package-&gt;Effects 导入Effects包。<br>Effects功能可以建空对象再添加相关组件实现，组件位于 导航菜单栏-&gt;Component-&gt;Effects</p>
+<h3 id="尾径渲染器"><a href="#尾径渲染器" class="headerlink" title="尾径渲染器"></a>尾径渲染器</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/vive.png" alt=""><br>它可以实现刀剑挥舞的残影，喷气尾焰等效果。下面就来实践：<br>新建场景，新建一个胶囊体，拉成条状，建立空物体为剑的底部，设置为子物体。</p>
+<a id="more"></a>
+<p>建空物体名为 top ,是剑的上端，设置为子物体。添加<strong>Trail Renderer</strong>。配置如下：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/trail.png" alt=""><br>有几点待补充，</p>
+<ul>
+<li>Materials里是带拖尾贴图的材质球</li>
+<li>Time 是拖尾贴图消失的时间</li>
+<li>start width 是 挥动时头部的宽度。</li>
+<li>end width 是挥动末尾小尾巴的宽度。</li>
+<li>color 就是光影的颜色了 ，可以调成渐变的比较好</li>
+<li>Autodestruct 是自动销毁，挥动完可以销毁。</li>
+</ul>
+<p>为圆柱体添加代码：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class Sword : MonoBehaviour {
+    public Transform bot;
+    public float timeMax = 0.2f;
+    public float speed = 100f;
+    private float time = 0;
+    private Vector3 startPos;
+    private Vector3 starAngles;
+
+    void Awake()
+    {
+        startPos = transform.position;
+        starAngles = transform.eulerAngles;
+    }
+
+    void OnGUI()
+    {
+       //按下按钮开始挥剑
+       if(GUILayout.Button(&quot;挥剑&quot;))
+        {
+            time = timeMax;
+            transform.position = startPos;
+            transform.eulerAngles = starAngles;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (time &gt; 0)
+        {
+            time -= Time.deltaTime;
+            Swing(); 
+        }
+    }
+//更新剑的旋转
+    void Swing()
+    {
+        transform.RotateAround(bot.position, Vector3.forward, speed * Time.deltaTime);
+    }
+}
+</code></pre><h3 id="线段渲染器"><a href="#线段渲染器" class="headerlink" title="线段渲染器"></a>线段渲染器</h3><p>Line Renderer<br>一组3D点，在每个点之间用材质绘制一条线。比如闪电。<br>如果闪电用一张普通的贴图，用面片也能显示，但是形状是固定的，劈下来的过程也是固定的，二使用Line Renderer，这闪电可以不同的形状路径劈下来。</p>
+<h3 id="镜头光晕"><a href="#镜头光晕" class="headerlink" title="镜头光晕"></a>镜头光晕</h3><p>镜头光晕（Lens Flare) 是模拟摄像机镜头内折射光线的效果，用来表现真正的光源（太阳）<br>空物体 添加 Lens Flare组件：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/flare.png" alt=""></p>
+<h3 id="光晕"><a href="#光晕" class="headerlink" title="光晕"></a>光晕</h3><p>Halo　光晕是光源周围的光线区域，常用来表现光线照射空气中细小灰尘颗粒产生的效果，也可以表现一些自发光物体，如萤火虫，新建物体添加 Halo</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/untiy%E5%85%89%E6%99%95halo.png" alt=""></p>
+<h3 id="投影仪"><a href="#投影仪" class="headerlink" title="投影仪"></a>投影仪</h3><p>Projector<br>Effects包中包含Projector文件夹，包含一些常用的资源。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>将一个Material投影到所设定平截头体内的物体上，通常包含两张贴图Cookie 和 Falloff。<br>Cookie 是要投射的图案，Falloff是根据距离来决定投影的明暗（Alpha）。</p>
+<h4 id="下面我们来为一个人物添加阴影"><a href="#下面我们来为一个人物添加阴影" class="headerlink" title="下面我们来为一个人物添加阴影"></a>下面我们来为一个人物添加阴影</h4><p>虽然说unity的实时光照很好，但是有的旧设备不支持，所以有那种地面上就一个圆的阴影，我们来个例子，也好熟悉其功能。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/projector_shadow.png" alt=""></p>
+<ul>
+<li>导入effects包</li>
+<li>关闭平行光和点光源的shadow type 设置为 no shadow。</li>
+<li>为主角添加一个空物体，作为子物体，名为projector，添加projector组件。</li>
+<li>新建一个Material，shader类型选择为 Projector/Multiply （如果不导入包这里是没有的）。</li>
+<li>将Cookie贴图设置为shadow贴图，falloff贴图设置为falloff贴图，包里自带。</li>
+<li>将此Material给空物体，调整空物体的位置，放到人物头部上方，调整角度，z轴，使阴影向下。</li>
+<li>这时会发现，人物因为阴影而变黑，设置人物的Layers，比如为Player。在Projector组件中的Ignore Layers设置成Player就可以了。</li>
+</ul>
+<h4 id="人物选择光圈"><a href="#人物选择光圈" class="headerlink" title="人物选择光圈"></a>人物选择光圈</h4><p>在3D游戏开发中，经常选取人物脚下的旋转光圈。用投影做，光圈不会被障碍物挡住。</p>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/projector_ring.png" alt=""></p>
+<ul>
+<li>前面和上面一样，把Cookie贴图换成 一个光环（图片导入设置中Warp Mode设置为Clamp），给自物体添加脚本，让其自己旋转。</li>
+<li>为人物添加碰撞，用于射线检测</li>
+<li><p>建空物体Manager,建立CharacterSelector脚本：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class CharacterSeletcor : MonoBehaviour {
+    //摄像机
+    public Camera cam;
+    private GameObject lastSelectedChar; //上次选择的角色
+
+    void Update () {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition); //从相机发射射线到屏幕点击的位置
+            RaycastHit hitInfo;
+            if(Physics.Raycast(ray,out hitInfo))
+            {
+                //如果射线碰到了碰撞体，并且碰撞体对象的层为Girl
+                if (hitInfo.collider != null &amp;&amp; hitInfo.collider.gameObject.layer == LayerMask.NameToLayer(&quot;Girl&quot;))
+                {
+                    //如果有上次选取角色且不是将要选取的角色，则取消选择
+                    if(lastSelectedChar!=null&amp;&amp;lastSelectedChar.GetInstanceID()!= hitInfo.collider.gameObject.GetInstanceID())
+                    {
+                        lastSelectedChar.transform.FindChild(&quot;Projector&quot;).GetComponent&lt;Projector&gt;().enabled = false;
+                    }                            hitInfo.collider.transform.FindChild(&quot;Projector&quot;).GetComponent&lt;Projector&gt;().enabled = true;
+                    //记录选取的角色
+                    lastSelectedChar = hitInfo.collider.gameObject;
+                }
+            }
+        }
+    }
+}
+</code></pre></li>
+</ul>
+<h4 id="image-Effects"><a href="#image-Effects" class="headerlink" title="image Effects"></a>image Effects</h4><p>导入effects包后，image effects效果可以通过 Component &gt; iamge effects 添加。</p>
+<h5 id="Sun-Shaft-太阳光束"><a href="#Sun-Shaft-太阳光束" class="headerlink" title="Sun Shaft 太阳光束"></a>Sun Shaft 太阳光束</h5><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/sun%20shaft.png" alt=""><br>就是太阳光被挡住后又散射的部分。</p>
+<ul>
+<li>添加草地和立方体，添加带lens flares的组件的空物体。</li>
+<li>调整直射光和lens flares同一个方向。</li>
+<li>为摄像机添加组件 sun shafts shafts caster 为刚才的空物体，组件的threshold color可调光的强弱。<h5 id="Twirl-旋转"><a href="#Twirl-旋转" class="headerlink" title="Twirl 旋转"></a>Twirl 旋转</h5>图像扭曲，为摄像机添加自带Twirl脚本：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/Twirl.png" alt=""></li>
+</ul>
+<h4 id="Vortex-漩涡"><a href="#Vortex-漩涡" class="headerlink" title="Vortex 漩涡"></a>Vortex 漩涡</h4><p>和旋转相似，区别是Twirl是围绕一个点，二漩涡是围绕一个区域</p>
+<h5 id="Depth-of-Field-景深"><a href="#Depth-of-Field-景深" class="headerlink" title="Depth of Field 景深"></a>Depth of Field 景深</h5><p>景深是一种常见的后期处理效果，可模拟摄像机的属性，在关键地方明亮，在其他地方模糊，突出距离感和写实。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/depth1.png" alt=""><br>在相机添加 Depth of Field(Lens Bur、Scatter、DX11)组件，Focus On transform 为此立方体。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/depth2.png" alt=""></p>
+<h5 id="Tilt-Shift-移轴特效"><a href="#Tilt-Shift-移轴特效" class="headerlink" title="Tilt Shift 移轴特效"></a>Tilt Shift 移轴特效</h5><p>它是景深的一种特殊版本，可以使失焦区域和聚焦区域的过渡更加光滑。不容易造成图像瑕疵，但是它依赖纹理查找，造成更高的处理开销。</p>
+<h5 id="Blur-模糊"><a href="#Blur-模糊" class="headerlink" title="Blur 模糊"></a>Blur 模糊</h5><p>使全部图像模糊，比如游戏暂停时。<br>同样，也是为相机添加Blur组件。</p>
+<h5 id="Motion-Blur-动态模糊"><a href="#Motion-Blur-动态模糊" class="headerlink" title="Motion Blur 动态模糊"></a>Motion Blur 动态模糊</h5><p>大多数模拟摄像机系统的光随时间基类，快速摄像机或对象移动造成动态模糊的情况。</p>
+<h5 id="Bloom-泛光"><a href="#Bloom-泛光" class="headerlink" title="Bloom 泛光"></a>Bloom 泛光</h5><p>强光源看起来影响到了周围物体，是一种高校的独特效果，可以烘托出梦幻的环境。<br>新建材质，将Emission自发光栏强度设置为一，摄像机添加Bloom，这样，用这个材质的物体会发出泛光。</p>
+<h5 id="Noise-And-Scratches-噪点和刮痕"><a href="#Noise-And-Scratches-噪点和刮痕" class="headerlink" title="Noise And　Scratches　噪点和刮痕"></a>Noise And　Scratches　噪点和刮痕</h5><p>模拟电视机信号差的图像<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/Noise%20And%20Scratches.png" alt=""></p>
+<h5 id="Noise-And-Grains-噪点和颗粒"><a href="#Noise-And-Grains-噪点和颗粒" class="headerlink" title="Noise And Grains 噪点和颗粒"></a>Noise And Grains 噪点和颗粒</h5><p>模拟噪波和胶片颗粒，电影和摄影常出现的经典效果。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/Noise%20And%20Grain.png" alt=""></p>
+<h4 id="抗锯齿"><a href="#抗锯齿" class="headerlink" title="抗锯齿"></a>抗锯齿</h4><p>首先，锯齿的产生原因是最终显示到显示器的像素点数量是有限的。某像素点对应的真实图像也许是混合的颜色，而像素点只能采集单一颜色并显示，在两种颜色相邻的边缘，沿着边缘一排像素点取到的是一种颜色，而到了某一点，取到的颜色变成了零一种，因此有了锯齿。</p>
+<p> 抗锯齿(Anti-aliasing)就是解决这个问题，大部分抗锯齿的思路是，将锯齿相关的像素点取几个临近像素，把这些采样混合成最终像素，这样具有了临近像素的特征。<br>Unity抗锯齿分为两大类：</p>
+<ul>
+<li>硬件抗锯齿：多重采样MSAA（MultiSampling Anti-Aliasing）。<br>实现方法：Edit-&gt;Project Settings -&gt; Quality,在Inspector窗口中Anti Aliasing栏中选择一种，倍数越高效果也好，但是占用显卡的性能也会越多。</li>
+<li>软件抗锯齿：后期处理，包括SSAA,NFAA,DLAA,FXAA。<br>实现方法： 导入effects包后，选中摄像机，Component-&gt;Image effects -&gt; Other -&gt;Antialiasing,在Technique栏采取所要的技术即可，相对较快的是SSAA，效果最好的是FXAA3console，FXAA Preset A 和 FXAA Preset B。<br><strong>推荐使用MSAA硬件采样（尤其是移动平台），效率高而且所有平台都支持</strong></li>
+</ul>
+<h4 id="ToonShading-卡通渲染"><a href="#ToonShading-卡通渲染" class="headerlink" title="ToonShading 卡通渲染"></a>ToonShading 卡通渲染</h4><p>基本原理是在角色外侧绘制一圈黑色的轮廓，并且让受到光照的颜色亮度离散化，明的地方更亮，暗的地方更。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/TooShading.png" alt=""><br>将一个模型的shader改为Toon/Lit OutLine。<br>Base(rbg)是它本身的贴图，Toon Ramp是effects包里带的UnilToonGradient贴图。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/20/Unity Effects/"
+                     data-title="Unity Effects"
+                     data-url="http://haojen.github.io/2016/06/20/Unity Effects/"
+                     data-images=""
+                     data-content="写在前面这篇文章主要介绍unity的高级功能，Effects和Image Effect相关的功... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/25/unity network和unet多人游戏/" data-toggle="tooltip" data-placement="top"
+                           title="unity network和unet多人游戏">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/19/UGUI/" data-toggle="tooltip" data-placement="top"
+                           title="UGUI">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/20/Unity Effects/"
+                         data-title="Unity Effects"
+                         data-url="http://haojen.github.io/2016/06/20/Unity Effects/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尾径渲染器"><span class="toc-text">尾径渲染器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线段渲染器"><span class="toc-text">线段渲染器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#镜头光晕"><span class="toc-text">镜头光晕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#光晕"><span class="toc-text">光晕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#投影仪"><span class="toc-text">投影仪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面我们来为一个人物添加阴影"><span class="toc-text">下面我们来为一个人物添加阴影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#人物选择光圈"><span class="toc-text">人物选择光圈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#image-Effects"><span class="toc-text">image Effects</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Sun-Shaft-太阳光束"><span class="toc-text">Sun Shaft 太阳光束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Twirl-旋转"><span class="toc-text">Twirl 旋转</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vortex-漩涡"><span class="toc-text">Vortex 漩涡</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Depth-of-Field-景深"><span class="toc-text">Depth of Field 景深</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tilt-Shift-移轴特效"><span class="toc-text">Tilt Shift 移轴特效</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Blur-模糊"><span class="toc-text">Blur 模糊</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Motion-Blur-动态模糊"><span class="toc-text">Motion Blur 动态模糊</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bloom-泛光"><span class="toc-text">Bloom 泛光</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Noise-And-Scratches-噪点和刮痕"><span class="toc-text">Noise And　Scratches　噪点和刮痕</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Noise-And-Grains-噪点和颗粒"><span class="toc-text">Noise And Grains 噪点和颗粒</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#抗锯齿"><span class="toc-text">抗锯齿</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ToonShading-卡通渲染"><span class="toc-text">ToonShading 卡通渲染</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

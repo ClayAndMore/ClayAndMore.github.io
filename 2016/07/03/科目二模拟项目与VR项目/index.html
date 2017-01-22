@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        科目二模拟项目与VR项目｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/03/科目二模拟项目与VR项目/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>科目二模拟项目与VR项目</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            科目二模拟项目与VR项目
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="省赛项目-科二模拟"><a href="#省赛项目-科二模拟" class="headerlink" title="省赛项目-科二模拟"></a>省赛项目-科二模拟</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>这个项目是我在大学的大创项目，也是参加计算机科技省赛的项目就现在的进度做一下总结。<br>它主要是模拟汽车在考试中的流程，让学员掌握场地，后来会考虑结合VR进行体验上的改良。</p>
+<a id="more"></a>
+<hr>
+<h3 id="作品截图"><a href="#作品截图" class="headerlink" title="作品截图"></a>作品截图</h3><p><img src="http://ojynuthay.bkt.clouddn.com/keer1.png" alt=""><br><img src="http://ojynuthay.bkt.clouddn.com/keer2.png" alt=""><br><img src="http://ojynuthay.bkt.clouddn.com/keer3.png" alt=""><br><img src="http://ojynuthay.bkt.clouddn.com/keer4.png" alt=""><br><img src="http://ojynuthay.bkt.clouddn.com/keer5.png" alt=""></p>
+<hr>
+<h3 id="要点说明"><a href="#要点说明" class="headerlink" title="要点说明"></a>要点说明</h3><ul>
+<li>离合和刹车的控制<br>  因为考试时，没有油门，考虑按键不宜过多，也就没做。刹车和离合通过UGUI slider的值来控制，值的增量用按键来控制，没有按键触发时，值会自动消减。</li>
+<li>档位的设计<br>  档位的设计是在2D平面上，方向键控制加了collider 2D的小球来到达相应档位的trigger区域，从而给予汽车不同的速度。</li>
+<li>汽车的驱动力<br>  开始时，汽车的驱动力，用轮子的wheel Collier 来添加，但这样会造成汽车的颠簸，影响体验。后来使用rigidbody AddForce使汽车到达稳定。</li>
+<li>上坡起时的处理<br>  坡起时，根据真实驾驶，需要踩下离合。这里，在上坡开始处，设计了一个触发器，通过触发，使汽车在上坡时按下离合可以加速。</li>
+<li>视角的变换<br>  可以变换第一人称和第三人称的视角，在车内和车外分别添加两个相机，跟随车的移动，通过按键控制不同相机的开关。</li>
+<li>地形的创建<br>  地形完全用unity自带地形系统Terrain制作，公路是添加的 box，更改其材质看起来更接近公路，当然黄色的公路线也是。</li>
+</ul>
+<h2 id="VR项目-走钢丝"><a href="#VR项目-走钢丝" class="headerlink" title="VR项目-走钢丝"></a>VR项目-走钢丝</h2><p>##说明<br>    现在网上有关htc vive 开发的demo很少，相关内容都是初始摸索出来的。<br>    这个项目就是在这样的环境下，开发主角坐上电梯到达二层，走钢丝，到达对面电梯，上三层，就这样一直到五层，天空中障碍物会使你坠落，当然走钢丝，头部位置偏了也会掉的，坠入感很刺激哦。途中会有飞机和空中电车干扰。<br>    工作室有台htc vivo，就这样我们就具备了走在前面的优势。</p>
+<hr>
+<p>##项目截图</p>
+<ul>
+<li>这是主角在地下仰头的视角，里面的手柄是写实的<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr1.png" alt=""></li>
+<li>这是相机位置和一层电梯的位置（红色那个）<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr2.png" alt=""></li>
+<li>上电梯要开门时触发的按钮，这里会涉及到触发了。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr3.png" alt=""></li>
+<li>在高层走钢丝，（红色电梯，有开关门动画）<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr4.png" alt=""><br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr5.png" alt=""></li>
+<li>主角在高层时的飞机<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr6.png" alt=""></li>
+<li>全图鸟瞰<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/steamvr7.png" alt=""></li>
+</ul>
+<hr>
+<p>##要点</p>
+<ul>
+<li>整体CameraRig 的放置，重力的取消与选定</li>
+<li>相机随电梯的上升，人物的视角跟随</li>
+<li>钢丝和人物的碰撞接触</li>
+<li>门开关动画的控制</li>
+<li>手柄对按钮的识别和触发</li>
+<li>人物掉下的坠落感</li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/03/科目二模拟项目与VR项目/"
+                     data-title="科目二模拟项目与VR项目"
+                     data-url="http://haojen.github.io/2016/07/03/科目二模拟项目与VR项目/"
+                     data-images=""
+                     data-content="省赛项目-科二模拟说明这个项目是我在大学的大创项目，也是参加计算机科技省赛的项目就现在的进度做... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/06/windows一些快捷键和命令/" data-toggle="tooltip" data-placement="top"
+                           title="windows一些快捷键和命令">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/01/unity无窗口效果/" data-toggle="tooltip" data-placement="top"
+                           title="unity无窗口效果">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/03/科目二模拟项目与VR项目/"
+                         data-title="科目二模拟项目与VR项目"
+                         data-url="http://haojen.github.io/2016/07/03/科目二模拟项目与VR项目/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#省赛项目-科二模拟"><span class="toc-text">省赛项目-科二模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作品截图"><span class="toc-text">作品截图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#要点说明"><span class="toc-text">要点说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VR项目-走钢丝"><span class="toc-text">VR项目-走钢丝</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        c#基础part1｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/04/08/c#part1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>c#基础part1</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-04-08
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            c#基础part1
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><h3 id="c-可以做什么"><a href="#c-可以做什么" class="headerlink" title="c#可以做什么"></a>c#可以做什么</h3><ul>
+<li>windows桌面应用程序 （.NET3.0后的WPF(Windows Presentation Foundation)）</li>
+<li>web应用程序(ASP.NET)</li>
+<li>web服务（WCF(Windows Communicatino Foundation)).</li>
+</ul>
+<a id="more"></a>
+<h3 id="NET-Framework"><a href="#NET-Framework" class="headerlink" title=".NET Framework"></a>.NET Framework</h3><p>是c#的运行环境</p>
+<h3 id="面向对象的基本特征"><a href="#面向对象的基本特征" class="headerlink" title="面向对象的基本特征"></a>面向对象的基本特征</h3><p>继承，封装，多态</p>
+<h2 id="进入基础"><a href="#进入基础" class="headerlink" title="进入基础"></a>进入基础</h2><p>注：参考教程：Cshap图解教程（第4版）</p>
+<h3 id="一-net框架"><a href="#一-net框架" class="headerlink" title="一..net框架"></a>一..net框架</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/netFrame1.jpg" alt=""></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://7xs1eq.com1.z0.glb.clouddn.com/netFrame2.jpg" alt=""></h2><h3 id="二-基础概述"><a href="#二-基础概述" class="headerlink" title="二.基础概述"></a>二.基础概述</h3><figure class="highlight"><table><tr><td class="code"><pre><div class="line">using System;  --命名空间</div><div class="line"></div><div class="line">namespace simple --声明一个命名空间</div><div class="line">&#123;</div><div class="line"> class program  --一个类program类中包含Main方法，系统自动生成，</div><div class="line"> &#123;</div><div class="line"> static void main()&#123;</div><div class="line">   Console.WriteLine("hello"); --和Console.Write()方法一样，writeline()多\n</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>代替标记 格式字符串</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Console.WriteLine(&quot;Two simple integers are &#123;0&#125; and &#123;1&#125;&quot;,3,6);  </div><div class="line">--Two simple integers are 3 and 6;</div><div class="line"></div><div class="line">Console.WriteLine(&quot;Three simple integers are &#123;1&#125; &#123;0&#125; and &#123;1&#125;&quot;,3,6);  </div><div class="line">--Three simple integers are 6,3and6;</div></pre></td></tr></table></figure>
+<p>{index，alignment：format}<br>index:指定某一项<br>alignment:指定字段宽度，正直右对齐，负值左对齐。<br>format:货币C，c，定点F，f等</p>
+<p><code>eg:Console.WriteLine({0,-10:F4},12.345678);--12.3456</code></p>
+</li>
+<li><p><strong>C#就是一组类型声明</strong><br>这里说明下，在cshap中，万物皆对象，就连int，他也是个对象 对应 微软库中的Int32,bool 对应 boolean ,只是我们在编程中简略的书写罢了。</p>
+</li>
+<li><p><strong>值类型和引用类型</strong><br> 1，值类型 </p>
+<p>数值类型直接将数据存储在栈里变量的空间<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/cshapType.png" alt=""><br> 2，数据放在堆里，引用放在栈里<br> <img src="http://7xs1eq.com1.z0.glb.clouddn.com/yinyong.jpg" alt=""><br> 另：总结起来，每种类型的默认值都是0，bool型是false，引用类型为null;</p>
+</li>
+</ul>
+<p>  3.装箱和拆箱</p>
+<p>  将数值类型的变量变成引用类型的过程叫做装箱，将引用类型的数据变成数值类型的过程叫做拆箱。<br>  装箱和拆箱都需要复制数据，会浪费性能，最好要避免装箱和拆箱的操作</p>
+<ul>
+<li><p><strong>类型转换</strong><br>  满足两个条件可以类型转换：</p>
+<ul>
+<li>数据类型要兼容 比如你double的肯定能转成 int 的啦，都是数，还有 string类型的”123”，也能转成数，它里面也是数啊<br><code>int i = int.Parse(str);</code><br>或：<br><code>int i = Convert.ToIn32(str);</code><br>这时，就要多说一句了，一道面试题，string str = ‘123’ 转成int类型，用上面两种方法有什么区别？<br>可以查库的api，convert就是调用的parse方法，不过在前判断了str=null的情况，如果为空，那么convert返回零，而parse会抛出异常。</li>
+<li>还有一点就是 目标类型要大于源类型 比如 int 转成 byte 是不行的，但是可以强制转换，<code>byte a = (byte) by;</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>string<br>string是Systerm.String类型的别名，表示由零个或多个unicode字符组成的不可变序列，可用“[]”运算符访问string中的每个字符。<br><code>string a = &quot;hello&quot;</code><br>a存放在栈里，而“hello”存放在堆里，a中存的是地址。</li>
+<li>枚举类型<br>枚举属于值类型，默认每个枚举中是int类型，可以使用冒号制定类型：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">enum Gender:byte</div><div class="line">&#123;</div><div class="line">    Female,</div><div class="line">    Male</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>默认为第一个元素设置为0,其他递增，如Gender.Female=0,Gender.Male=1.</p>
+<ul>
+<li>数组类型<br>数组类型是一种引用类型，语法：<code>type[] array=new type[index]</code><br>type可以是任意类型。</li>
+</ul>
+<p>###三.<strong>类</strong></p>
+<ul>
+<li>和c++不同，c#在类型的外部不能声明全局变量，所有的字段都属于类型，而且必须在类型声明内部。不能声明同名的变量，不管嵌套级别如何；</li>
+<li><p>可在内部直接初始化字段。</p>
+<pre><code>class MyClass{
+  int f1;
+  string f2=&quot;abc&quot;;
+    }
+</code></pre></li>
+</ul>
+<p><strong>声明类类型的变量所分配的内存是用来保存引用的，不是保存对象实例实际数据的，为实际数据分配内存，需要用new运算符。</strong><br>使用对象创建表达式初始化变量：<br><code>Dealer theDealer=new Dealer();</code></p>
+<ul>
+<li><p><strong>var关键字</strong></p>
+<pre><code>int total =15;
+var total=15;
+MyClass mec=new MyClass();
+var mec=new MyClass();
+</code></pre><p> 编译器可通过右边的类型推断左端的显示声明，避免冗余，可以用var关键字，它不是特定的类型符号，只是语法上的速记，表示任何可以初始化语句右边推断出的类型；<br>但只能用于<strong>本地变量</strong>，只能在声明变量初期包含初始化使用；</p>
+</li>
+<li><strong>本地常量</strong><br>在类型前加关键字<strong>const</strong>,声明后<strong>不能改变</strong>(不能赋值)，在方法体或者代码块里，随着块结束地方结束生命，编译期决定。<strong>在方法或者类里声明</strong></li>
+<li><p><strong>静态成员</strong><br> 静态成员是类内被<strong>static</strong>修饰的成员，它是属于类的，只能通过类名来访问，类名.成员。<br> 没有被static修饰的是实例成员，它是属于对象的，同过类的实例来访问。</p>
+<pre><code>class Common{
+    public static int num = 0;
+    public int num1 = 1;
+}
+
+Common c = new Common();
+int numc = Common.num;
+int num1c = c.num1;
+</code></pre><p><img src="http://ojynuthay.bkt.clouddn.com/cshap%E9%9D%99%E6%80%81%E5%8C%BA.png" alt=""><br><strong>看图说话，静态成员不是在堆里已不是在栈里，它是在专门的静态存储区里，在类第一次声明时创建，并只创建一次，程序结束才会垃圾回收，而类是用完就回收。</strong></p>
+</li>
+</ul>
+<p>另外，静态成员的意义是被共享，或多次利用。<br>还有，在静态方法中不能调用实例成员，this和base(父类)也不能在静态方法中使用，不确定实例是否存在，看图会懂的。<br>在实例方法中可以调用静态成员，因为此时静态成员肯定存在。</p>
+<ul>
+<li><strong>静态字段</strong> 和静态成员一样<ul>
+<li>能被类的所有实例<strong>共享</strong>。所有实例都访问同一内存位置<code>static int menu2;</code></li>
+<li>类没有实例，也存在静态成员，并且可以访问。、</li>
+<li>它是可以赋值的，作用范围是整个类，相当于全局变量。</li>
+</ul>
+</li>
+<li><strong>静态类</strong>    <ul>
+<li>被static修饰的类是静态类</li>
+<li>静态类中只能有静态成员</li>
+<li>静态类中不能有实例构造函数</li>
+<li>静态类不能被初始化，不能被继承。</li>
+<li>本质就是一个抽象类的密封类，所以不能被继承也不能被实例化</li>
+<li>如果一个类的下面所有成员被共享，那么可以把这个类定义为静态类。<br>这些有过之前的静态成员都好理解</li>
+</ul>
+</li>
+<li><strong>静态构造函数</strong><ul>
+<li>非静态类也可以有静态构造函数</li>
+<li>第一次访问类的成员 <strong>之前</strong>就会调用静态构造函数，记住普通构造函数也是类的成员<br><code>common c = new common();</code> 这就是访问普通构造函数。</li>
+<li>静态构造函数只执行一次。</li>
+</ul>
+</li>
+<li><p><strong>属性</strong></p>
+<pre><code>特征与字段相似，但是不为数据储存分配内存，重点是属性可以保护字段，防止外部瞎赋值：
+
+      class Program{
+          class people{
+              private int age = 18;
+
+              public int Age{  
+                  get { return age;}
+           }  
+          }
+
+        static void Main(){
+            people p1 = new people();
+            int age = p1.Age;
+        }
+      }
+这样就能保护类内部的数据了，还能让外界访问，但是修改不了，nice。
+这里注意，属性和方法的语法很像，但是**属性没有括号**哦。
+再看一个：
+
+      private string gender;
+      private bool isMan;
+
+      public int Gender{  
+          get{
+              string strGender =  isMan == true ? &quot;man&quot;:&quot;woman&quot;;
+              return strGender; 
+             }
+          set { return value == &quot;man&quot;?false}
+   }  
+</code></pre></li>
+</ul>
+<p>set访问器为属性赋值，get访问器从属性获值。<br>eg:声明一个int型的属性语法。</p>
+<pre><code>    int MyValue{
+    set{a=value;}  //拥有一个单独的，隐式的值参，value，与属性的类型相同，返回类型void
+    get{return a;}  //没有参数，拥有与属性类型相同的返回类型。
+    }
+    MyValue=5; //赋值：隐式调用set方法
+    z=Myvalue; //表达式：隐式调用get方法 
+注：两个访问器不能显式调用，只能隐式调用；
+只声明set访问器为只写属性，只声明get访问器的称为只读属性；
+不成文约定：属性用Pascal命名法，字段用Camel命名法；
+</code></pre><ul>
+<li><strong>构造函数</strong><br>   可以带参数，可以被重载，没有返回值<br>   静态构造函数，使用static修饰，只有一个，不能有访问修饰符。</li>
+<li><strong>readonly修饰符</strong><pre><code>作用类似于const，而readonly字段的值可以在运行时决定，只可以在构造函数中初始化。这种自有性允许在不同的环境不同的构造函数中设置不同的值。可以是实例字段，可以是静态字段，在内存中有储存位置。
+</code></pre></li>
+<li><strong>this关键字</strong><pre><code>是对当前实例的引用。
+</code></pre></li>
+<li><p><strong>is关键字</strong></p>
+<pre><code>判断变量是否是指定的类型
+
+     Person p = new Person();
+     bool b = p is Person();  // b 为 true
+</code></pre></li>
+<li><p><strong>as关键字</strong></p>
+<pre><code>类型转寒关键字 如果转换失败不报异常,返回null
+
+    student s2 = (student) p; //可能会报异常
+    student s3 = p as Student;
+</code></pre></li>
+<li><p><strong>虚拟成员</strong></p>
+<pre><code>被关键字“virtual”修饰的成员，其实虚拟成员并不虚拟，它可以包含实质性的代码，完成一定的功能，只是虚拟成员可以方便的被重载而已，继承者可以根据需要不重载这些虚拟方法。
+
+      public class MyClass{
+          public virtual int Sum(int a,int b){
+              return a+b;
+          }
+      }
+</code></pre></li>
+<li><strong>抽象成员</strong><pre><code>被关键字“abstract”修饰的类型成员，抽象成员只能是属性，方法和索引器。
+`public abstract int Sum(int a, int b);`
+抽象成员必须出项在抽象类中，而且在从抽象类派生新类型时，所有的抽象方法必须重写以填充方法体。
+**注：** 抽象成员和虚拟成员是有区别的：
+</code></pre><ul>
+<li><strong>抽象成员成员不能定义任何实质的功能，必须被重载。</strong></li>
+<li>虚拟成员必须包含完整的代码结构，可以包含实际功能，可以不被重载。</li>
+</ul>
+</li>
+<li><p><strong>索引器</strong></p>
+<pre><code>索引器允许类或结构的实例像数组一样进行索引，类似一个带有参数的属性。
+索引器，是一组get和set访问器 ，总是实例成员，不能声明为static。
+
+       //声明格式
+       return this [type param1]{
+       get{}
+       set{}
+      }
+      emp[0]=&quot;Doe&quot;; //自动调用set访问器
+      string NewName=enp[0];//自动调用get访问器
+      eg:
+      class Employee{
+      public string LastName;
+      public string FirstName;
+      public string CityBorth;
+
+      public string this[int index]{
+       set{swith (index){
+        case 0:LastName=value;  break;
+        case 1:FirstName=value; break;
+        case 2:CityBorth=value;  break;
+        default:
+       throw new ArgumentOutOfRangeException(&quot;index&quot;);}}//抛出异常
+
+       get{
+        switch(index){
+         case 0:return LastName;
+         case 1:return FirstName;
+         case 2:return CityBorth;
+         default:
+       throw new ArgumentOutOfRangeException(&quot;index&quot;);}}//抛出异常
+       }
+
+       static void main(){
+       Employee emp1= new Employee();
+       emp1[0]=&quot;Doe&quot;;
+       emp1[1]=&quot;Jane&quot;;
+       emp1[2]=&quot;Dallas&quot;;
+       Console.WriteLine(&quot;{0}&quot;,emp1[0]);
+       Console.WriteLine(&quot;{0}&quot;,emp1[1]);
+       Console.WriteLine(&quot;{0}&quot;,emp1[2]);}
+</code></pre></li>
+<li><p><strong>部分类</strong></p>
+<pre><code>类的声明可以分割成几个分部类的声明。可以在同一文件，也可以在不同文件。
+每个局部声明必须被标为**partial class**，
+
+      partial class MyClass{           
+       partial void PrintSum(int x,int y);  //定义部分方法，返回类型必须为void，要有上下文关键字partial，不能包含访问修饰符，这使部分方法是隐式私有的。
+       public void Add(int x,int y)
+       {
+        PrintSum(x,y);}
+        }
+
+        partial class MyClass{             
+         partial void PrintSum(int x,int y){         //实现部分方法
+          Console.WriteLine(&quot;Sum is {0}&quot;,x+y); }
+      }
+
+      class program{
+       static void main(){
+        var mc=new MyClass();
+        mc.Add(5,6);    //分部方法是隐式私有的，PrintSum不能从类的外部调用，方法Add是调用printSum的共有方法。
+        }
+       }
+</code></pre></li>
+</ul>
+<ul>
+<li><strong>类和结构体的区别</strong><br>关键字不同，结构体的为struct。<br>结构体中不能对声明字段进行初始化，但是类可以。<br>类是引用类型，结构体是值类型。</li>
+</ul>
+<p>###四.方法<br><strong>只有 void 类型的方法，可以用return中断；</strong><br>1，<strong>值参数</strong><br>2，<strong>引用参数</strong></p>
+<ul>
+<li>使用引用参数前，必须在方法的<strong>声明</strong>和<strong>调用</strong>中都使用<strong>ref</strong>修饰符</li>
+<li>实参必须是<strong>变量</strong>，在做实参前必须被赋值，如果是引用变量，可以赋值为一个引用或null;<br>  eg: <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void MyMethod(ref int val)&#123;...&#125;</div><div class="line">int y=1;</div><div class="line">Mymethod(ref y);  //正确</div><div class="line">MyMethod(ref 3+5); //错误，必须使用变量</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>就是用ref 修饰的参数 必须传递变量，不能是常量。<strong>也就是说传递了变量的地址</strong>，请看：</p>
+<pre><code>int i = 12;
+Test(ref i);
+Console.WriteLine(i);
+
+static void Test(ref int i){
+    i++;
+}
+
+//输出 i = 13
+//就是说外部i的地址进入方法
+</code></pre><p>3，<strong>输出参数</strong></p>
+<ul>
+<li>在<strong>声明</strong>和<strong>调用</strong>中都使用 <strong>out</strong> 修饰符。</li>
+<li>和引用参数相似，实参必须是<strong>变量</strong>。</li>
+<li>在方法内部，输出参数必须在被读取之前被赋值。</li>
+<li><p>如果方法中有任何执行路径试图在输出参数被方法赋值之前读取她，编译器就会产生错误<br>eg:</p>
+<p>  public void add(out int outVaulue){<br>  int var1=outVaulue+2; //错误，在方法赋值之前使用参数。<br>  }<br>也就是说 在方法内，必须为它赋值，<strong>也是传递了变量的地址</strong>，它侧重于输出，而ref侧重于修改。    </p>
+</li>
+</ul>
+<p>4，<strong>参数数组</strong></p>
+<ul>
+<li>一个参数列表只能有一个参数数组，切它必须是列表中最后一个，就是放在参数的最后面啦。</li>
+<li>数组里必须居然有相同的类型。</li>
+<li>在数据类型前必须使用<strong>params</strong>修饰符。</li>
+<li>在数据类型后放置一组空的<strong>方括号</strong>。</li>
+<li>数组为一个引用类型，所有数据项都保存在堆中。</li>
+<li><p><strong>在声明中需要修饰符，在调用中不允许有修饰符</strong>。<br>eg:</p>
+<p>  void ListInst(params int[] inVals){…}//声明<br>  //调用<br>  ListInst(10,20,30);  //第一种方法<br>  int[] intArray={1,2,3};//第二种方法<br>  ListInst(intArray);<br>也就是说被Params修饰的数组参数，调用方法时候可以直接传数字，它会自动生成一维数组。<br>5.<strong>命名参数</strong></p>
+</li>
+<li>显式指定参数的名字，就可以任意顺序调出实参。<br><code>c.Calc(c:2,a:4,b:3);</code><br>6,<strong>可选参数</strong></li>
+<li>为了表明某个参数是可选的，需要在方法声明的时候为参数提供默认值。<br><code>public in Calc(int a,int b=3);//b为可选参数</code></li>
+</ul>
+<p>###五.类和继承</p>
+<ul>
+<li>类OtherClass继承Someclass的类：<br> <code>class OtherClass：SomeClass{};</code></li>
+<li>除了特殊的类object,所有的类都是派生类，么有基类规格说的类隐式的直接派生自object。</li>
+<li><p>可以用与基类成员相同的名称来屏蔽基类成员，要用new修饰符，告诉编译器故意屏蔽成员.</p>
+<pre><code>    class SomeClass{
+     public stirng Field1;
+     public void Method(string value){};
+     }
+     class OtherClass:SomeClass{
+     new public string Field1;
+     new public void Method(string value){};
+     }
+如果想访问隐藏的基类成员：
+`Console.WriteLine(&quot;{0}&quot;,base.Field);`
+</code></pre></li>
+<li><strong>里氏替换原则LSP</strong><pre><code>子类可以替换父类的位置，并且程序不受影响，就是子类有的功能，父类肯定有的，继承肯定没问题的
+</code></pre></li>
+<li><p><strong>运行时绑定</strong></p>
+<pre><code>student继承person
+![](leanote://file/getImage?fileId=5744433cab64413fd701bedf)
+</code></pre></li>
+<li><p><strong>类型转换</strong></p>
+<pre><code>`Person p1 = new Student();`
+`Student s1 = (Student)p1`
+必须有继承关系才可以使用强制转换
+</code></pre></li>
+<li><p><strong>使用基类的引用</strong>：派生类的实例由基类的实例和派生类新增的成员组成，派生类的引用指向整个类，包括基类，基类的引用只对自己可以见。</p>
+<pre><code>class BaseClass{
+ public void print(){ Console.WriteLine(&quot;base&quot;);}
+
+class MyDerivedClass:BaseClass{
+ new public void print(){Consle.WriteLine(&quot;Drive&quot;);}
+
+class Program{
+ static void Main(){
+ MyDerivedClass derived=new MyDerivedClass();
+ BaseClass mb=(BaseClass)derived; //转换成基类 （）转换运算符
+</code></pre></li>
+<li><p><strong>虚方法和覆写方法</strong></p>
+<pre><code>虚方法可使基类的引用调用派生类的方法。要求：
+</code></pre><ul>
+<li>基类和派生类的方法有相同的签名和返回类型。</li>
+<li>基类的方法用virtual标注。派生类的方法用override标注。</li>
+<li><p>覆写和被覆写必须有相同的访问性。</p>
+<pre><code>class BaseClass{
+virtual public void Print(){...}
+}
+class DerivedClass:BaseClass{
+override public void Print(){...}
+}
+</code></pre></li>
+<li><p>覆写可以在继承的任何层次出现，当使用对象的基类引用调用一个覆写方法时，在<strong>最高</strong>派生类里执行(情况一)</p>
+</li>
+<li>如果在派生类里有该方法的其他声明，但没有标记为override，那么他们不会被调用。（情况二）</li>
+<li><p>不只是方法，在属性和所引器上也是一样的。</p>
+<pre><code>class BaseClass{
+virtual public void Print(){Console.WriteLine(&quot;baseclass&quot;);}
+}
+class DerivedClass:BaseClass{
+override public void Print(){Console.WriteLine(&quot;derivedclass&quot;);}
+}
+//下面有两种情况，一种是用override标记，一种是用new标记
+class SecondDerived:DerivedClass{
+override public void Print(){Console.WriteLine(&quot;SecondDerived&quot;);}
+}
+class Program{
+ static void main(){
+  SencondDerived derived=new SencondDerived();
+  BaseClass mybc=(BaseClass)derived;
+   derived.Print();             //输出SencondDeriver
+   mybc.Print(); }}             //输出SencondDeriver
+
+//第二种情况
+class SecondDerived:DerivedClass{
+new public void Print(){Console.WriteLine(&quot;SecondDerived&quot;);}
+}
+class Program{
+ static void main(){
+  SencondDerived derived=new SencondDerived();
+  BaseClass mybc=(BaseClass)derived;
+   derived.Print();              //输出SencondDeriver
+   mybc.Print(); }}               //输出derivedclass
+</code></pre></li>
+</ul>
+</li>
+<li><p>继承层次链中的每个类在执行他自己的构造函数体之前，先执行他的<strong>基类构造函数</strong>。</p>
+<pre><code>默认隐式调用基类的无参构造函数，但构造函数可以重载，基类可以有一个以上的构造函数，如果想调用一个**指定**的基类构造函数，必须在派生类的构造函数初始化语句中指定它。
+两种方式构造函数初始化：
+**1.**关键字base指定具体的基类构造函数
+`public DerivedClass(int x,string s):base(s,x){...}`//base中两个参数要和基类构造函数的参数列表匹配。//这里没有定义基类，强调顺序。
+**2.**关键字this并指明应该使用**当前类**的哪一个构造函数。
+`public MyClass(int x):this(x,&quot;Using Default String&quot;){...}`
+这种方法很好，一个类有好几个构造函数，并且他们都需要，在对象构造的时候执行一些公共代码，可以把公共代码提取出来做为一个构造函数，可以完全把它设置为public的构造函数。但如果不能完全初始化一个对象，此时，必须禁止从类的外部调用构造函数，那样的话只会初始化一部分，可以把构造函数声明为private，只让其他构造函数使用它：
+
+       class MyClass{
+        readonly int firstVar;
+        readonly double secondVar;
+
+        public string UserName;
+        public int UserIdNumer;
+
+        private MyClass(){          //私有构造函数执行其他构造
+         firstVar=10;                //函数公用的初始化
+         secondVar=0.1;
+        }
+
+        public MyClass(string firstName):this(){   //使用构造函数初始化语句
+         UserName=firstName;
+         UserIdNumer=1;
+       }
+
+        public MyClass(int idNumer):this(){    //使用构造函数初始化语句
+         UserName=&quot;Alay&quot;;
+         UserIdNumer=idNumer;
+        }
+      }
+</code></pre></li>
+<li>类的访问修饰符<pre><code>public：被系统内的任何程序集访问到。using namespace；
+internal：只能被自己的程序集内的类看到，默认的访问级别。即使成员访问级别为public，外界也不可见。
+</code></pre></li>
+<li>成员访问修饰符：<pre><code>private：只在类的内部可见。
+internal：对该程序集内所有的类可以访问。
+protected：所有继承该类的类可以访问。
+protect internal:所有继承该类或在该程序集内部声明的类可以访问。
+public：对任何类可见。
+</code></pre></li>
+<li><p><strong>抽象成员</strong>：被覆写的函数成员，必为<strong>函数</strong>成员，用abstract修饰符。</p>
+<pre><code>**抽象类**：被继承的类。只能用作其他类的基类。不能创建实例。用abstract修饰符。
+可包含普通函数和抽象成员，也可派生抽象类。派生自派生类的类，用override实现该类的抽象成员。
+
+       abstract class AbClass{                          //抽象类
+        public void IDBase(){ Console.WriteLine(&quot;AbClass&quot;)}   //普通方法
+        abstract public void IDDerived(){};               //抽象方法
+       }
+
+       class DerivedClass:AbClass{                     //派生类
+        override public void IDDerived(){
+        Console.WriteLine(&quot;DerivedClass&quot;);
+        };
+        }
+
+       class Program{
+        static void Main(){
+          //AbClass a=new AbClass();    //错误，抽象类不能创建实例。
+          //a.IDDerived();
+
+           DerivedClass b=new DerivedClass();
+           b.IDBase();
+           b.IDDerived();
+           }
+            } 
+</code></pre></li>
+<li><p><strong>虚方法和抽象方法的区别</strong></p>
+<pre><code>简单点说,抽象方法是需要子类去实现的.虚方法,是已经实现了,子类可以去覆盖,也可以不覆盖取决于需求. 
+</code></pre></li>
+</ul>
+<p>虚方法和抽象方法都可以供派生类重写，它们之间有什么区别呢？</p>
+<ol>
+<li>虚方法必须有实现部分，抽象方法没有提供实现部分，抽象方法是一种强制派生类覆盖的方法，否则派生类将不能被实例化。</li>
+<li>抽象方法只能在抽象类中声明，虚方法不是。其实如果类包含抽象方法，那么该类也是抽象的，也必须声明为抽象的。</li>
+<li>抽象方法必须在派生类中重写，这一点跟接口类似，虚方法不必。</li>
+</ol>
+<ul>
+<li><strong>密封类</strong>：和抽象类相反，它不能被用来做基类，是独立的类。用sealed修饰符。<br><code>sealed class MyClass{}</code><br>有些时候，并不希望所编写的类被继承，如果所有的类都可以被继承，则类的层次结构将会变得十分复杂，从而加重理解类的困难。此时，可以用“sealed”来定义密封类。这样的话，可以防止被其他类继承。</li>
+<li><p><strong>密封方法</strong><br>密封方法：是为了防止方法在类的派生类中对该方法进行重载。不是类的每个成员都可以作为密封方法，密封方法必须对基类的虚方法进行重载。所以，sealed总是与override修饰符同时使用。<br>当应用于方法或属性时，sealed 修饰符必须始终与override 一起使用。</p>
+<pre><code>using System;
+class A
+{
+    public virtual void F()
+    {
+        Console.WriteLine(&quot;A.F&quot;);
+    }
+    public virtual void G()
+    {
+        Console.WriteLine(&quot;A.G&quot;);
+    }
+}
+class B:A
+{
+    public sealed override void F()
+    {
+        Console.WriteLine(&quot;B.F&quot;);
+    }
+    public override void G()
+    {
+        Console.WriteLine(&quot;B.G&quot;);
+    }
+}
+class C:B
+{
+    public override void G()
+    {
+        Console.WriteLine(&quot;C.G&quot;);
+    }
+}
+class Test
+{
+    static void Main()
+    {
+    }
+}
+</code></pre><p>在类C中，不能再对B中的void F()进行重写了。</p>
+</li>
+<li><p><strong>静态类</strong>：用于存放不受实例数据影响的数据和函数。常见用途可能就是一个包含一组数学方法的数学库。<br>1.本身必须标记为<strong>static</strong>。该类所有成员都是静态的。<br>2.可以有一个静态函数，不能有实例构造函数，不能创建该类的实例。<br>3.静态类是隐式封闭的，不能继承静态类。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">static public class MyMath&#123;</div><div class="line">    public static float PI=3.14f;           //所有成员必须是静态的</div><div class="line">    public static bool IsOdd(int x)&#123;</div><div class="line">        return x%2 ==1;</div><div class="line">    &#125;</div><div class="line">    public static int Times2(int x)&#123;</div><div class="line">        return 2*x;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Program&#123;</div><div class="line">    static void Main()&#123;</div><div class="line">        int val=3;</div><div class="line">        Console.WriteLine(&quot;&#123;0&#125; is odd &#123;1&#125;&quot;,MyMath.IsOdd(val));  //像正常类那样使用</div><div class="line">        Console.WriteLine(&quot;&#123;0&#125; *2= &#123;1&#125;&quot;,MyMath.Times2(val));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>扩展方法</strong><br>已有一个不能访问其代码的类，或者密封类，若要更改其中的方法，需要写一个类来实现。如现在有这样一个求三个数的和的类：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sealed class MyData&#123;</div><div class="line">    private double D1,D2,D3;</div><div class="line">    public MyData(double d1,double d2,double d3)&#123;</div><div class="line">        D1=d1;D2=d2;D3=d3;</div><div class="line">    &#125;</div><div class="line">    public double Sum()&#123;return D1+D2+D3;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们要写一个类来求三个数的平均值：</p>
+<pre><code>  static class ExtendMyData{
+    public static double Average(MyData md){
+    return md.Sum()/3;
+   }
+ }
+
+  class Program{
+    static void Main(){
+    MyData md=new MyData(3,4,5);
+    Console.WriteLine(&quot;Average:{0}&quot;,ExtendMyData(md));  
+ }
+}
+</code></pre><p>这是一个好的解决方案，但是我们想从MyData自身的实例来求平均值，而不是创建另外一个类的实例，可以md.Average();那么就用到了扩展方法。<br>这时，需要在方法Average上做改动，</p>
+<pre><code>  static class ExtendMyData{          //必须是一个静态类
+    public static double Average(this MyData md){    //必须是共有的和静态的，和this关键字
+    return md.Sum()/3;
+   }
+ }
+
+  class Program{
+    static void Main(){
+    MyData md=new MyData(3,4,5);
+    Console.WriteLine(&quot;Sum:{0}&quot;,md.Sum()};       //调用自身的方法
+    Console.WriteLine(&quot;Average:{0}&quot;,md.Average());   //调用类ExtendMyData的方法
+ }
+}
+</code></pre><p>这样看来就为密封类加了一个方法。</p>
+<p>###六.表达式</p>
+<ul>
+<li><strong>字面量</strong>：代码中键入的数字或者字符串，如下中的整形字面量2014<br><code>Console.WriteLile(&quot;{0}&quot;,2014);</code><br>令：注意浮点和双精度字面量的区别。<br><code>Console.WriteLile(&quot;{0}&quot;,3.1415);</code> //双精度字面量<br><code>Console.WriteLile(&quot;{0}&quot;,3.1415f);</code> //浮点字面量</li>
+<li>字符串字面量<br>分为两种：<br>常规字面量：<code>string rst=&quot;Value 1\t5,Val2\t10&quot;;</code>  输出：Value 1   5,Val2    10<br>逐字字面量：<code>@string vst=&quot;Value 1\t5,Val2\t10&quot;;</code> 输出Value 1\t5,Val2\t10<br>逐字字面量中转义字符串<strong>不会被求值</strong>，但相邻的双引号被解释为单个双引号：<br><code>string str=&quot;It started,\&quot;Four score and seven...\&quot;&quot;;</code><br><code>string vtr=@&quot;It started,&quot;&quot;Four score and seven...&quot;&quot;&quot;;</code><br>都输出为：It started,”Four score and seven…”</li>
+<li><p>在C#中不像C和C++，数字不具有布尔意义，</p>
+<pre><code>int x=5;
+ if(x){}// 错误，x不是布尔类型
+ if(x==5){}//正确
+</code></pre></li>
+<li><p>一元运算符：设置数字值的符号，当+，-做加减运算时它是二元运算符。<br>其他的一元运算符：！，~，++，–，true，false,typeof<br><code>int x=+10;  int y=-x;  int z=-y;</code> x=10,y=10,z=10.</p>
+</li>
+<li>条件运算符（三元运算符）<br>Condition？Expression1：Expression2<br>eg:<br><code>if(x&lt;y) x=5; else =10;</code>  =&gt; <code>x&lt;y?5:10;</code></li>
+<li><p><strong>用户自定义的类型转换</strong><br>可为自己的类或者结构定义隐式转化和显式转换。<br>定义语法：</p>
+<pre><code>public static(必须) implicit(隐式)/explicit(显式) operator TargeType/目标类型 (Source Identifier/源数据)
+{
+ return ObjectOfTargetType;
+}
+</code></pre><p>eg:</p>
+<pre><code>class LimitedInt{
+const int MaxValue=100;
+const int MinValue=0;
+
+ public static implicit operator int(LimitedInt li)  //显式将implicit换成explicit
+ {
+    return li.TheValue;
+ }        
+ public static implicit operator LimitedInt(int x) //显式将implicit换成explicit
+ {
+    LimitedInt li=new LimitedInt();
+    li.TheValue=x;
+    return li;
+ }
+ private int _theValue=0;
+ public int TheValue{
+    get{return _theValue;}
+    set{
+        if(value&lt;MinValue) _theValue=0;
+        else _theValue = value&gt;MaxValue?MaxValue:value;
+    }
+ }
+}
+class Program{
+    static void Main(){
+        LimitedInt li=500;  //显式 LimitedInt li=(LimitedInt)500;
+        int value=li;       //显式 int value=(int) li;
+        Console.WriteLine(&quot;li:{0},value:{1}&quot;,li.TheValue,value);
+    }
+}
+</code></pre><p>输出：li:100,value:100</p>
+</li>
+<li><p><strong>运算符重载</strong><br>运算符重载允许你定义C#运算符应该如何操作自定义类型的操作数。<br>1，运算符重载只能用于类和结构。<br>2，为类或结构重载一个运算符x，可以声明一个名称为operator x的方法并实现它的行为（eg:operator +)<br>3,一元运算符的重载方法带一个单独的class或struct类型的参数。<br>4，二元运算符的重载方法带两个参数，至少有一个必须是class或者struct类型.<br>5，声明必须同时使用struct和public修饰符。<br>6，运算符必须是要操作的类或结构的成员。<br>7，说明：重载运算符应该符合运算符的直观意义。</p>
+<pre><code>class LimitedInt{
+    const int MaxValue=100；
+    const int MinValue=0;
+    public static LimitedInt operator -(LimitedInt x)
+    {
+        //在这个奇怪的类中，取一个值的负数等于0
+        LimitedInt li=new LimitedInt();
+        li.TheValue=0;
+        return li;
+    }
+    public static LimitedInt operator -(LimitedInt x,LimitedInt y){
+        LimitedInt li=new LimitedInt();
+        li.TheValue=x.TheValue-y.TheValue;
+        return li;
+    }
+    public static LimitedInt operator +(LimitedInt x,double y ){
+        LimitedInt li=new  LimitedInt();
+        li.TheValue=x.TheValue+(int)y;
+        return li;
+    }
+
+    private int _theValue=0;
+    public int TheValue;
+    {
+        get{return _theValue;}
+    set{
+        if(value&lt;MinValue) _theValue=0;
+        else _theValue = value&gt;MaxValue?MaxValue:value;
+    }
+}
+}
+class Program{
+    static void Main(){
+        LimitedInt li1=new LimitedInt();
+        LimitedInt li2=new LimitedInt();
+        LimitedInt li3=new LimitedInt();
+
+        li1.TheValue=10; li2.TheValue=26;
+        Console.WriteLine(&quot;li1:{0},li2:{1}&quot;,li1.TheValue,li2.TheValue);//输出:li1:10,li2:26
+
+        li3=-li1;
+        Console.WriteLine(&quot;-{0}={1}&quot;,li1.TheValue,li3.TheValue);//输出：-10=0
+
+        li3=li2-li1;
+        Console.WriteLine(&quot;{0}-{1}={2}&quot;,li1.TheValue,li2.TheValue,li3.TheValue);//输出：26-10=16
+
+        li3=li1-li2;
+        Console.WriteLine(&quot;{0}-{1}={2}&quot;,li1.TheValue,li2.TheValue,li3.TheValue);//输出：10-26=0
+
+    }
+}
+</code></pre></li>
+<li><p><strong>运算符typeof</strong><br>typeof是一元运算符，返回已知类型的Systerm.Type对象（对任何已知类型，只有一个Systerm.Type对象。Type是System中的一个类。语法示例；<br>Tpye t=typeof(SomeClass)<br>下面代码使用typeof运算符获取SomeClass类的信息，并打印公有字段和方法的名称：</p>
+<pre><code>using Systerm.Reflection;//使用反射命名空间来全面利用检测类型信息的功能
+class SomeClass{
+    public int Field1;
+    public int Field2;
+    public void Method1(){}
+    public int Method2(){return 1;}
+}
+class Program{
+    static void Main(){
+        type t=typeof(SomeClass);
+        FieldInfo[] fi=t.GetFields();
+        FieldInfo[] mi=t.GetMethods();
+
+        foreach (FieldInfo f in fi)  Console.WriteLine(&quot;Field:{0}&quot;,f.Name);
+        foreach (FieldInfo m in mi)  Console.WriteLine(&quot;Method:{0}&quot;,m.Name);
+    }
+}
+</code></pre></li>
+</ul>
+<p>输出：<br>Field：Field1<br>Field：Field2<br>Method：Method1<br>Method：Method2<br>Method：ToString<br>Method：Equals<br>Method：GetHashCode<br>Method：GetType</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/08/c#part1/"
+                     data-title="c#基础part1"
+                     data-url="http://haojen.github.io/2016/04/08/c#part1/"
+                     data-images=""
+                     data-content="写在前面c#可以做什么
+windows桌面应用程序 （.NET3.0后的WPF(Windows... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/12/c#part2/" data-toggle="tooltip" data-placement="top"
+                           title="c#基础part2">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/08/c#part1/"
+                         data-title="c#基础part1"
+                         data-url="http://haojen.github.io/2016/04/08/c#part1/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#c-可以做什么"><span class="toc-text">c#可以做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NET-Framework"><span class="toc-text">.NET Framework</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象的基本特征"><span class="toc-text">面向对象的基本特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进入基础"><span class="toc-text">进入基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-net框架"><span class="toc-text">一..net框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#二-基础概述"><span class="toc-text">二.基础概述</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

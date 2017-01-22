@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        windows一些快捷键和命令｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/06/windows一些快捷键和命令/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>windows一些快捷键和命令</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-06
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#命令与快捷键"
+                           title="命令与快捷键">命令与快捷键</a>
+                        
+                        <a class="tag" href="/tags/#windonws"
+                           title="windonws">windonws</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            windows一些快捷键和命令
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="查看自己DirectX版本的方法是："><a href="#查看自己DirectX版本的方法是：" class="headerlink" title="查看自己DirectX版本的方法是："></a>查看自己DirectX版本的方法是：</h3><pre><code>点“开始”、“运行”，在“运行”里输入“dxdiag”回车，
+弹出DirectX 诊断工具窗口，就在首页中，有很多系统信息，
+</code></pre><h3 id="新建文件夹快捷键"><a href="#新建文件夹快捷键" class="headerlink" title="新建文件夹快捷键"></a>新建文件夹快捷键</h3><p><code>ctrl+shift+n</code></p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>运行-》services.msc</p>
+<a id="more"></a>
+<h3 id="注册表-regedit"><a href="#注册表-regedit" class="headerlink" title="注册表 regedit"></a>注册表 regedit</h3><h3 id="Win10定时关机命令："><a href="#Win10定时关机命令：" class="headerlink" title="Win10定时关机命令："></a>Win10定时关机命令：</h3><p><code>shutdown –s –t 3600</code></p>
+<h3 id="当面目录直接进入cmd"><a href="#当面目录直接进入cmd" class="headerlink" title="当面目录直接进入cmd"></a>当面目录直接进入cmd</h3><p>打开文件后，在空白处按住shift+右键-&gt;在此处打开命令窗口</p>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><p>win+r msconfig -&gt;启动 可以关闭开机启动项 （ms 微软）</p>
+<h3 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h3><p>win+r mspaint</p>
+<h3 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h3><p>﻿MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译<a href="http://baike.baidu.com/view/10961371.htm" target="_blank" rel="external">摘要算法</a>、<a href="http://baike.baidu.com/view/273836.htm" target="_blank" rel="external">哈希算法</a>），主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、<a href="http://baike.baidu.com/view/2535629.htm" target="_blank" rel="external">MD3</a>和<a href="http://baike.baidu.com/view/444142.htm" target="_blank" rel="external">MD4</a>。让大容量信息在用<a href="http://baike.baidu.com/view/7626.htm" target="_blank" rel="external">数字签名</a>软件签署私人<a href="http://baike.baidu.com/view/934.htm" target="_blank" rel="external">密钥</a>前被”<a href="http://baike.baidu.com/subview/786588/12546221.htm" target="_blank" rel="external">压缩</a>“成一种保密的格式（就是把一个任意长度的字节串变换成一定长的<a href="http://baike.baidu.com/view/230306.htm" target="_blank" rel="external">十六进制</a>数字串）。除了MD5以外，其中比较有名的还有<a href="http://baike.baidu.com/view/94209.htm" target="_blank" rel="external">sha-1</a>、<a href="http://baike.baidu.com/view/260854.htm" target="_blank" rel="external">RIPEMD</a>以及Haval等。</p>
+<p>一种图标快捷方式</p>
+<p>如果想长期使用，可以创建一个文本文档，将<strong>slidetoshutdown（或者其他cmd口令）</strong>输入进去，并将文本文档的txt后缀改成cmd，关机的时候点击就行了。</p>
+<h3 id="批量重命名"><a href="#批量重命名" class="headerlink" title="批量重命名"></a>批量重命名</h3><p>假如我们要修改D盘A文件夹下的所有文件扩展名，并且全部都改为jpg，那么我们可以使用以下命令：<br>　　ren D:\A* <em>.jpg<br>　　当然，有时候我们可能只需要修改某一类型（同一扩展名）的文件，比如所有bmp文件全部改为jpg，则使用下列命令：<br>　　ren D:\A\</em>.bmp <em>.jpg<br>　　最后，在给大家一个小技巧。这需要将下面命令复制到新建文本中并保存文件为“修改扩展名.bat”：<br>　　cd /d %~dp0<br>　　ren </em> *.jpg<br>　　（其中jpg为我们想要修改的扩展名，可根据需要修改）</p>
+<h3 id="刷新dns"><a href="#刷新dns" class="headerlink" title="刷新dns"></a>刷新dns</h3><p><code>ipconfig /flushdns</code></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/06/windows一些快捷键和命令/"
+                     data-title="windows一些快捷键和命令"
+                     data-url="http://haojen.github.io/2016/07/06/windows一些快捷键和命令/"
+                     data-images=""
+                     data-content="查看自己DirectX版本的方法是：点“开始”、“运行”，在“运行”里输入“dxdiag”回车... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/20/linux下配置web服务/" data-toggle="tooltip" data-placement="top"
+                           title="linux下配置web服务">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/03/科目二模拟项目与VR项目/" data-toggle="tooltip" data-placement="top"
+                           title="科目二模拟项目与VR项目">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/06/windows一些快捷键和命令/"
+                         data-title="windows一些快捷键和命令"
+                         data-url="http://haojen.github.io/2016/07/06/windows一些快捷键和命令/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看自己DirectX版本的方法是："><span class="toc-text">查看自己DirectX版本的方法是：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建文件夹快捷键"><span class="toc-text">新建文件夹快捷键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动服务"><span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注册表-regedit"><span class="toc-text">注册表 regedit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Win10定时关机命令："><span class="toc-text">Win10定时关机命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当面目录直接进入cmd"><span class="toc-text">当面目录直接进入cmd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开机启动"><span class="toc-text">开机启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#画图"><span class="toc-text">画图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5"><span class="toc-text">MD5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量重命名"><span class="toc-text">批量重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#刷新dns"><span class="toc-text">刷新dns</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#命令与快捷键"
+                           title="命令与快捷键">命令与快捷键</a>
+                        
+                        <a class="tag" href="/tags/#windonws"
+                           title="windonws">windonws</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

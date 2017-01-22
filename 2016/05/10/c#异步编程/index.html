@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        c#异步编程｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/05/10/c#异步编程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>c#异步编程</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-05-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                        <a class="tag" href="/tags/#异步编程"
+                           title="异步编程">异步编程</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            c#异步编程
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><ul>
+<li>一旦进程建立，系统会在Main方法的第一行语句处开始线程的执行。</li>
+<li>线程锁：由于线程抢占处理器时间片，多个线程访问某个资源时出现不一致的问题，C#提供了<strong>lock</strong>关键字，该关键字可以对过个线程都要访问的资源进行锁定，哪个线程首先占有就把该资源锁定，其他想要访问该资源的线程只能等待该线程访问完成并<strong>解锁</strong>后才能访问资源。</li>
+</ul>
+<a id="more"></a>
+<h3 id="一，async-await"><a href="#一，async-await" class="headerlink" title="一，async/await"></a>一，async/await</h3><p>C#5.0引入的一个用来构建异步方法的新特性<br>先看一个例子：</p>
+<pre><code>class{
+    static void Main(){
+        Task&lt;int&gt; value = DoAsync.SumSync(5,6); //调用方法
+    }
+}
+
+static class async Task&lt;int&gt; SumSync(int i1,int i2){   //异步方法
+    int sum = await TaskEx.Run()(() =&gt; GetSum(i1,i2)); 
+    return sum;
+}
+</code></pre><p>如果一个程序调用某个方法，等待其执行所有处理后才继续执行，我们称这样的方法是同步的。<br>如上所示，异步方法在完成其工作之前要回到调用方法，然后再调用方法继续执行的时候完成其工作。 </p>
+<ul>
+<li>调用方法：上面Main()函数里的方法，调用异步方法（可能在同线程，或者不同线程）执行其任务的时候，它自己继续执行。</li>
+<li>异步（async）方法： 异步执行其工作，然后立即返回到调用方法。</li>
+</ul>
+<p>异步方法语法上有如下特点：  </p>
+<ul>
+<li>方法头中包含async方法修饰符，在返回类型之前，它只是包含await表达式，本身没啥用，不能创建任何异步操作。</li>
+<li>包含一个或多个await表达式，表示异步可以完成的任务</li>
+<li>参数可以任意类型和数量，但是不能为out或ref参数</li>
+<li><p>必须具备这三种返回类型：</p>
+<ul>
+<li>void，仅仅执行异步方法，包含return语句也不会返回任何东西</li>
+<li>Task，不返回值，但要检查异步方法的状态，这时可以返回一个Task类型的对象。即使出现了return语句，也不会返回任何东西。<br><code>Task someTask = DoStuff.CalculateSumAsync(5,6);</code><br><code>someTask.wait()</code></li>
+<li><code>Task&lt;T&gt;</code> 返回值，返回T类型的值。<br><code>Task&lt;int&gt; value = DoStuff.CalculateSumAsync(5,6);</code></li>
+</ul>
+</li>
+<li><p>除了方法，lambda表达式和匿名方法一可以作为异步对象</p>
+<pre><code>**awati表达式**
+await表达式指定了一个异步执行的任务，
+` awati + 空闲对象`
+默认情况下它是在当前线程下运行的,这么说吧，这个空闲对象是一个awaitable类型的实例，但是我们并不需要构建，只需要他-Task，异步方法返回`Task&lt;T&gt;`，放到await表达式中，他们将在当前线程中异步执行。返回这个空对象（即Task）我们最简单的方式是用**Task.Run()**方法来创建一个Task，关于Task.Run(),有一点非常重要，**它是在不同线程上运行你的方法**。
+Task.Run有个签名如下：
+`Task.Run( Func&lt;TReturn&gt; func)` 
+`Func&lt;TReturn&gt;`是个预定义的委托，返回值的类型为TReturn(就是泛型嘛）。
+因此将你的方法传递给Task.Run，需要基于Func创建一个委托，有三种方式 如下：
+
+      class Myclass {
+          public int Get10(){  //Get10 与 Func&lt;int&gt; 委托兼容，因为它没有参数，返回类型TReturn
+              return 10;
+          }
+</code></pre></li>
+</ul>
+<pre><code>      public async Task DoWorkAsync(){
+          Func&lt;int&gt; ten = new Func&lt;int&gt;(Get10);
+          int a = await Task.Run(ten);  //用Get10创建Func&lt;int&gt;的委托ten给Task.Run
+
+          int b = await Task.Run(new Func&lt;int&gt;(Get10)); //在参数列表中创建Func委托
+
+          int c = await Task.Runc(() =&gt; { return 10; }); //与Func兼容的lambda表达式
+
+          Consolo.WriteLine(&quot;{0} {1} {2}&quot;,a,b,c);    //输出：10 10 10 
+          }
+      }
+      class Program{
+          static void Main(){
+              Task t = (new MyClass()).DoWorkAsync();
+              t.Wait();
+          }
+      }
+**取消一个异步操作**
+System.Threading.Tasks命名空间有两个类是为此目的而设计的：CancellationToken和CancellationTokenSource
+</code></pre><ul>
+<li>CancellationToken对象检查它的令牌（Token）状态，如果对象的IsCancellationRequested属性为true，任务停止并返回。一旦这个属性被改变就不能改回来了哦，一次性的。</li>
+<li><p>CancellationTokenSource对象会为人物分配CancellationToken对象。持有CancellationTokenSource的对象可以调用其Cancel方法，这回将上面的属性设置为true。</p>
+<pre><code>class　Program{
+    static void Main(){
+        CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationToken token = cts.Token;
+
+        MyClass mc = new MyClass ();
+        Task T = mc.RunAsync(token);
+
+        //Thread.Sleep(3000); //等待3秒
+        //cts.Cancle();       //取消操作
+
+        t.Wait();
+        Console.WriteLine(&quot;Was Cancelled :{0}&quot;,token.IsCancellationRequested);
+    }
+}
+
+class MyClass{
+    public async Task RunAsync (CancellationToken ct){
+        if (ct.IsCancellationRequested)
+        {
+            return;
+            await Task.Run( ()=&gt; CycleMethod(ct),ct);
+        }
+    }
+
+    void CycleMethod( CancellationToken ct){
+        Console.WriteLine(&quot;Starting CycleMethod&quot;);
+        const int Max = 5;
+        for( int i = 0; i &lt; max ; i++){
+            if( ct.IsCancellationRequested )
+                return ;
+                Thread.Sleep(1000);
+                Console.WriteLine(&quot; {0} of {1} iteration completed&quot;,i+1,max);
+        }
+    }
+}
+
+//不取消注释时 
+//输出： 
+// Starting CycleMethod 
+// 1 0f 5 iteration completed 
+// 2 0f 5 iteration completed 
+// 3 0f 5 iteration completed 
+// 4 0f 5 iteration completed 
+// 5 0f 5 iteration completed 
+// Was Cancelled : False 
+//取消注释
+//输出：
+// 1 0f 5 iteration completed 
+// 2 0f 5 iteration completed 
+// 3 0f 5 iteration completed 
+// Was Cancelled : True 
+</code></pre></li>
+</ul>
+<hr>
+<p>###二，使用Tread类进行异步编程</p>
+<ul>
+<li>Tread类位于System.Threading命名空间，调用Thread类的<strong>构造函数</strong>创建新的Thread实例时，需要通过<strong>委托</strong>将新线程与一个现有的方法进行绑定，当线程启动后，就会执行该方法。</li>
+<li>传递给Thread构造函数的委托有两种：一种表示不带参数的方法的委托，一种表示带一个object类型的委托。</li>
+<li>在实例化Thread对象后，调用<strong>Start方法</strong>就可以启动执行线程，调用<strong>Abort方法</strong>终止线程并引发ThreadStateException异常。</li>
+<li><p><code>Thread th1 = new Thread(Thread1);</code><br>  // Thread1是定义的一个线程方法，th1是多线程的实例，注意thread1后面没有括号<br>eg:</p>
+<pre><code>using System;
+using System.Threading;
+
+namespace ThreadTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Thread th1 = new Thread(Thread1);  //创建线程
+            Thread th2 = new Thread(Thread2);
+            Thread th3 = new Thread(Thread3);
+
+            th1.Start();                        //开始线程
+            th2.Start();
+            th3.Start();
+
+            th1.Priority = ThreadPriority.Highest;  //定义th1的优先级最高
+            th2.Priority = ThreadPriority.Normal;
+            th3.Priority = ThreadPriority.Lowest;
+
+            Console.ReadLine();
+        }
+
+        static void Thread1()
+        {
+            for(int i = 0; i &lt; 1000; i++)
+            {
+                Console.WriteLine(&quot;线程1&quot;+ &quot;现在执行的次数: &quot; + i);
+            }          
+        }
+        static void Thread2()
+        {
+            for (int i = 0; i &lt; 1000; i++)
+            {
+                Console.WriteLine(&quot;线程2&quot;+&quot;现在执行的次数: &quot; + i);
+            }
+        }
+        static void Thread3()
+        {
+            for (int i = 0; i &lt; 1000; i++)
+            {
+                Console.WriteLine(&quot;线程3&quot;+ &quot;现在执行的次数: &quot; + i);
+            }
+        }
+
+    }
+
+}
+</code></pre><p>共分五个优先级：</p>
+</li>
+<li>Highest：最高优先级</li>
+<li>AboveNormal： 在Highest级别之后，Normal级别之前</li>
+<li>Normal：默认情况</li>
+<li>BelowNormal： 在Normal之后，在Lowest之前</li>
+<li>Lowest： 最低优先级<br>状态控制：</li>
+<li>Start(): 开始</li>
+<li>Abort(): 终止</li>
+<li>Join(): 阻塞</li>
+<li><p>Sleep(): 休眠<br> 如果多线程不能同时访问一个资源，所以引入“锁”的概念，如果一个线程读或者写资源的时候，其他线程就被锁住不能访问，当这个线程完成工作后就解开锁，允许其他线程进行读/写。这种机制C#称为线程的“同步“<br>eg:</p>
+<pre><code>using System;
+using System.Threading;
+
+namespace ThreadTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TestThreadTestClas test = new TestThreadTestClas();
+            Thread A = new Thread(test.Add);
+            A.Name = &quot;zheA&quot;;
+            A.Start();
+
+            Thread B = new Thread(new ThreadStart(test.Add)); //显式声明一个委托，注意Add没有括号
+            B.Name = &quot;theB&quot;;
+            B.Start();
+
+            Console.ReadLine();
+
+        }
+
+        public class TestThreadTestClas
+        {
+            private object obj = new object();
+            private int num = 0;
+
+            public void Add()
+            {
+                while (true)
+                {
+                    lock (obj)
+                    {
+                        num++;
+                        Thread.Sleep(100);
+                        Console.WriteLine(Thread.CurrentThread.Name + &quot;;&quot; + num);
+                    }
+                }
+            }
+        }
+    }
+
+}
+</code></pre><p>定义了两个线程，累计打印变量num，num就是竞争性资源</p>
+</li>
+</ul>
+<hr>
+<p>###三，通过委托执行异步操作<br>如果委托对象在调用列表中只有一个方法，就可以异步执行这个方法。<br>委托类有两个方法：<strong>BeginInvoke和EndInvoke</strong></p>
+<ul>
+<li>当我们调用委托的BeginInvoke方法时，它开始在一个独立线程上执行引用方法，并且立即返回到原始线程。原始线程可以继续，二引用方法会在线程池的线程中<strong>并行</strong>执行。</li>
+<li>当程序希望获得已完成的异步方法的结果时，可检查BeginInvoke返回的<strong>IAsyncResult</strong>（它表示线程的状态）的IsCompleted属性，或者调用委托的<strong>EndInvoke</strong>方法等待委托完成。这一过程有三种标准模式：<pre><code>![](http://7xs1eq.com1.z0.glb.clouddn.com/aync.png)
+</code></pre><ul>
+<li>在等待一直到完成模式中，发起了异步方法后，原始线程就<strong>中断</strong>等待异步方法完成后再继续。</li>
+<li>轮询模式中，原始线程定期检查发起的线程是否完成，如果没有则可以做其他的事。</li>
+<li>回调模式中，原始线程<strong>一直进行</strong>,无需等待或检查发起的线程是否完成。</li>
+</ul>
+</li>
+</ul>
+<p>下面我们来研究一下BeginInvoke和EndInvoke,有关BeginInvoke的事项如下：</p>
+<ul>
+<li>调用BeginInvoke时，参数列表世界参数数组如下：<ul>
+<li>引用方法需要的参数</li>
+<li>两个额外的参数——callback和state</li>
+</ul>
+</li>
+<li>BeginInvoke从线程池中获取一个线程并且让引用方法在新的线程中开始。</li>
+<li><p>返回给调用线程一个实现<strong>IAsyncResult</strong>接口的对象的引用。这个接口包含了线程池中运行的异步方法的<strong>当前状态</strong>。</p>
+<pre><code>      delegate long MyDel(int first,int second); //声明委托
+      static long Sum(int x, int y){...}        //方法匹配委托
+      Mydel del=new MyDel(Sum);                 //创建委托对象
+      IAsyncResult/有关新线程的信息 ar=del.BeginInvoke/异步调用(3,5,null,null);  //3，5是委托参数，null，null是额外参数
+EndInvoke方法用来获取由异步方法调用返回的值，并释放线程使用的资源。
+</code></pre></li>
+<li>它接受一个由BeginInvoke发放返回的IAsynResult对象的引用，并找到相关联的线程。</li>
+<li>如果线程池的线程已经退出，它会清理线程的状态并释放资源，它找到<strong>引用方法返回的值</strong>并且把它作为返回值。</li>
+<li>如果当EndInvoke被调用时线程仍然运行，调用线程就会停止等待，知道清理完毕并返回值，确保对每一个BeginInvoke都调用EndInvoke</li>
+<li>如果异步方法触发了异常，在调用EndInvoke时会抛出异常。</li>
+<li><p>下面是调用EndInvoke并从异步方法获取值的示例。必须把IAsyncResult对象的引用作为参数。</p>
+<pre><code>long result=del.EndInvoke(ar);  //long 为异步方法的返回值
+long result=del.EndInvoke(out soneInt,ai); //如果委托的引用方法有ref和out参数，也要包含在参数列表
+</code></pre></li>
+</ul>
+<p>下面我们来看第一种模式：等待一直到结束模式</p>
+<pre><code>    using Systerm;
+    using Systerm.Threading;
+
+    delegate long MyDel(int first,int second);
+
+    class Program{
+        static long Sum(int x,int y){
+        Console.WriteLine(&quot;Inside Sum&quot;);
+        Thread.Sleep(100);
+
+        return x+y;
+    }
+static void Main(){
+    MyDel del=new MyDel(Sum);
+
+    Console.WriteLine(&quot;Before BeginInvoke&quot;);
+    IAsyncResult ar=del.BeginInvoke(3,5,null,null);//开始异步调用
+    Console.WriteLine(&quot;After BeginInvoke&quot;);
+
+    Console.WriteLine(&quot;doing stuff&quot;);
+
+    long result=del.EndInvoke(ar);   //等待结束并获取结果
+    Console.WriteLine(&quot;After EndInvoke:{0}&quot;,result);
+
+    Console.WriteLine(&quot;doing stuff&quot;);
+}
+} 
+//输出：Before BeginInvoke
+        After  BeginInvoke
+        Doing stuff
+        Inside sum
+        After EndInvoke:8
+        doing stuff            //从这里可以看出主线程在等待新线程完成
+</code></pre><p>轮询模式<br>使用IAsyncResult对象的IsComplete属性来定期检查开启的线程是否完成，如果异步方法完成，原始线程就调用EndInvoke并继续。没完成，就做一些处理，一会再检查，下面的示例 ‘处理’是0数到10000000</p>
+<pre><code>    using System;
+    using System.Threading;
+
+    namespace beginInvoke
+{
+delegate long MyDel(int first, int second);
+
+class Program
+{
+    static long Sum(int x, int y)
+    {
+        Console.WriteLine(&quot;Inside Sum&quot;);
+        Thread.Sleep(100);
+
+        return x + y;
+    }
+    static void Main()
+    {
+        MyDel del = new MyDel(Sum);
+
+        Console.WriteLine(&quot;Before BeginInvoke&quot;);
+        IAsyncResult ar = del.BeginInvoke(3, 5, null, null);//开始异步调用
+        Console.WriteLine(&quot;After BeginInvoke&quot;);
+
+        while (!ar.IsCompleted)
+        {
+            Console.WriteLine(&quot;not done&quot;);
+            //继续处理
+            for (long i= 0; i &lt; 10000000; i++)
+                ;
+        }
+
+        Console.WriteLine(&quot;done&quot;);
+
+        long result = del.EndInvoke(ar);   //等待结束并获取结果
+        Console.WriteLine(&quot;After EndInvoke:{0}&quot;, result);
+        Console.WriteLine(&quot;doing stuff&quot;);
+    }
+}
+}
+输出：Before BeginInvoke
+    After BeginInvoke
+    not done
+    Inside Sum
+    not done
+    not done
+    not done
+    done
+    After EndInvoke:8
+    doing stuff
+</code></pre><p>回调模式<br>一旦初始线程发起异步方法，就自己管自己。在异步方法调用结束之后，系统会调用一个用户自定义的方法（回调方法）处理结果，并调用委托的<strong>EndInvoke</strong>方法。<br>1，在会回调方法中调用BenginInvoke，BenginInvoke的参数列表中最后两个额外参数由回调方法使用。</p>
+<ul>
+<li>第一个参数callback，是回调方法的名字，这个参数是AsnycCallback类型的委托。</li>
+<li><p>第二个参数state，可以是null或者要传入回调方法的一个对象的引用。我们可以通过IAsyncResult参数的AsyncState属性来获取这个对象，参数的类型是object。</p>
+<pre><code>      IAsyncResult ar1=del.BeginInvoke(3,5,new AsnycCallback(CallWhenDone)/使用回调方法创建委托,null);
+      IAsyncResult ar2=del.BEginInvoke(3,5,CallWhenDone/直接使用回调方法的名字编译器自动为我们创建委托,null);
+2，在回调方法中调用EndInvoke
+此时，需要委托对象的引用，**但是它在初始线程内，而不在新的线程内。**如果不使用BeginInvoke的state参数做其他用途，我们可以给它发送委托的引用给回调方法
+![](http://7xs1eq.com1.z0.glb.clouddn.com/asyncResult.png)
+</code></pre><ul>
+<li>给回调方法的参数只有一个就是刚结束异步方法的IAsyncResult接口的引用</li>
+<li>IAsyncResult接口没有委托对象的引用，封装它的<strong>AsyncResult</strong>类对象有委托对象的引用AsyncDelegate.上图方法体第一行代码里通过转换接口引用为类类型来获取类对象的引用。</li>
+<li><p>有了类对象的引用，可以调用类对象的AsyncDelegate属性并且转换为何时的类型。这样就得到了委托引用，用它来调用EndInvoke.<br>完整代码：</p>
+<pre><code>using System;
+using System.Threading;
+
+namespace beginInvoke
+{
+delegate long MyDel(int first, int second);
+
+class Program
+{
+static long Sum(int x, int y)
+{
+    Console.WriteLine(&quot;Inside Sum&quot;);
+    Thread.Sleep(100);
+
+    return x + y;
+}
+static void CallWhenDone(IAsyncResult iar){
+Console.WriteLine(&quot;Inside CallWhenDone&quot;);
+AsyncResult ar=(AsyncResult) iar;
+MyDel del=(MyDel)ar.AsyncDelegate;
+
+long result=del.iar.EndInvoke(ar);
+Console.WriteLine(&quot;After EndInvoke:{0}&quot;, result);
+}
+static void Main()
+{
+    MyDel del = new MyDel(Sum);
+
+Console.WriteLine(&quot;Before BeginInvoke&quot;);
+IAsyncResult ar = del.BeginInvoke(3, 5, new  AsyncCallback(CallWhenDone), del);//开始异步调用 del换成null也可以。。
+Console.WriteLine(&quot;After BeginInvoke&quot;);
+
+Console.WriteLine(&quot;done more work in the main &quot;);
+Thread.Sleep(500);
+
+Console.WriteLine(&quot;done with main ,exting&quot;);
+    }
+}
+}
+输出：  Before BeginInvoke
+        After BeginInvoke
+        done more work in the main                      
+        Inside Sum
+        Inside CallWhenDone
+        After EndInvoke:8
+        done with main ,exting
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>四，计数器</strong><br>计时器提供了一种定期重复运行异步方法的方式，这里接受的不是Timer类中的，而是 using System.Threading下的</p>
+<ul>
+<li>每次时间到期之后调用回调方法，回调方法必须是TimerCallback委托形式的，结构如下，它接受了一个object类型为参数，并且返回类型void<br><code>void TimerCallback(object state)</code></li>
+<li><p>Timer类有很多构造函数，最常用的形式如下：<br><code>Timer(TimerCallback callback,object state,uint dueTime,unit period)</code><br>当计时器到期之后，系统会从线程池中的线程开启一个回调方法，提供state对象作为其参数<br>dueTime是回调方法首次被调用之前的时间，如果被设置为Timeout,Infinite，则不会开始，如为0，回调函数立即被调用。<br>period是两次成功调用回调函数之间的时间间隔，如果设置为Timeout.Infinite，首次被调用之后不会再被调用。</p>
+<pre><code>Timer myTimer=new Timer(MyCallback/回调的名字,someObject/传给回调的对象,2000,1000);//在2000毫秒后第一次调用，每1000毫秒调用一次
+</code></pre></li>
+<li><p>一但TImer对象被创建，我们可以用Change方法来改变它的dueTime或者period方法。        </p>
+<pre><code>    using System;
+    using System.Threading;
+
+    namespace Timers
+    {
+    class Program
+   {
+    int TimesCalled = 0;
+
+    void Display(object state)
+    {
+        Console.WriteLine(&quot;{0} {1}&quot;, (string)state, ++TimesCalled);
+    }
+
+    static void Main()
+    {
+        Program p = new Program();
+
+        Timer myTimer = new Timer(p.Display, &quot;Processing timer event&quot;, 2000, 1000);
+
+        Console.WriteLine(&quot;timer start&quot;);
+
+        Console.ReadLine();
+    }
+}
+  }
+  输出：timer start
+        Processing timer event 1
+        Processing timer event 2
+        Processing timer event 3
+        Processing timer event 4
+        Processing timer even  一直加。。
+</code></pre></li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/05/10/c#异步编程/"
+                     data-title="c#异步编程"
+                     data-url="http://haojen.github.io/2016/05/10/c#异步编程/"
+                     data-images=""
+                     data-content="写在前面
+一旦进程建立，系统会在Main方法的第一行语句处开始线程的执行。
+线程锁：由于线程抢... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/05/25/设计模式/" data-toggle="tooltip" data-placement="top"
+                           title="设计模式">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/05/02/c#反射和特性/" data-toggle="tooltip" data-placement="top"
+                           title="c#反射和特性">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/05/10/c#异步编程/"
+                         data-title="c#异步编程"
+                         data-url="http://haojen.github.io/2016/05/10/c#异步编程/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一，async-await"><span class="toc-text">一，async/await</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#c#"
+                           title="c#">c#</a>
+                        
+                        <a class="tag" href="/tags/#异步编程"
+                           title="异步编程">异步编程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

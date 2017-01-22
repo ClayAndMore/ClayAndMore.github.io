@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        unity network和unet多人游戏｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/25/unity network和unet多人游戏/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>unity network和unet多人游戏</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#网络编程"
+                           title="网络编程">网络编程</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            unity network和unet多人游戏
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>UnityEngin.Network是实现网络功能的核心，提供了基本的功能接口，例如建立服务器和加入服务器等。<br>虽然Unity自己有一个NetWork用于网络通讯，但不得不承认，最通用的网络编程还是Socket。毕竟Unity network只是为了方便，还是会存在许许多多的限制。<br>NetWork比较适合短连接的游戏，也就是说他和网络不是实时连接通信的，用于局域网联机的话效果十分不错，但是如果上升到了MMO游戏，则不太适宜。<br>Socket则具备着相当高的自由度，主流游戏均采用它。但是它比较反，需要写数据类型转化，数据-&gt;字节流-&gt;数据，稍有错误就会崩盘…<br><a id="more"></a></p>
+<h3 id="接口介绍"><a href="#接口介绍" class="headerlink" title="接口介绍"></a>接口介绍</h3><p>先了解下面三个基本接口：</p>
+<ul>
+<li>Network.InitializeServer(int connections,int port,bool useNat); 初始化服务器。<ul>
+<li>connections是最大连接数。</li>
+<li>port服务监听的端口号。</li>
+<li>useNat表示是否使用Nat穿透。</li>
+<li>返回枚举类型NetworkConnectionError.—NetworkConnectionError.NoError表示创建服务器成功，没有错误。</li>
+</ul>
+</li>
+<li>Network.Connect(string IP,int Port); 连接服务器。<ul>
+<li>IP就是服务器的IP地址啦，port端口号了.</li>
+<li>返回枚举类型NetworkConnectionError.—NetworkConnectionError.NoError表示创建服务器成功，没有错误。</li>
+</ul>
+</li>
+<li><p>Network.Disconnect();用于断开网络连接。如果是服务器的话，则是断开网络连接并关闭服务器。<br><br></p>
+<h3 id="开始实战"><a href="#开始实战" class="headerlink" title="开始实战"></a>开始实战</h3><p>建立一个空物体，命名为 Manager ，添加脚本：</p>
+<p>  using UnityEngine;<br>  using System.Collections;</p>
+<p>  public enum STATE<br>  {</p>
+<pre><code>idel,
+server,
+client
+</code></pre><p>  }</p>
+<p>  public class Server : MonoBehaviour {</p>
+<pre><code>private STATE state = STATE.idel;
+private string ip = &quot;127,0,0,1&quot;;
+private int port = 1000;
+
+void OnGUI()
+{
+    switch (state)
+    {
+        case STATE.idel:
+            OnIdel();   break;
+        case STATE.server:
+            OnServer(); break;
+        case STATE.client:
+            OnClient(); break;
+    }
+
+}
+
+//idle状态，可以连接或创建服务器
+void OnIdel()
+{
+    if (GUILayout.Button(&quot;建立服务器&quot;))
+    {
+        NetworkConnectionError error = Network.InitializeServer(3, port, false);
+        if (error == NetworkConnectionError.NoError)
+        {state = STATE.server;}
+    }
+    GUILayout.Label(&quot;===========================&quot;);
+    GUILayout.BeginHorizontal();
+    GUILayout.Label(&quot;服务器ip地址&quot;);
+    ip = GUILayout.TextField(ip);
+    GUILayout.EndHorizontal();
+    if(GUILayout.Button(&quot;连接服务器&quot;))
+    {
+        NetworkConnectionError error = Network.Connect(ip, port);
+        if(error == NetworkConnectionError.NoError)
+        { state = STATE.client; }
+    }
+}
+//server状态，显式客户端连接信息
+void OnServer()
+{
+    GUILayout.Label(&quot;当前连接数量：&quot;+ Network.connections.Length);
+    if(GUILayout.Button(&quot;断开服务器&quot;))
+    {
+        Network.Disconnect();
+        state = STATE.idel;
+    }
+}
+//Client状态
+void OnClient()
+{
+    GUILayout.Label(&quot;已连接至服务器&quot;);
+    if(GUILayout.Button(&quot;断开&quot;))
+    {
+        Network.Disconnect();
+        state = STATE.idel;
+    }
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p><img src="http://ojynuthay.bkt.clouddn.com/unityNetWork.png" alt=""></p>
+<h3 id="在unity-脚本中获取客户端的IP地址"><a href="#在unity-脚本中获取客户端的IP地址" class="headerlink" title="在unity 脚本中获取客户端的IP地址"></a>在unity 脚本中获取客户端的IP地址</h3><p>需要using System.Net.NetworkInformation;<br>原理就是获取网卡的信息。</p>
+<p>//下面这段代码是我在百度贴吧找来的，经检验是正确的</p>
+<pre><code>string userIp = &quot;&quot;;
+NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;
+foreach (NetworkInterface adapter in adapters)
+{
+　　if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+　　{
+　　　　UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;
+　　　　if (uniCast.Count &gt; 0)
+　　　　{
+　　　　　　foreach (UnicastIPAddressInformation uni in uniCast)
+　　　　　　{
+　　　　　　　　//得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4
+　　　　　　　　if (uni.Address.AddressFamily == AddressFamily.InterNetwork)
+　　　　　　　　{
+　　　　　　　　　　userIp =uni.Address.ToString();
+　　　　　　　　}
+　　　　　　}
+　　　　}
+　　}
+}
+</code></pre><h3 id="unity-Unet-多人联机游戏"><a href="#unity-Unet-多人联机游戏" class="headerlink" title="unity Unet 多人联机游戏"></a>unity Unet 多人联机游戏</h3><p>整理自 siki 的视屏教程 <a href="http://pan.baidu.com/s/1o8283xg" target="_blank" rel="external">http://pan.baidu.com/s/1o8283xg</a> 密码：y86u</p>
+<h4 id="Player的设置和网络初始"><a href="#Player的设置和网络初始" class="headerlink" title="Player的设置和网络初始"></a>Player的设置和网络初始</h4><p>创建一个空物体命名为NetWorkManager 为其添加同名脚本，这是unet的核心组件 然后添加NetWork Manager HUD 这是一个ui和network交互 有客户端 和 服务端 方便开发。<br><img src="http://ojynuthay.bkt.clouddn.com/unet%E5%A4%9A%E4%BA%BA%E8%81%94%E6%9C%BA%E6%B8%B8%E6%88%8F1.png" alt=""><br>用自带3D物体创建一个player存成预设，放到networkManager的 Player Prefab里。这意味着每次创建客户端或者服务端自动创建。<br><img src="http://ojynuthay.bkt.clouddn.com/unet%E5%A4%9A%E4%BA%BA%E8%81%94%E6%9C%BA%E6%B8%B8%E6%88%8F2.png" alt=""><br>为player写移动脚本，添加到预设<br>为player添加Network Identity，意味着在网络生成，这里有两个属性，一个Server Only，是只在服务端，一个是LocalPlayerAuthority在每个客户端生成。<br><img src="http://ojynuthay.bkt.clouddn.com/unet%E5%A4%9A%E4%BA%BA%E8%81%94%E6%9C%BA%E6%B8%B8%E6%88%8F3.png" alt=""><br>为player添加network Transform组件 ，实现不同端的同步，这个同步是单向的，由localPlayer同步到其他客户端</p>
+<h4 id="子弹的设置"><a href="#子弹的设置" class="headerlink" title="子弹的设置"></a>子弹的设置</h4><p>创建子弹预设，这里注意，要把子弹添加Network Identity，注册到networkManager，只有添加了才能注册到networkManager（在网络中生成需要注册），还要为子弹添加Network Transform 同步子弹的运动。<br><img src="http://ojynuthay.bkt.clouddn.com/unet%E5%A4%9A%E4%BA%BA%E8%81%94%E6%9C%BA%E6%B8%B8%E6%88%8F3.png" alt=""></p>
+<h4 id="血条"><a href="#血条" class="headerlink" title="血条"></a>血条</h4><p>为player新建一个slider，并修改成如图：<br><img src="http://ojynuthay.bkt.clouddn.com/unet%E5%A4%9A%E4%BA%BA%E8%81%94%E6%9C%BA%E6%B8%B8%E6%88%8F5.png" alt=""><br>设置颜色，然后添加脚本：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class HealLookAtScreen : MonoBehaviour {
+    void Update () {
+        transform.LookAt(Camera.main.transform); //让血条一直对着屏幕
+    }
+}
+</code></pre>
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/25/unity network和unet多人游戏/"
+                     data-title="unity network和unet多人游戏"
+                     data-url="http://haojen.github.io/2016/06/25/unity network和unet多人游戏/"
+                     data-images=""
+                     data-content="写在前面UnityEngin.Network是实现网络功能的核心，提供了基本的功能接口，例如建... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/27/unity之shader/" data-toggle="tooltip" data-placement="top"
+                           title="unity之shader">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/20/Unity Effects/" data-toggle="tooltip" data-placement="top"
+                           title="Unity Effects">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/25/unity network和unet多人游戏/"
+                         data-title="unity network和unet多人游戏"
+                         data-url="http://haojen.github.io/2016/06/25/unity network和unet多人游戏/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口介绍"><span class="toc-text">接口介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始实战"><span class="toc-text">开始实战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在unity-脚本中获取客户端的IP地址"><span class="toc-text">在unity 脚本中获取客户端的IP地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unity-Unet-多人联机游戏"><span class="toc-text">unity Unet 多人联机游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Player的设置和网络初始"><span class="toc-text">Player的设置和网络初始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子弹的设置"><span class="toc-text">子弹的设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#血条"><span class="toc-text">血条</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#网络编程"
+                           title="网络编程">网络编程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

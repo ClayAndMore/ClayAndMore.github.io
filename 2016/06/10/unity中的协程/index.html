@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        unity中的协程｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/10/unity中的协程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>unity中的协程</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#协程"
+                           title="协程">协程</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            unity中的协程
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>协程并非真正的多线程。协程其实是等某个操作完成之后再执行后面的代码，或者说是控制代码在特定的时机执行。协程只是部分执行，并假定在适当的条件得到满足，在未来的某一时刻将被恢复，直到它的工作完成。<br>或者说，协同程序，在主程序运时开启另一段逻辑处理，协同当前程序的执行。而多线程在Unity渲染和复杂逻辑运算时可以高效的使用多核CPU，帮助程序可以更高效的运行。</p>
+<p>先看一个示例，点击按钮让cube旋转30°，过三秒后再旋转30°<br><img src="http://ojynuthay.bkt.clouddn.com/unity%E5%8D%8F%E7%A8%8B.png" alt=""><br>代码：</p>
+<p>​<a id="more"></a>    </p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class IEnumeratorTest : MonoBehaviour {
+    public void BtnClick()
+    {
+        StartCoroutine(Test());
+    }
+
+    IEnumerator Test()
+    {
+        this.transform.Rotate(Vector3.up * 30);
+        yield return new WaitForSeconds(3); //等待三秒
+        this.transform.Rotate(Vector3.forward * 30);
+    }
+}
+</code></pre><ul>
+<li>协程不会阻塞主线程</li>
+<li>协程在游戏中用于AI，降低它的资源利用，不让它总是每帧检测，而是像上面等几秒检测一次。</li>
+</ul>
+<h3 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h3><p>调用函数是协程的简化写法，分为：</p>
+<ul>
+<li><p>Invoke 调用函数： 隔多长时间执行<strong>一次</strong>某方法。</p>
+<pre><code>public void Invoke(string methodName,float time);
+</code></pre></li>
+<li><p>InvokeRepeating 重复调用函数： 指定时间、指定间隔时间重复调用。</p>
+<pre><code>public void InvokeRepeating(string methodName, float time, float repeatRate)
+</code></pre><p>eg:</p>
+<pre><code>void Start () {
+
+    Invoke(&quot;test&quot;, 5f);   //5秒后调用一次text
+
+    InvokeRepeating(&quot;test1&quot;, 1f, 1f);  //重复调用，1s时开始，1s间隔重复调用。
+}
+
+void test()
+{
+    Debug.Log(&quot;this is test&quot;);
+}
+
+void test1()
+{
+    Debug.Log(&quot;this is test1&quot;);
+}
+</code></pre></li>
+</ul>
+<h3 id="协程和调用函数的区别"><a href="#协程和调用函数的区别" class="headerlink" title="协程和调用函数的区别"></a>协程和调用函数的区别</h3><ul>
+<li>调用函数是协程的简化写法。</li>
+<li>调用函数语法简单，但是不灵活，协程注重“非固定时间间隔”。</li>
+</ul>
+<hr>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>Unity3D编程时，总有个主线程执行你的代码，也可以创建额外的线程和主线程同时运行。而Unity中，你仅能从主线程中访问Unity3D的组件，对象和Unity3D系统调用。任何企图访问这些项目的第二个线程都将失败并引发错误，这是一个要重视的一个限制。</p>
+<p>先记住一句结论：<br> <strong>分线程可以做 基本类型的计算， 以及非Unity(包括.Net及SDK)的API</strong><br>使用多线程注意：</p>
+<ul>
+<li>变量都是共享的(都能指向相同的内存地址)</li>
+<li>UnityEngine的API不能在分线程运行</li>
+<li>UnityEngine定义的基本结构(int,float,Struct定义的数据类型)可以在分线程计算，如 Vector3(Struct)可以 ， 但Texture2d(class,根父类为Object)不可以。</li>
+<li>UnityEngine定义的基本类型的函数可以在分线程运行</li>
+<li>tread类等多线程一般不用于unity里，它会和 unity的api起冲突，一般socket类用多线程。</li>
+</ul>
+<hr>
+<h3 id="Loom"><a href="#Loom" class="headerlink" title="Loom"></a>Loom</h3><p>Unity的函数执行机制是帧序列调用，甚至连Unity的协程Coroutine的执行机制都是确定的，如果可以使用多线程访问UnityEngine的对象和api就得考虑同步问题了，也就是说Unity其实根本没有多线程的机制，协程只是达到一个延时或者是当指定条件满足是才继续执行的机制。这时我们发现了Loom.<br>我们只需要关系两个函数：RunAsync(Action)和QueueOnMainThread(Action, [optional] float time) 就可以轻松实现一个函数的两段代码在C#线程和Unity的主线程中交叉运行。原理也很简单：用线程池去运行RunAsync(Action)的函数，在Update中运行QueueOnMainThread(Acition, [optional] float time)传入的函数。<br>更多请看，<a href="http://blog.csdn.net/sgnyyy/article/details/41779451" target="_blank" rel="external">点击这里</a></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/10/unity中的协程/"
+                     data-title="unity中的协程"
+                     data-url="http://haojen.github.io/2016/06/10/unity中的协程/"
+                     data-images=""
+                     data-content="协程协程并非真正的多线程。协程其实是等某个操作完成之后再执行后面的代码，或者说是控制代码在特定... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/12/unity导航系统/" data-toggle="tooltip" data-placement="top"
+                           title="unity导航系统">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/08/unity中的向量与数学/" data-toggle="tooltip" data-placement="top"
+                           title="unity中的向量与数学">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/10/unity中的协程/"
+                         data-title="unity中的协程"
+                         data-url="http://haojen.github.io/2016/06/10/unity中的协程/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用函数"><span class="toc-text">调用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程和调用函数的区别"><span class="toc-text">协程和调用函数的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多线程"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loom"><span class="toc-text">Loom</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#协程"
+                           title="协程">协程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

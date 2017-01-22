@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        UGUI｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/19/UGUI/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>UGUI</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-19
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#UGUI"
+                           title="UGUI">UGUI</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            UGUI
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="slide和文字滚动"><a href="#slide和文字滚动" class="headerlink" title="slide和文字滚动"></a>slide和文字滚动</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/ugui1.png" alt=""><br>基本操作都是在文字的背景图片上添加组件<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/scrolRectNew.png" alt=""></p>
+<a id="more"></a>
+<p>背景是image图片    调整颜色的阿尔法值 （黑白亮度）使背景 变透明</p>
+<p>然后拉伸文字控件的长度使全部文字显示出来</p>
+<p>再添加一个和文字控件一样大小的image<br>为image添加 ScrollRect,其content设置成此text（ 让此text可以滚动）<br>这里将滚动方向设为垂直</p>
+<p>添加mask组件可将显示界面外的内容隐藏，滑动能显示<br>添加scrollbar 将image组件scrollrect里的scrollbart添加即可实现滑动条控制</p>
+<h3 id="button控件函数传值"><a href="#button控件函数传值" class="headerlink" title="button控件函数传值"></a>button控件函数传值</h3><p>这里介绍通过UGUIbutton的Click函数加载另外场景的两种方式，也是函数传值的方式<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/btnGetinFinish.png" alt=""><br>​<br>        public void buttonStarOtherSence(string SceneName) {</p>
+<pre><code>Application.LoadLevel(SceneName);
+}
+
+public void buttonStarOtherScenceNum(int sceneNum) {
+Application.LoadLevel(sceneNum);
+}
+</code></pre><p>数字传值需要在buid setting里将场景添加，正如数组，索引1是第二个场景。</p>
+<h3 id="image-type"><a href="#image-type" class="headerlink" title="image type"></a>image type</h3><p>有四种ImageType,Simple,Sliced,Tiled,Filled<br>simple 即正常缩放<br>右上为sliced可划分九宫格 在图片属性的sprite editor中可拖拽几个点，分割出边框，使图片在缩放时边框不会失真<br>左下为Tiled 平铺<br>右下为 filled 可显示部分 技能刷新时可用<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/ImageTypeAll.jpg" alt=""></p>
+<h4 id="制作技能冷却图标"><a href="#制作技能冷却图标" class="headerlink" title="制作技能冷却图标"></a>制作技能冷却图标</h4><pre><code>技能释放时，图标以中心成扇形刷新，如上右下
+</code></pre><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/skill.png" alt=""><br>需要脚本控制：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;    //注意这里，加入命名空间
+
+public class SkillItem : MonoBehaviour {
+
+public float coldtimer = 2f;   //技能冷却时间
+public KeyCode kecode;  //这里不太明白
+private float timer = 0;    //时间计时
+
+private Image fillImage;
+
+bool isStartTime = false;
+// Use this for initialization
+void Start () {
+fillImage=transform.Find(&quot;FilledImage&quot;).GetComponent&lt;Image&gt;();
+}   //找到图片对象，覆盖在技能图片外面的暗图片
+
+// Update is called once per frame
+void Update () {
+    if(Input.GetKeyDown(kecode)){
+        isStartTime = true;
+    }
+
+ if(isStartTime==true){
+     timer += Time.deltaTime;
+     fillImage.fillAmount = (coldtimer - timer) / coldtimer;
+
+     if(timer&gt;=coldtimer){
+         fillImage.fillAmount = 0;
+         timer = 0;
+         isStartTime = false;
+     }
+ }
+}
+
+public void OnSkillClick() {
+    isStartTime = true;
+}
+  }
+</code></pre><p>将image的Click方法给予OnSIllClick，点击技能即可实现。</p>
+<h3 id="标签页"><a href="#标签页" class="headerlink" title="标签页"></a>标签页</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/tap.png" alt=""><br>创建三个空物体，目的是分别对应GameObject.SetAvtive()方法，物体下添加各自的内容，如文字，使得在点击不同标签页时显示不同内容，每个标签页(tap)都是image物体，添加了toggle组件，下都有个图片，比自己颜色深的图片，父物体（image4）添加了了toggle group组件，使三个tap下的group都设置为它 这样就可以只选择一个页面</p>
+<h3 id="滚动列表"><a href="#滚动列表" class="headerlink" title="滚动列表"></a>滚动列表</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/crolObject.png" alt=""><br>创建一个空的image（如图）作为显式范围，添加Scroll Rect脚本，contest为一个空的gameobject，将这个gameobject高度，左端和image对齐，右端延伸到很长，放你需要的图标，这个gameobject添加网格（component-&gt;Layout-&gt;Gird Layout Group），网格内放新建的空物体，空物体下放图标。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/19/UGUI/"
+                     data-title="UGUI"
+                     data-url="http://haojen.github.io/2016/06/19/UGUI/"
+                     data-images=""
+                     data-content="slide和文字滚动基本操作都是在文字的背景图片上添加组件
+
+背景是image图片    调整... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/20/Unity Effects/" data-toggle="tooltip" data-placement="top"
+                           title="Unity Effects">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/18/Unity遮挡剔除和LOD/" data-toggle="tooltip" data-placement="top"
+                           title="Unity遮挡剔除和LOD">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/19/UGUI/"
+                         data-title="UGUI"
+                         data-url="http://haojen.github.io/2016/06/19/UGUI/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#slide和文字滚动"><span class="toc-text">slide和文字滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#button控件函数传值"><span class="toc-text">button控件函数传值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#image-type"><span class="toc-text">image type</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#制作技能冷却图标"><span class="toc-text">制作技能冷却图标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标签页"><span class="toc-text">标签页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滚动列表"><span class="toc-text">滚动列表</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                        <a class="tag" href="/tags/#UGUI"
+                           title="UGUI">UGUI</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

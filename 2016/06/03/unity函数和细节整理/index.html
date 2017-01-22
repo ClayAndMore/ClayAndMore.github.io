@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        unity函数和细节整理｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/06/03/unity函数和细节整理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>unity函数和细节整理</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-06-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            unity函数和细节整理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="基础函数"><a href="#基础函数" class="headerlink" title="基础函数"></a>基础函数</h2><h3 id="移动、旋转和缩放对象"><a href="#移动、旋转和缩放对象" class="headerlink" title="移动、旋转和缩放对象"></a>移动、旋转和缩放对象</h3><ul>
+<li><p>移动<br>对象在<strong>原有的位置</strong>上继续移动：</p>
+<pre><code>transform.Translate ( Vector3 offset);
+</code></pre><p>  相当于:</p>
+<pre><code>transform.position = transform.position + offset;
+</code></pre><a id="more"></a>
+</li>
+<li><p>缩放游戏对象</p>
+<pre><code>transform.localScale = new Vector3( x, y, z);
+transform.lacalScale *= 1.2f ; //对整体进行缩放
+</code></pre></li>
+<li><p>旋转游戏对象 </p>
+<pre><code>  旋转有两种，一种是自转：
+​      
+      transform.Rotate( new Vector3(0,10,0));  // 围绕Y轴转10°。
+
+  一种是围绕一个点或者一个对象来旋转：
+
+      this.transform.RotateAround(sphere.position, Vector3.up, 180);  //围绕球的位置对Y轴旋转180。
+</code></pre><ul>
+<li>Vector.up : 　   Y 轴正向</li>
+<li>Vector.right：   X 轴正向</li>
+<li>Vector.forward : Z 轴正向</li>
+</ul>
+</li>
+<li><p>四元数 </p>
+<pre><code>      transform.rotation = Quaternion.Euler(0f,100f, 0f);
+括号内是一个vector3的变量，这个函数将它变成四元数，我在测试的时候发现，上述代码会使物体的rotation 变成一百，是个固定的赋值，而不是旋转100°。  
+&lt;br&gt;
+</code></pre><h3 id="克隆生成实例"><a href="#克隆生成实例" class="headerlink" title="克隆生成实例"></a>克隆生成实例</h3><p>public GameObject prefab；<br>void OnGUI(){</p>
+<pre><code>if(GUILayout.Button(&quot;克隆&quot;){
+    GameObject obj = Instantiate(prefab) as GameObject;
+    obj.position = this.position;
+    }
+}
+</code></pre><p><br></p>
+<h3 id="发送广播与消息"><a href="#发送广播与消息" class="headerlink" title="发送广播与消息"></a>发送广播与消息</h3></li>
+<li><p>发送者</p>
+<pre><code>public GameObject reciever； //定义接受消息的对象
+void OnGUI(){
+    if(GUILayout.Button(&quot;发送消息&quot;){
+       reciever.SendMessage(&quot;Show&quot;,100,SendMessageOptions.DontRequireReceiver);
+        }
+    }
+</code></pre><p>说明：第一个参数是接受的函数名称，100是传的参数，后面是是否必须有接受方法，一般可不填。</p>
+</li>
+<li><p>接收者 </p>
+<pre><code>//消息接收函数，消息发送后被调用，就是接收一次调用一次
+    void Show(int num)
+    {
+        Debug.Log(&quot;收到的数字是&quot; + num);
+    }
+</code></pre><p><br></p>
+<h3 id="时间类-Time"><a href="#时间类-Time" class="headerlink" title="时间类 Time"></a>时间类 Time</h3></li>
+<li>Time.time : 从游戏开始计时，暂停不增加，运行游戏的时间。</li>
+<li>Time.timeScale : 时间流逝速度，1f和现实流逝速度一样，0.5f时间变慢，真实时间一秒，游戏时间过了0.5秒</li>
+<li>Time.deltaTime : 上一帧所消耗的时间。</li>
+<li>Time.fixedTime : 固定更新时间，Edit-&gt;Project Settings Time -&gt;Time 可设置。</li>
+<li>Time.fixedDeltaTime : 固定更新上一帧所消耗的时间。</li>
+<li>TIme.realtimeSinceStarup : 从游戏开始计时，截至到目前共运行的真实时间，不受time.scale影响，游戏暂停该时间仍然增加。<br><br><h3 id="数字类"><a href="#数字类" class="headerlink" title="数字类"></a>数字类</h3></li>
+<li><p>随机数   </p>
+<pre><code>int i   = Random.Range(0,10);
+float f = Random.Range(0f,10f);
+</code></pre></li>
+<li>Mathf.Abs(a): a的绝对值，a为整数或者浮点数。</li>
+<li>Mathf.Clamp(a,min,max) : a限制在min和max之间，参数为整数或者浮点数。</li>
+<li><p>Mathf.Lerp (from,to,t) : </p>
+<ul>
+<li>插入值，基于浮点数t返回a到b之间的插值，t限制在<strong>0～1</strong>之间。当t = 0返回from，当t = 1 返回to。当t = 0.5 返回from和to的平均值。</li>
+<li><p>在一秒内从minimum渐变到maximum</p>
+<pre><code>var minimum = 10.0; var maximum = 20.0;
+function Update () {
+transform.position = Vector3(Mathf.Lerp(minimum, maximum, Time.time), 0, 0);
+}
+</code></pre></li>
+</ul>
+</li>
+<li>Mathf.Min (a,b,c) : 返回两个或n个数的最小值，参数为整数或者浮点数。</li>
+<li>Mathf.Max (a,b,c) : 返回两个或n个数的最大值，参数为整数或者浮点数。<pre><code>&lt;br&gt;
+</code></pre><h3 id="射线"><a href="#射线" class="headerlink" title="射线"></a>射线</h3></li>
+<li><p>新建射线</p>
+<pre><code>private Vector3 direction = new Vector3 (1,0,0); //定义射线的方向
+Ray ray = new Ray (transform.position,direction)
+</code></pre></li>
+<li><p>射线撞击状态的信息</p>
+<pre><code>RaycastHit info; 
+</code></pre></li>
+<li><p>发射射线，函数返回bool值，如果射到了什么返回true</p>
+<pre><code>Physics.Raycast(ray,out info,distance); //dis 为射线的距离，可以不填，没有距离
+</code></pre></li>
+<li><p>常用这样的语句判断</p>
+<pre><code>if（ Physics.Raycast(ray,out info,distance)){
+    if(info.collider.gameObject.tag==&quot;NPC&quot;){
+        ...
+    }
+}
+</code></pre></li>
+<li><p>显示射线</p>
+<pre><code>Debug.DrawLine(ray.origin,ray.origin+direction*distance);
+Debug.DrawLine(ray.origin,info.point);
+</code></pre></li>
+</ul>
+<p>​      </p>
+<h3 id="脚本的单例模式"><a href="#脚本的单例模式" class="headerlink" title="脚本的单例模式"></a>脚本的单例模式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public static scriptName _instance;</div><div class="line"></div><div class="line">void Awake()&#123;_instance=this &#125;</div></pre></td></tr></table></figure>
+<h3 id="加载另外一个scene"><a href="#加载另外一个scene" class="headerlink" title="加载另外一个scene"></a>加载另外一个scene</h3><p><code>Application.loadlevel(场景的index或者string);</code></p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public void StartButton(string sceneName)</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">Application.LoadLevel(sceneName);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">或：Application.LoadLevel(&quot;runView&quot;);</div></pre></td></tr></table></figure>
+<h3 id="隐藏物体和组件失效"><a href="#隐藏物体和组件失效" class="headerlink" title="隐藏物体和组件失效"></a>隐藏物体和组件失效</h3><p>隐藏物体 setActive()</p>
+<p>组件失效 enable=</p>
+<h3 id="一个脚本开启另个脚本"><a href="#一个脚本开启另个脚本" class="headerlink" title="一个脚本开启另个脚本"></a>一个脚本开启另个脚本</h3><p><code>GameObject.Find(&quot;物体名称&quot;).GetComponent&lt;你想要开启或关闭的脚本名称&gt;().enabled = true</code><br>​        </p>
+<h2 id="unity持久化"><a href="#unity持久化" class="headerlink" title="unity持久化"></a>unity持久化</h2><h3 id="PlayerPrefs"><a href="#PlayerPrefs" class="headerlink" title="PlayerPrefs"></a>PlayerPrefs</h3><p>简单有效的持久化方案，适合小项目<br>存储数据：<br>PlayerPrefs.SetString(“查询键”，“存储的数值”）；//存储字符串类型数据<br>PlayerPrefs.SetInt(“查询键”，“存储的数值”）;//存储整型数据<br>PlayerPref.SetFloat(“查询键”，“存储的数值”）; //存储 浮点型数据<br>输出数据：<br>PlayerPrefs.GetString(“查询键“）；//返回字符串类型数据<br>PlayerPrefs.GetInt(“查询键”）； //返回整形数据<br>PlayerPrefs.GetFlaot(“查询键“）；//返回浮点型数据</p>
+<p>  另：PlayerPrefs.Haskey(“查询键”） //返回bool型 是否有这个键值。</p>
+<p>  这个项目中需要设置当前分数和最高分数      </p>
+<pre><code>public class gameMune : MonoBehaviour {
+
+public UILabel nowScore;    
+public UILabel highScore;
+public static gameMune _instan;
+
+void Awake()
+{
+    _instan = this;
+    this.gameObject.SetActive(false);  //开始时不显示分数面板
+}
+
+public void muneShow(float NScore)
+{
+    float HScore = PlayerPrefs.GetFloat(&quot;score&quot;, 0); //声明得到一个键值score为零
+
+if (NScore&gt;HScore)
+{
+    HScore = NScore;
+}
+
+PlayerPrefs.SetFloat(&quot;score&quot;, HScore);  //将最高分赋值
+
+nowScore.text = NScore+&quot;&quot;;  //+“”转换成string类型
+highScore.text = HScore + &quot;&quot;;
+ }
+</code></pre><h3 id="XML持久化技术"><a href="#XML持久化技术" class="headerlink" title="XML持久化技术"></a>XML持久化技术</h3><p>XML严格易读，多用于没有网络环境下的存储介质<br>XML可以对对象序列化和反序列化</p>
+<ul>
+<li>序列化： 将数据结构或对象转换成二进制串的过程</li>
+<li>反序列化：将在序列化过程中所生成的二进制串转换成数据结构或者对象的过程</li>
+</ul>
+<h2 id="细节总结"><a href="#细节总结" class="headerlink" title="细节总结"></a>细节总结</h2><h3 id="获得UGUI的slide的value值"><a href="#获得UGUI的slide的value值" class="headerlink" title="获得UGUI的slide的value值"></a>获得UGUI的slide的value值</h3><p>先在脚本开头using UnityEngine.UI 就可以有专门的slider，其他控件也可以；</p>
+<h3 id="加碰撞器之前先加刚体"><a href="#加碰撞器之前先加刚体" class="headerlink" title="加碰撞器之前先加刚体"></a>加碰撞器之前先加刚体</h3><p>两collier相碰，至少有一个物体具有rigibody才会触发Trigger函数</p>
+<h3 id="collider-和-collision的区别"><a href="#collider-和-collision的区别" class="headerlink" title="collider 和 collision的区别"></a>collider 和 collision的区别</h3><p>collider 是用做OnTriggerEnter 这类触发检测函数的参数。<br>collision是用做OnCollisionEnter这类碰撞检测函数的参数，携带碰撞检测结果信息，比如碰撞的是哪个collider，碰撞的接触点等，碰撞后返回的数据存储在这个collision中。</p>
+<h3 id="gameObject和Gameobject的区别"><a href="#gameObject和Gameobject的区别" class="headerlink" title="gameObject和Gameobject的区别"></a>gameObject和Gameobject的区别</h3><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p>mass的单位是1kg</p>
+<p>坐标的单位是1m</p>
+<h3 id="用ugui时，空格键会触碰按钮"><a href="#用ugui时，空格键会触碰按钮" class="headerlink" title="用ugui时，空格键会触碰按钮"></a>用ugui时，空格键会触碰按钮</h3><p><img src="http://ojynuthay.bkt.clouddn.com/ugui%E8%A7%A6%E5%8F%91%E7%A9%BA%E6%A0%BC.png" alt=""></p>
+<h3 id="mono"><a href="#mono" class="headerlink" title="mono"></a>mono</h3><p>mono是.net的一个开源跨平台工具，就类似java虚拟机，java本身不是跨平台语言，但运行在虚拟机上就能够实现了跨平台。.net只能在windows下运行，mono可以实现跨平台跑， 可以运行于linux，Unix，Mac OS等。</p>
+<h3 id="判断状态机的是否在切换状态"><a href="#判断状态机的是否在切换状态" class="headerlink" title="判断状态机的是否在切换状态"></a>判断状态机的是否在切换状态</h3><p><code>if(anim.IsIntransition(0)){}</code>0指的是状态机的层数，默认一个状态机都为零层。该为如果在切换。（就播放声音啊，其他功能之类的）</p>
+<h3 id="相机追随主角移动-射线判断是否有物体挡在摄像机前"><a href="#相机追随主角移动-射线判断是否有物体挡在摄像机前" class="headerlink" title="相机追随主角移动 射线判断是否有物体挡在摄像机前"></a>相机追随主角移动 射线判断是否有物体挡在摄像机前</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">RaycastHit hitinfo; </div><div class="line"></div><div class="line">if(Physics.Raycast(posArray[i],player.position-posArray[i],out hitinfo))&#123;&#125; </div><div class="line"></div><div class="line">Raycast发送射线 参数一：起始位置，参数二：方向 参数三：碰撞信息</div></pre></td></tr></table></figure>
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><h3 id="UnityEngine-UI-dll’-is-in-timestamps-but-is-not-known-in-guidmapper…"><a href="#UnityEngine-UI-dll’-is-in-timestamps-but-is-not-known-in-guidmapper…" class="headerlink" title="UnityEngine.UI.dll’ is in timestamps but is not known in guidmapper…"></a>UnityEngine.UI.dll’ is in timestamps but is not known in guidmapper…</h3><p> 错误重新导入项目就好<br>Assets-&gt;Reimport All.</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/03/unity函数和细节整理/"
+                     data-title="unity函数和细节整理"
+                     data-url="http://haojen.github.io/2016/06/03/unity函数和细节整理/"
+                     data-images=""
+                     data-content="基础函数移动、旋转和缩放对象
+移动对象在原有的位置上继续移动：
+transform.Trans... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/06/05/MonoBehavior生命周期/" data-toggle="tooltip" data-placement="top"
+                           title="MonoBehavior生命周期">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/05/30/c#网络编程/" data-toggle="tooltip" data-placement="top"
+                           title="c#网络编程">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/03/unity函数和细节整理/"
+                         data-title="unity函数和细节整理"
+                         data-url="http://haojen.github.io/2016/06/03/unity函数和细节整理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础函数"><span class="toc-text">基础函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#移动、旋转和缩放对象"><span class="toc-text">移动、旋转和缩放对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆生成实例"><span class="toc-text">克隆生成实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送广播与消息"><span class="toc-text">发送广播与消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间类-Time"><span class="toc-text">时间类 Time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字类"><span class="toc-text">数字类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#射线"><span class="toc-text">射线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本的单例模式"><span class="toc-text">脚本的单例模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载另外一个scene"><span class="toc-text">加载另外一个scene</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏物体和组件失效"><span class="toc-text">隐藏物体和组件失效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个脚本开启另个脚本"><span class="toc-text">一个脚本开启另个脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unity持久化"><span class="toc-text">unity持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PlayerPrefs"><span class="toc-text">PlayerPrefs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XML持久化技术"><span class="toc-text">XML持久化技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节总结"><span class="toc-text">细节总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获得UGUI的slide的value值"><span class="toc-text">获得UGUI的slide的value值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加碰撞器之前先加刚体"><span class="toc-text">加碰撞器之前先加刚体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#collider-和-collision的区别"><span class="toc-text">collider 和 collision的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gameObject和Gameobject的区别"><span class="toc-text">gameObject和Gameobject的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单位"><span class="toc-text">单位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用ugui时，空格键会触碰按钮"><span class="toc-text">用ugui时，空格键会触碰按钮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mono"><span class="toc-text">mono</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断状态机的是否在切换状态"><span class="toc-text">判断状态机的是否在切换状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相机追随主角移动-射线判断是否有物体挡在摄像机前"><span class="toc-text">相机追随主角移动 射线判断是否有物体挡在摄像机前</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误解决"><span class="toc-text">错误解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UnityEngine-UI-dll’-is-in-timestamps-but-is-not-known-in-guidmapper…"><span class="toc-text">UnityEngine.UI.dll’ is in timestamps but is not known in guidmapper…</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

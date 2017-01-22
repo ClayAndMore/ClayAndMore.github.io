@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        unity无窗口效果｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/01/unity无窗口效果/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本 (2).html">222</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/index - 副本.html">333</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/newpage/">newpage</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/timg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/timg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>unity无窗口效果</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-01
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            unity无窗口效果
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>本笔记参照蛮牛案例而作<br><a href="http://www.manew.com/thread-43230-1-1.html" target="_blank" rel="external">http://www.manew.com/thread-43230-1-1.html</a><br>下面是最后成品：觉得好酷炫，哈哈，谢谢大神的教程<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/noform.png" alt=""></p>
+<a id="more"></a>
+<p>首先新建项目，在项目中新建一个shader，shader代码如下：（可直接复制）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Shader &quot;Custom/ChromakeyTransparent&quot; &#123;</div><div class="line">Properties &#123;</div><div class="line">_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</div><div class="line">_TransparentColourKey (&quot;Transparent Colour Key&quot;, Color) = (0,0,0,1)</div><div class="line">_TransparencyTolerance (&quot;Transparency Tolerance&quot;, Float) = 0.01</div><div class="line">&#125;</div><div class="line">SubShader &#123;</div><div class="line">Pass &#123; </div><div class="line">Tags &#123; &quot;RenderType&quot; = &quot;Opaque&quot; &#125; </div><div class="line">LOD 200 </div><div class="line">CGPROGRAM </div><div class="line">#pragma vertex vert </div><div class="line">#pragma fragment frag</div><div class="line">#include &quot;UnityCG.cginc&quot;</div><div class="line"> </div><div class="line">struct a2v  </div><div class="line">&#123;  </div><div class="line">float4 pos : POSITION; </div><div class="line">float2 uv : TEXCOORD0; </div><div class="line">&#125;; </div><div class="line"></div><div class="line">struct v2f </div><div class="line">&#123; </div><div class="line">float4 pos : SV_POSITION;</div><div class="line">float2 uv : TEXCOORD0; </div><div class="line">&#125;;</div><div class="line"> </div><div class="line">v2f vert(a2v input) </div><div class="line">&#123;</div><div class="line">v2f output;  </div><div class="line">output.pos = mul (UNITY_MATRIX_MVP, input.pos);</div><div class="line">output.uv = input.uv;</div><div class="line">return output;</div><div class="line">&#125;</div><div class="line">  </div><div class="line">sampler2D _MainTex;</div><div class="line">float3 _TransparentColourKey;</div><div class="line">float _TransparencyTolerance;</div><div class="line">float4 frag(v2f input) : SV_Target</div><div class="line"> </div><div class="line">&#123;</div><div class="line">// What is the colour that *would* be rendered here?</div><div class="line">float4 colour = tex2D(_MainTex, input.uv);</div><div class="line">// Calculate the different in each component from the chosen transparency colour</div><div class="line">float deltaR = abs(colour.r - _TransparentColourKey.r);</div><div class="line">float deltaG = abs(colour.g - _TransparentColourKey.g);</div><div class="line">float deltaB = abs(colour.b - _TransparentColourKey.b);</div><div class="line">// If colour is within tolerance, write a transparent pixel</div><div class="line"> </div><div class="line">if (deltaR &lt; _TransparencyTolerance &amp;&amp; deltaG &lt; _TransparencyTolerance &amp;&amp; deltaB &lt; _TransparencyTolerance)</div><div class="line">&#123;</div><div class="line">return float4(0.0f, 0.0f, 0.0f, 0.0f);</div><div class="line">&#125; </div><div class="line">// Otherwise, return the regular colour </div><div class="line">return colour;  </div><div class="line">&#125; </div><div class="line">ENDCG</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输入一张纹理，一个关键颜色值以及相应的阈值，用于将指定的范围变透明（也就是大家所熟知的“抠图”）。<br>这个等我过后再学习shader回来再看。</p>
+<hr>
+<p>接下来新建一个材质并使用上面的Shader，选定你想要替换的关键颜色值（必要时也可改变阈值）。注意这里不用手动指定纹理，我们会将摄像机的输出应用到该纹理，也就是下一步要做的事情。</p>
+<p>新建一个脚本赋给主摄像机，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">using System;</div><div class="line">using System.Runtime.InteropServices;</div><div class="line">using UnityEngine;</div><div class="line">   </div><div class="line">public class NoFragment : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    [SerializeField]</div><div class="line">    private Material m_Material;</div><div class="line">    private struct MARGINS</div><div class="line">    &#123;</div><div class="line">        public int cxLeftWidth;</div><div class="line">        public int cxRightWidth;</div><div class="line">        public int cyTopHeight;</div><div class="line">        public int cyBottomHeight;</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">    // Define function signatures to import from Windows APIs</div><div class="line">    [DllImport(&quot;user32.dll&quot;)]</div><div class="line">    private static extern IntPtr GetActiveWindow();</div><div class="line">    [DllImport(&quot;user32.dll&quot;)]</div><div class="line">    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);</div><div class="line">    [DllImport(&quot;Dwmapi.dll&quot;)]</div><div class="line">    private static extern uint DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS margins);</div><div class="line"></div><div class="line">    // Definitions of window styles</div><div class="line">    const int GWL_STYLE = -16;</div><div class="line">    const uint WS_POPUP = 0x80000000;</div><div class="line">    const uint WS_VISIBLE = 0x10000000;</div><div class="line">    void Start()</div><div class="line">    &#123;</div><div class="line">#if !UNITY_EDITOR  </div><div class="line">var margins = new MARGINS() &#123; cxLeftWidth = -1 &#125;;</div><div class="line"> </div><div class="line">// Get a handle to the window</div><div class="line">var hwnd = GetActiveWindow();</div><div class="line"> </div><div class="line">// Set properties of the window</div><div class="line">// See: [url]https://msdn.microsoft.com/en-us/library/windows/desktop/ms633591%28v=vs.85%29.aspx[/url]</div><div class="line"> </div><div class="line">SetWindowLong(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);</div><div class="line"> </div><div class="line">// Extend the window into the client area</div><div class="line">//See: [url]https://msdn.microsoft.com/en-us/library/windows/desktop/aa969512%28v=vs.85%29.aspx[/url]</div><div class="line"> </div><div class="line">DwmExtendFrameIntoClientArea(hwnd, ref margins);</div><div class="line"> </div><div class="line">#endif</div><div class="line">    &#125;</div><div class="line">    // Pass the output of the camera to the custom material</div><div class="line">    // for chroma replacement</div><div class="line"></div><div class="line">    void OnRenderImage(RenderTexture from, RenderTexture to)</div><div class="line">    &#123;</div><div class="line">        Graphics.Blit(from, to, m_Material);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个代码复制博主的有一个地方没有注释掉，会显示错误，我更改过来了。</p>
+<hr>
+<p>上面的代码用到了InterOpServices命名空间，以便调用一些Windows底层API从而改变Unity应用在运行时的窗口属性。然后使用OnRenderImage事件将摄像机的输出应用到RenderTexture。将使用了上面自定义Shader的材质赋给脚本种的m_Material字段，这样我们就可以开始抠图了。</p>
+<hr>
+<p>下面重点来了，就是将天空盒去掉，这里原博文没有说，将摄像机的背景颜色改为与透明材质（就是之前新建的那个材质）中_TransparentColourKey属性一样。</p>
+<hr>
+<p>最后就是build and run 啦。。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/01/unity无窗口效果/"
+                     data-title="unity无窗口效果"
+                     data-url="http://haojen.github.io/2016/07/01/unity无窗口效果/"
+                     data-images=""
+                     data-content="本笔记参照蛮牛案例而作http://www.manew.com/thread-43230-1-... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/03/科目二模拟项目与VR项目/" data-toggle="tooltip" data-placement="top"
+                           title="科目二模拟项目与VR项目">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/01/android与unity交互/" data-toggle="tooltip" data-placement="top"
+                           title="android与unity交互">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/01/unity无窗口效果/"
+                         data-title="unity无窗口效果"
+                         data-url="http://haojen.github.io/2016/07/01/unity无窗口效果/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#unity"
+                           title="unity">unity</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

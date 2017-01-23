@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        MyBatis｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/23/mybatis/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>MyBatis</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-23
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#mybatis"
+                           title="mybatis">mybatis</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            MyBatis
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/mybatis.png" alt=""></p>
+<h3 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h3><ul>
+<li>传递多参数<br>根据id改变 name 和 age<br><code>public void updataData(int id,String name,int age);</code></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mapper</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span> = <span class="string">"updataDdata"</span>&gt;</span>   </div><div class="line">update record_t t set t.name = #&#123;1&#125;,t.age = #&#123;2&#125; where t.id = #&#123;0&#125;</div><div class="line">/update&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上面的数字代表updataData中参数的位置，注意，这样写就不要写 parameType了。</p>
+<ul>
+<li>传递多参数之绑定用法（这个好）<br>还是上面的函数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateData</span><span class="params">( @Param(value = <span class="string">"pId"</span>)</span> <span class="keyword">int</span> id,</span></div><div class="line">                        @<span class="title">Param</span><span class="params">(value = <span class="string">"pName"</span>)</span> String name,</div><div class="line">                        @<span class="title">Param</span><span class="params">(value = <span class="string">"pAge"</span>)</span> <span class="keyword">int</span> age);</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mapper</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span> = <span class="string">"updateDdata"</span>&gt;</span>   </div><div class="line">update record_t t </div><div class="line">set </div><div class="line">    t.name = #&#123;pName&#125;,</div><div class="line">    t.age = #&#123;pAge&#125; </div><div class="line">    where t.id = #&#123;pId&#125;</div><div class="line">/update&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样可以直接使用上面方法的参数来用，这样语义明了，也不用写parameType,推荐这样写。</p>
+<ul>
+<li>传入javaBean实体entity<br>javabean(entity) :<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> com.aim.entity</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleScore</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String _Name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> _Score;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> _Id;</div><div class="line">    </div><div class="line">    <span class="comment">//get set 方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>repo ：<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> com.aim.repo;</div><div class="line"><span class="keyword">public</span> inteface PlayScoreRepo&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateData</span><span class="params">( RoleScore entity)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>mapper：<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span> = <span class="string">"com.aim.repo.PlayScoreRepo"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span> = <span class="string">"updateDdata"</span> <span class="attr">parameterType</span> = <span class="string">"com.aim.entity.RoleScore &gt;   </span></span></div><div class="line">update record_t t </div><div class="line">set </div><div class="line">    t.name = #&#123;_Name&#125;,</div><div class="line">    t.age = #&#123;_Age&#125; </div><div class="line">    where t.id = #&#123;_Id&#125;</div><div class="line">/update&gt;</div><div class="line">&lt;/mapper&gt;</div></pre></td></tr></table></figure></p>
+<p>此时，如果RoleScore类里面多了个类，比如RoleScoreInside类，这个类里面有两个属性，sex,time. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleScore</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String _Name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> _Score;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> _Id;</div><div class="line">    <span class="keyword">private</span> RoleScoreInside other;</div><div class="line">    </div><div class="line">    <span class="comment">//get set 方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这时传参其他都没变，就多了调用，如：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span> = <span class="string">"com.aim.repo.PlayScoreRepo"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span> = <span class="string">"updateDdata"</span> <span class="attr">parameterType</span> = <span class="string">"com.aim.entity.RoleScore &gt;   </span></span></div><div class="line">update record_t t </div><div class="line">set </div><div class="line">    t.name = #&#123;_Name&#125;,</div><div class="line">    t.age = #&#123;_Age&#125; ,</div><div class="line">    t.sex = #&#123;other.sex&#125;,</div><div class="line">    t.time = #&#123;other.time&#125;,</div><div class="line">    where t.id = #&#123;_Id&#125;</div><div class="line">/update&gt;</div><div class="line">&lt;/mapper&gt;</div></pre></td></tr></table></figure>
+<h3 id="sql-id-及inclusde-refid用法"><a href="#sql-id-及inclusde-refid用法" class="headerlink" title="sql id 及inclusde refid用法"></a>sql id 及inclusde refid用法</h3><p>通过这个语句达到SQL最大的复用</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Mapper</span> <span class="attr">namespace</span> = <span class="string">""</span> &gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span> = <span class="string">"aim_column"</span>&gt;</span> </div><div class="line">    id,name,sex,score</div><div class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">""</span> <span class="attr">parameterType</span> = <span class="string">""</span> <span class="attr">resultType</span> = <span class="string">""</span>&gt;</span></div><div class="line">select <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span> = <span class="string">"aim_colum"</span>&gt;</span> from t where id = #&#123;id&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="sql复用"><a href="#sql复用" class="headerlink" title="sql复用"></a>sql复用</h3><p>在mybatis中，我们可以將sql语句中公共的部分提取出来，然后需要该段sql的地方通过include标签引入即可，这样可以达到sql语句复用的目的。<br>例如我们有两条相似的查询语句：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">&lt;select id="queryUserInfoByName" parameterType="string"  resultType="user"&gt;</div><div class="line">        select * from User where username = #&#123;username&#125;</div><div class="line">&lt;/select&gt;</div><div class="line">&lt;select id="queryUserInfoByPhone" parameterType="string"  resultType="user"&gt;</div><div class="line">        select * from User where phone = #&#123;phone&#125;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p>我们可以通过``标签，把公共的部分定义成一个块：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">&lt;sql id="queryUserInfo"&gt;</div><div class="line">        select * from User where </div><div class="line">&lt;/sql&gt;</div></pre></td></tr></table></figure>
+<p>则上面的查询语句可以改写成：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">&lt;select id="queryUserInfoByName" parameterType="string"  resultType="user"&gt;</div><div class="line">        &lt;include refid="queryUserInfo"&gt;&lt;/include&gt; username = #&#123;username&#125;</div><div class="line">&lt;/select&gt;</div><div class="line">&lt;select id="queryUserInfoByPhone" parameterType="string"  resultType="user"&gt;</div><div class="line">        &lt;include refid="queryUserInfo"&gt;&lt;/include&gt; phone = #&#123;phone&#125;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<h3 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a>if标签</h3><p>拿查询语句举例：<br>在severs层里得写if(score!=null)<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="comment">&lt;!--普通做法--&gt;</span></div><div class="line">select * from 表名 where id = 2 and score =&gt; 25</div></pre></td></tr></table></figure></p>
+<p>用if写法：<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">""</span> <span class="attr">parateType</span> = <span class="string">"entity"</span> <span class="attr">resultType</span> = <span class="string">"entity"</span>&gt;</span></div><div class="line">select * from 表名 where id = 2</div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">"score!=null"</span>&gt;</span></div><div class="line">and score &gt; 25</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="where-标签"><a href="#where-标签" class="headerlink" title="where 标签"></a>where 标签</h3><p>在where标签处会动态生成where<br>不需要关心标签中的输出<br>去除多余的and 和 or<br>例子：<br>当id!= null 时用id查，否则不使用id查<br>当score!=null 时用score查询，否则不使用score查询</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select * from 表 </div><div class="line">where </div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> =<span class="string">"id!=null"</span>&gt;</span></div><div class="line">id = #&#123;id&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span>  <span class="attr">test</span> = <span class="string">"score != null"</span>&gt;</span></div><div class="line">and score score &gt;25</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>动态where<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select * from 表 </div><div class="line"><span class="tag">&lt;<span class="name">where</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">"id!= null"</span>&gt;</span></div><div class="line">id = #&#123;id&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">"score !=null"</span>&gt;</span></div><div class="line">and score &gt;25</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">where</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里动态where标签会自动的判断他包括的sql语句，会使其符合sql语句的规范而输出，比如省略and,两个if都不满足就不输出等。</p>
+<h3 id="set-标签"><a href="#set-标签" class="headerlink" title="set 标签"></a>set 标签</h3><p>在update语句时，set后会有多个if标签，参考前面的where标签，这个标签也是动态的识别标签内的值，去掉逗号等多余的语句。<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">update 表名</div><div class="line"><span class="tag">&lt;<span class="name">set</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">" name != null and name !=' '"</span>&gt;</span></div><div class="line">    name = #&#123;name&#125;,</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">"score ! = null and score !=''"</span>&gt;</span></div><div class="line">    score = #&#123;score&#125;,</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span> = <span class="string">"role!= null and role!=''"</span>&gt;</span></div><div class="line">    role = #&#123;role&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></div><div class="line">where id = #&#123;id&#125;</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/23/mybatis/"
+                     data-title="MyBatis"
+                     data-url="http://haojen.github.io/2016/07/23/mybatis/"
+                     data-images=""
+                     data-content="相关配置
+传参
+传递多参数根据id改变 name 和 agepublic void updat... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/25/jquery/" data-toggle="tooltip" data-placement="top"
+                           title="jquery">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/20/linux下配置web服务/" data-toggle="tooltip" data-placement="top"
+                           title="linux下配置web服务">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/23/mybatis/"
+                         data-title="MyBatis"
+                         data-url="http://haojen.github.io/2016/07/23/mybatis/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关配置"><span class="toc-text">相关配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传参"><span class="toc-text">传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql-id-及inclusde-refid用法"><span class="toc-text">sql id 及inclusde refid用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql复用"><span class="toc-text">sql复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if标签"><span class="toc-text">if标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where-标签"><span class="toc-text">where 标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set-标签"><span class="toc-text">set 标签</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#mybatis"
+                           title="mybatis">mybatis</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        html个人整理｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/26/html个人整理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>html个人整理</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-26
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#前端"
+                           title="前端">前端</a>
+                        
+                        <a class="tag" href="/tags/#html"
+                           title="html">html</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            html个人整理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>B/S系统中服务器端交付给客户端的数据绝大数都是HTML文档。<br>Web 浏览器的作用是读取 HTML 文档，并以网页的形式显示出它们。<br>浏览器不会显示 HTML 标签，而是使用标签来解释页面的内容。<br>就是符合HTML文档规范的字符串。<br>使用者角度看，有几大功能：</p>
+<ol>
+<li>丰富的展现。文字，图像，声音，视频。</li>
+<li>超链接。</li>
+<li>DHTML技术，使用客户端脚本来实现动态内容。</li>
+</ol>
+<h3 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h3><p>先看一个文档示例：</p>
+<pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+&quot;http://www.w3.org/TR/xhtmll/DTD/xhtmll-transitional.dtd&quot;&gt;
+
+&lt;html xmlns = &quot;http://www.w3c.org/1999/xhtml&quot;&gt;
+
+    &lt;head&gt;
+        &lt;title&gt;这是HTML标题&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;font color =　&quot;red&quot; &gt;这是HTML内容&lt;/font&gt;
+        &lt;a href=&quot;http://www.cnblogs.cocm/&quot;&gt;这是一个超链接&lt;/a&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>有两种理解方式，一种将其理解成字符串，一种理解成树状的数据结构。<br>​    </p>
+<ul>
+<li>开头&lt;!DOCTYPE&gt; 元素，说明该HTML文档采用了什么规范。</li>
+<li>HTML文档只有一个根节点，就是<html> </html>表示的节点，文本描述网页</li>
+<li>head节点容纳文档标题</li>
+<li>body节点容纳文档内容，body 与 /body 之间的文本是可见的页面内容</li>
+<li>h1&gt; 与 /h1 之间的文本被显示为标题</li>
+<li>p 与 /p 之间的文本被显示为段落</li>
+</ul>
+<h4 id="标签元素类型分类"><a href="#标签元素类型分类" class="headerlink" title="标签元素类型分类"></a>标签元素类型分类</h4><ul>
+<li>块级元素 ：可以简单的理解为在新行开始的元素，就是内容会显示在下一行<br>  <code>&lt;div&gt;标签</code>：是块级元素，浏览器会在其前后显式折行。<br>  常用属性，id，class，style</li>
+<li><p>内联元素 ：可以简单的理解为没在新行开始的元素，可以都在一个行，内容都在同一行<br>  <code>&lt;span&gt;标签</code>: 是内联元素，可以作为文本的容器，可用于为部分文本设置样式属性<br>扩展</p>
+</li>
+<li><p><code>&lt;div&gt;</code> 可定义文档中的分区或节（division/section）。<br><code>&lt;div&gt;</code> 标签可以把文档分割为独立的、不同的部分。它可以用作严格的组织工具，并且不使用任何格式与其关联。</p>
+</li>
+<li>链接通过a标签定义的 语法：<br><code>a href = &quot;目标网址&quot; title =&quot;鼠标滑过显式的文本&quot;&gt;链接显式的文本&lt;/a&gt;</code></li>
+<li>图像是通过img定义的 语法：<br><code>&lt;img src = &quot;图片地址&quot; alt = &quot;下载失败时替换文本&quot; title = &quot;提示文本&quot;&gt;</code> </li>
+<li><code>&lt;hr /&gt;</code> 标签在 HTML 页面中创建水平线。</li>
+<li>注释：开始括号之后（左边的括号）需要紧跟一个叹号，结束括号之前（右边的括号）不需要。<br><code>&lt;!-- This is a comment --&gt;</code></li>
+<li>当显示页面时，浏览器会移除源代码中多余的空格和空行。所有连续的空格或空行都会被算作一个空格。需要注意的是，HTML 代码中的所有连续的空行（换行）也被显示为一个空格。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span> = <span class="string">"http://www.w3school.com.cn"</span>&gt;</span> this is a link <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/i/eg_w3school.gif"</span> <span class="attr">width</span>=<span class="string">"300"</span> <span class="attr">height</span>=<span class="string">"120"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>在开始标签中添加斜杠，比如<code>&lt;br /&gt;</code>，是关闭空元素的正确方法，HTML、XHTML 和 XML 都接受这种方式。<br>即使<code>&lt;br&gt;</code> 在所有浏览器中都是有效的，但使用 <code>&lt;br /&gt;</code> 其实是更长远的保障。</li>
+<li>HTML 标签对大小写不敏感：<code>&lt;P&gt;</code> 等同于 <code>&lt;p&gt;</code>。许多网站都使用大写的 HTML 标签。<br>W3School 使用的是小写标签，因为万维网联盟（W3C）在 HTML 4 中推荐使用小写，而在未来 (X)HTML 版本中强制使用小写。<br>​      <h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span> :无序列表</div><div class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span> :有序列表</div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span> :列表项</div><div class="line">eg:</div><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>信息<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>信息<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面显式的信息默认会在每项前面加个原点，如果去除原点需要li{list-style-type:none;<br>有序标签前面会默认出现数字排序</p>
+<p>###table标签<br>网上的一些清单，人员信息等，我们就需要的是table标签<br>包括的元素：table、tbody、tr、td等</p>
+<ul>
+<li>table 整个表格的开始</li>
+<li>tr 表格的一行</li>
+<li>th 表头单元格</li>
+<li>td 表格的一个单元格，一行有几对td</li>
+<li><code>&lt;caption&gt;Optional table caption.&lt;/caption&gt;</code> ,表格的标题</li>
+</ul>
+<p>几个属性：border，style，class，cellspacing，cellpadding<br>border： 边框<br>cellspacing： 单元格内外部间距<br>cellpadding:  单元格内的外部间距<br>合并：<br>colspan :列合并<br>rowspan: 行合并<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="comment">&lt;!--行合并--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span> = <span class="string">"1"</span> <span class="attr">width</span> = <span class="string">"300px"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span> = <span class="string">"30px"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span> = <span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span> = <span class="string">"30px"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--列合并--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span> = <span class="string">"1"</span> <span class="attr">width</span> = <span class="string">"300px"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span> =　<span class="string">"30px"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">rowspan</span> = <span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span> = <span class="string">"30px"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="html属性"><a href="#html属性" class="headerlink" title="html属性"></a>html属性</h3><p>HTML 标签可以拥有属性。属性提供了有关 HTML 元素的更多的信息。<br>属性总是以名称/值对的形式出现，比如：name=”value”。<br>属性总是在 HTML 元素的开始标签中规定。<br>属性值应该始终被包括在引号内。双引号是最常用的，不过使用单引号也没有问题。<br>在某些个别的情况下，比如属性值本身就含有双引号，那么您必须使用单引号</p>
+<h4 id="style属性"><a href="#style属性" class="headerlink" title="style属性"></a>style属性</h4><p>提供了一种改变所有 HTML 元素的样式的通用方法。<br>样式是 HTML 4 引入的，它是一种新的首选的改变 HTML 元素样式的方式。通过 HTML 样式，能够通过使用 style 属性直接将样式添加到 HTML 元素，或者间接地在独立的样式表中（CSS 文件）进行定义。</p>
+<h4 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h4><p>background-color 属性为元素定义了背景颜色：<br><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">"background-color:yellow"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">style</span>=<span class="string">"background-color:red"</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"background-color:green"</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>font-family、color 以及 font-size 属性分别定义元素中文本的字体系列、颜色和字体尺寸：<br><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"font-family:verdana"</span>&gt;</span>A heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"font-family:arial;color:red;font-size:20px;"</span>&gt;</span>A paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>text-align 属性规定了元素中文本的水平对齐方式：<br><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"text-align:center"</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The heading above is aligned to the center of this page.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="form表单"><a href="#form表单" class="headerlink" title="form表单"></a>form表单</h4><p>网站与用户交互,所有表单控件（文本框、文本域、按钮、单选框、复选框） 都必须放在<form></form>标签之间（否则用户输入的信息可提交不到服务器）。<br>语法：<br><code>&lt;form method = &quot;传送方式&quot; action = &quot;服务器文件&quot;&gt;</code><br>method:传送的方式，(get/post)<br>action:浏览者输入的数据被传送到的地方，比如一个JSP页面。<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span> = <span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"save.do&gt;</span></span></div><div class="line">    &lt;label for = "<span class="attr">username</span>"&gt;用户名：<span class="tag">&lt;/<span class="name">lable</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span> = <span class="string">"tesxt"</span> <span class="attr">name</span> = <span class="string">"username"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">lable</span> <span class="attr">for</span> =<span class="string">"pass"</span>&gt;</span>密码:<span class="tag">&lt;/<span class="name">lable</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span> = <span class="string">"password"</span> <span class="attr">name</span> = <span class="string">"pass"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">fom</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h4 id="input文本输入框，密码输入框"><a href="#input文本输入框，密码输入框" class="headerlink" title="input文本输入框，密码输入框"></a>input文本输入框，密码输入框</h4><p>语法：<br><code>&lt;input type = &quot;text/password&quot; name = &quot;名称&quot; value =&quot;文本”/&gt;</code><br>type : text 为文本输入框，password： 为密码输入框<br>name:  为文本框命名，以备后台程序ASP、PHP使用。<br>value： 为文本输入框设置默认值（一般起到提示作用）<br><br></p>
+<h4 id="textarea-文本域"><a href="#textarea-文本域" class="headerlink" title="textarea 文本域"></a>textarea 文本域</h4><p>当用户输入较多内容的大段文本时<br>语法：<br><code>&lt;textarea rows = &quot;行数&quot; cols= &quot;列数&quot;&gt;文本&lt;/textarea&gt;</code><br>列数：每行显示多少字<br>行数：共有多少行<br><br><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#### radio，checkbox单选框、复选框</div><div class="line">语法：</div><div class="line">`&lt;input type = &quot;radio/checkbox&quot; value = &quot;值”  name =&quot;名称&quot; checked = &quot;checked&quot;`</div><div class="line">checke默认选中</div><div class="line"></div><div class="line">#### select下拉列表框</div><div class="line">​```xml</div><div class="line">&lt;select name =&quot;&quot; id = &quot;&quot;&gt;</div><div class="line">    &lt;option value = &quot;1&quot;&gt;第一项(默认显示）&lt;/option&gt;</div><div class="line">    &lt;option value = &quot;2&quot;&gt;第二项&lt;/option&gt;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="Button-按钮"><a href="#Button-按钮" class="headerlink" title="Button 按钮"></a>Button 按钮</h4><p><code>&lt;input type = &quot;submit&quot;/&quot;reset&quot; value = &quot;提交&quot;&gt;</code><br>type 的值设置为submit时，按钮才有提交作用，为reset时有重置作用<br>value ：按钮上显示的文字</p>
+<h4 id="label-标签"><a href="#label-标签" class="headerlink" title="label 标签"></a>label 标签</h4><p><code>&lt;label for = &quot;空间id名称&quot;&gt;显示文字&lt;/label&gt;</code><br>for 是当你点击一个label会自动把焦点移动到for对应的控件</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/26/html个人整理/"
+                     data-title="html个人整理"
+                     data-url="http://haojen.github.io/2016/07/26/html个人整理/"
+                     data-images=""
+                     data-content="说明B/S系统中服务器端交付给客户端的数据绝大数都是HTML文档。Web 浏览器的作用是读取 ... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/27/css/" data-toggle="tooltip" data-placement="top"
+                           title="css">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/25/jquery/" data-toggle="tooltip" data-placement="top"
+                           title="jquery">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/26/html个人整理/"
+                         data-title="html个人整理"
+                         data-url="http://haojen.github.io/2016/07/26/html个人整理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#规范"><span class="toc-text">规范</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#标签元素类型分类"><span class="toc-text">标签元素类型分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表"><span class="toc-text">列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html属性"><span class="toc-text">html属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#style属性"><span class="toc-text">style属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#背景颜色"><span class="toc-text">背景颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#form表单"><span class="toc-text">form表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#input文本输入框，密码输入框"><span class="toc-text">input文本输入框，密码输入框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#textarea-文本域"><span class="toc-text">textarea 文本域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Button-按钮"><span class="toc-text">Button 按钮</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#label-标签"><span class="toc-text">label 标签</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#前端"
+                           title="前端">前端</a>
+                        
+                        <a class="tag" href="/tags/#html"
+                           title="html">html</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        idea新建servlet项目和Springboot项目｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/30/idea新建servlet项目和Springboot项目/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>idea新建servlet项目和Springboot项目</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
+                        
+                        <a class="tag" href="/tags/#srpingboot"
+                           title="srpingboot">srpingboot</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            idea新建servlet项目和Springboot项目
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="idea创建servlet项目"><a href="#idea创建servlet项目" class="headerlink" title="idea创建servlet项目"></a>idea创建servlet项目</h2><h3 id="下载并配置tomcat"><a href="#下载并配置tomcat" class="headerlink" title="下载并配置tomcat"></a>下载并配置tomcat</h3><ul>
+<li>前提安装了javaJDK ,cmd- &gt; java -version 和 java </li>
+<li>从官网下载tomcat，解压</li>
+<li>配置环境变量<ul>
+<li>在变量名中填写“CATALINA_HOME”变量值:D:\Tomcat\apache-tomcat-9.0.0.M1-windows-x64\apache-tomcat-9.0.0.M1<br><br></li>
+<li>系统变量Path，双击打开Path变量，在“变量值”的最后面添加%CATALINA_HOME%\bin（后面没有分号）然后点击“确定”<br><br></li>
+<li>系统变量CLASSPath变量，变量值的最后面添加%CATALINA_HOME%\lib\servlet-api.jar（后面没有分号)</li>
+</ul>
+</li>
+<li>cmd输入service install Tomcat9，或者点击tomcat/bin/tomcat9w.exe启动，在浏览器localhost:8080可看到tomcat页面</li>
+</ul>
+<h3 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/s1.png" alt=""><br>此时启动会进到<a href="http://localhost:8080，看到jsp文件中设置的文件。" target="_blank" rel="external">http://localhost:8080，看到jsp文件中设置的文件。</a></p>
+<h3 id="创建servlet"><a href="#创建servlet" class="headerlink" title="创建servlet"></a>创建servlet</h3><p>src工程下 新建包名，创建一个servlet类：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package com.claymore;</div><div class="line"></div><div class="line">import javax.servlet.ServletException;</div><div class="line">import javax.servlet.http.HttpServlet;</div><div class="line">import javax.servlet.http.HttpServletRequest;</div><div class="line">import javax.servlet.http.HttpServletResponse;</div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line"></div><div class="line">public class Servlet extends HttpServlet &#123;</div><div class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</div><div class="line">        //使用GBK设置中文正常显示</div><div class="line">        response.setCharacterEncoding(&quot;GBK&quot;);</div><div class="line">        response.getWriter().write(&quot;HelloWord&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同时 在web.xml中配置这个类：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</div><div class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</div><div class="line">         version=&quot;3.1&quot;&gt;</div><div class="line">    &lt;servlet&gt;</div><div class="line">        &lt;!--类名--&gt;</div><div class="line">        &lt;servlet-name&gt;Servlet&lt;/servlet-name&gt;</div><div class="line">        &lt;!--路径名--&gt;</div><div class="line">        &lt;servlet-class&gt;com.claymore.Servlet&lt;/servlet-class&gt;</div><div class="line">    &lt;/servlet&gt;</div><div class="line"></div><div class="line">    &lt;!--访问的地址--&gt;</div><div class="line">    &lt;servlet-mapping&gt;</div><div class="line">        &lt;servlet-name&gt;Servlet&lt;/servlet-name&gt;</div><div class="line">        &lt;url-pattern&gt;/HelloServlet&lt;/url-pattern&gt;</div><div class="line">    &lt;/servlet-mapping&gt;</div><div class="line">    </div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure></p>
+<p>有图有真相：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/s2.png" alt=""><br>启动项目，就能在<a href="http://localhost:8080/HelloServlet中看到helloword了" target="_blank" rel="external">http://localhost:8080/HelloServlet中看到helloword了</a></p>
+<h2 id="idea创建Springboot项目"><a href="#idea创建Springboot项目" class="headerlink" title="idea创建Springboot项目"></a>idea创建Springboot项目</h2><h3 id="idea下创建项目"><a href="#idea下创建项目" class="headerlink" title="idea下创建项目"></a>idea下创建项目</h3><p>新建 spring intitializr<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/1.png" alt=""><br>写下组织名和项目名<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/2.png" alt=""><br>选择web<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/3.png" alt=""><br>工程目录<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/4.png" alt=""><br>这里有个.mvn,没查到具体意思，知道的教教我。。。<br>sbAndTestApplication中添加如下代码：(添加的后面有注释)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">    package com.sbPackage;</div><div class="line"></div><div class="line">import org.springframework.boot.SpringApplication;</div><div class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</div><div class="line">import org.springframework.web.bind.annotation.RequestMapping;</div><div class="line">import org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line">@RestController          //这个是spring中的注解，</div><div class="line">@SpringBootApplication   //这个注解是springboot的核心注解，开启自动配置</div><div class="line">public class SbAndTestApplication &#123;</div><div class="line"></div><div class="line">	@RequestMapping(&quot;/&quot;)    //spring中的注解</div><div class="line">	String index()&#123;</div><div class="line">		return &quot;xixixixixixixi&quot;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;     </div><div class="line">		SpringApplication.run(SbAndTestApplication.class, args);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p>启动项目，访问127.0.0.1：8080<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/5.png" alt=""></p>
+<h3 id="springboot注解"><a href="#springboot注解" class="headerlink" title="springboot注解"></a>springboot注解</h3><ul>
+<li>@SpringBootApplication<br>组合了@Configuration，@EnableAutoConfiguration（jar包依赖为当前项目自动配置），@ComponentScan；</li>
+</ul>
+<h3 id="定制Banner"><a href="#定制Banner" class="headerlink" title="定制Banner"></a>定制Banner</h3><p>默认启动时会有个默认图标：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/6.png" alt=""><br>我们在src/main/resources 下新建一个banner.txt<br>访问<a href="http://patorjk.com/software/taag，可将字母转成汉字" target="_blank" rel="external">http://patorjk.com/software/taag，可将字母转成汉字</a><br>新springboot1.4.0有个新特性，可将图片转成字符，在resources下放如命名为spanner的图片。会自动转：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/7.png" alt=""></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>SpringBoot使用一个全局的配置文件 application.properties 或 application.yml,不仅支持常规的properties配置文件，还支持yaml语言的配置文件。yaml是以数据为中心的语言，在配置数据的时候有面向对象的特征。</p>
+<h3 id="命令行参数配置"><a href="#命令行参数配置" class="headerlink" title="命令行参数配置"></a>命令行参数配置</h3><p>Spring boot 基于jar包运行的的，打成jar包的程序可以直接通过下面命令：<br><code>java -jar xx.jar</code><br>通过一下命令修改tomcat端口号：<br><code>java -jar xx.jar --server.port = 9090</code></p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>改变tomcat的默认端口号8080，并将默认路径/改为/helloboot，在application.properties添加：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">server.port = 9090</div><div class="line">server.context-path=/hello</div></pre></td></tr></table></figure></p>
+<p>或在application.yml 中添加：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">server:</div><div class="line">    port:9090</div><div class="line">    contextpath:/hello</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/8.png" alt=""></p>
+<h3 id="取得配置文件中的值"><a href="#取得配置文件中的值" class="headerlink" title="取得配置文件中的值"></a>取得配置文件中的值</h3><p>在配置文件.properties中加：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">book.author=claymore</div></pre></td></tr></table></figure></p>
+<p>然后：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/9.png" alt=""><br>这样就能取到配置文件中的值了，如果有多个值，可以为其建一个类，eg:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@Component</div><div class="line">@Data            //自动生成属性的set和get方法，需要在pom配置依赖，和idea下载lombok插件</div><div class="line">@ConfigurationProperties(prefix = &quot;test&quot;,locations = &#123;&quot;classpath:resources/application.properties&quot;&#125;)</div><div class="line">public class propertiesEntity &#123;</div><div class="line">    private String name;</div><div class="line">    private int age;</div><div class="line">    private String adress;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在SbAndTestApplication中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//获取配置文件</div><div class="line">	@Autowired</div><div class="line">	private propertiesEntity proEntity;</div><div class="line"></div><div class="line">	@RequestMapping(&quot;/&quot;)</div><div class="line">	String index()&#123;</div><div class="line">		return proEntity.getName()+proEntity.getAge()+proEntity.getAdress();</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="starter-pom"><a href="#starter-pom" class="headerlink" title="starter pom"></a>starter pom</h3><p>Starter POMs就是maven配置文件pom.xml中的配置关联。是可以包含到应用中的一个方便的依赖关系描述符集合,我们应用了所需的starter pom ,相关的技术配置就会消除，得到spring boot 为我们提供的自动配置的Bean。<br>如 <code>spring-boot-starter</code>是springboot 核心starter，包含自动配置，日志，yaml等配置文件的支持。</p>
+<h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>SpringBoot支持Java Util Logging,Log4J,Log4J2和Logback作为日志框架，无论使用哪种日志框架，都已做好配置。<br>SpringBoot 默认使用Logback作为日志框架。</p>
+<h3 id="profile配置"><a href="#profile配置" class="headerlink" title="profile配置"></a>profile配置</h3><p>profile是spring用来针对不同的环境对不同的配置提供支持的。在.properties中配置。<br>全局profile：application.properties-{profile}.properties<br>如：spring.profiles.active=prod<br>eg:<br>新建springboot项目，再建两个配置文件（一个开发，一个生产）：<br><code>application-dev.properties</code> 和 <code>appication-prov.properties</code><br>分别配置两个启动端口：sever.port=6060/7070<br>在原本的配置文件application中:<br><code>spring.profiles.active=prod</code>这样就用7070端口来启动；=dev时则用6060。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/30/idea新建servlet项目和Springboot项目/"
+                     data-title="idea新建servlet项目和Springboot项目"
+                     data-url="http://haojen.github.io/2016/07/30/idea新建servlet项目和Springboot项目/"
+                     data-images=""
+                     data-content="idea创建servlet项目下载并配置tomcat
+前提安装了javaJDK ,cmd- &... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/08/08/AJAX/" data-toggle="tooltip" data-placement="top"
+                           title="AJAX">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/29/正则表达式/" data-toggle="tooltip" data-placement="top"
+                           title="正则表达式">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/30/idea新建servlet项目和Springboot项目/"
+                         data-title="idea新建servlet项目和Springboot项目"
+                         data-url="http://haojen.github.io/2016/07/30/idea新建servlet项目和Springboot项目/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#idea创建servlet项目"><span class="toc-text">idea创建servlet项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载并配置tomcat"><span class="toc-text">下载并配置tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建工程"><span class="toc-text">新建工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建servlet"><span class="toc-text">创建servlet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#idea创建Springboot项目"><span class="toc-text">idea创建Springboot项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#idea下创建项目"><span class="toc-text">idea下创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行结果"><span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#springboot注解"><span class="toc-text">springboot注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定制Banner"><span class="toc-text">定制Banner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行参数配置"><span class="toc-text">命令行参数配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取得配置文件中的值"><span class="toc-text">取得配置文件中的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#starter-pom"><span class="toc-text">starter pom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志配置"><span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#profile配置"><span class="toc-text">profile配置</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
+                        
+                        <a class="tag" href="/tags/#srpingboot"
+                           title="srpingboot">srpingboot</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

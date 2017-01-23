@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        mysql与mongodb的安装与配置｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/18/mysql与mongodb的安装与配置/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>mysql与mongodb的安装与配置</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-18
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
+                        
+                        <a class="tag" href="/tags/#mysql，nosql"
+                           title="mysql，nosql">mysql，nosql</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            mysql与mongodb的安装与配置
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><h3 id="配置（免安装版）"><a href="#配置（免安装版）" class="headerlink" title="配置（免安装版）"></a>配置（免安装版）</h3><ul>
+<li>解压安装</li>
+</ul>
+<p>将下载好的 zip 压缩包解压到自己喜欢的文件夹，为了避免可能出现的错误，建议文件路径中不包含中文名以及空格。下文以 C:\mysql 这一路径为例进行讲解。</p>
+<ul>
+<li>配置环境变量</li>
+</ul>
+<p>将路径 <code>C:\mysql\bin</code>  加入到 PATH 环境变量之后，用户变量或者系统变量即可，毕竟我们的个人电脑一般都是一个用户。</p>
+<p>这一部的目的主要是为了在非 <code>C:\mysql\bin</code> 的其他路径下也能使用 mysql 命令。如果不添加环境变量，那么我们每次在命令中执行 mysql 命令还需进入到 <code>C:\mysql\bin</code> 路径下才能执行。</p>
+<ul>
+<li>编辑配置文件</li>
+</ul>
+<p>路径 <code>C:\mysql</code> 下有一份初始的默认配置文件，即 <code>my-default.ini</code> 文件。在此路径下，新建一份自己的配置文件 <code>my.ini</code> (不要使用其他名称)，然后将 <code>my-default.ini</code> 中的内容复制过来并保存。</p>
+<p>使用文本编辑器打开 <code>my.ini</code> ，修改以下几项。还有其他很多参数也都可自定义，感兴趣的同学可以继续研究。下面这几个是最重要的也是我们必须要修改的。</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 默认字符集</span></div><div class="line"><span class="attr">default-character-set</span> = utf8</div><div class="line"><span class="comment"># mysql 安装路径</span></div><div class="line"><span class="attr">basedir</span> = C:\mysql</div><div class="line"><span class="comment"># mysql 数据文件夹路径，不要怕，我们现在确实还没有创建这个 data 文件夹</span></div><div class="line"><span class="attr">datadir</span> = C:\mysql\data</div><div class="line"><span class="comment"># mysql 服务器监听的 TCP/IP 端口号</span></div><div class="line"><span class="attr">prot</span> = <span class="number">3306</span></div></pre></td></tr></table></figure>
+<ul>
+<li>安装 mysql 服务</li>
+</ul>
+<p>以管理员身份打开命令提示符，进入到 <code>C:\mysql\bin</code> 路径下，执行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ mysqld install</div></pre></td></tr></table></figure>
+<p><strong>！！！注意：</strong> 是 <code>mysqld</code> 而不是 <code>mysql</code> 。</p>
+<p>此时，Win+R 运行键入 <code>services.msc</code> 打开服务，我们可以看到服务列表中已经有了 M有SQL 服务，说明安装成功。</p>
+<ul>
+<li>初始化 data 文件夹</li>
+</ul>
+<p>免安装版的 M有SQL 解压安装之后，在其安装根目录下是没有 data 文件夹，需要我们手动初始化生成，这是最重要的一步。</p>
+<p>以管理员身份打开命令提示符，进入到 <code>C:\mysql\bin</code> 路径下，执行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ mysqld --initialize --console</div></pre></td></tr></table></figure>
+<p>执行上述命令，命令提示符会出现一堆提示信息，我们只关注最后一行的提示信息：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">[Note] A temporary password is generated <span class="keyword">for</span> root@localhost: ******</div></pre></td></tr></table></figure>
+<p>注意到冒号之后的字符串，那是 MySQL 为我们生成的初始密码，请记住，接下来会用到。</p>
+<ul>
+<li>启动 MySQL 服务</li>
+</ul>
+<p>打开命令提示符，执行下面命令以启动 MySQL 服务：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ net start mysql</div></pre></td></tr></table></figure>
+<ul>
+<li>修改 MySQL 初始密码</li>
+</ul>
+<p>在启动了 MySQL 服务之后，键入以下命令登录到 MySQL 数据库：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ mysql -u root -p</div></pre></td></tr></table></figure>
+<p>回车执行上述命令时，会提示我们输入密码，把刚才 MySQL 生成的初始密码键入以登录。</p>
+<p>一旦登录进数据之后，直接执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">SET PASSWORD = PASSWORD(&apos;这里输入你要设置的新密码&apos;);</div></pre></td></tr></table></figure>
+<p>回车执行即可完成登录密码的修改。</p>
+<p>修改完密码之后，退出数据库，重新启动 M有SQL 服务才会生效。</p>
+<h3 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h3><ul>
+<li><p>管理员进cmd,进入安装目录。</p>
+<p>cd C:\Program Files\MySQL\MySQL Server 5.7\bin</p>
+</li>
+<li><p>输入：mysqld install   显式 Service successfully installed 服务成功启动</p>
+</li>
+<li><p>mysql -u root -p   进入根用户 下面会让你输入密码</p>
+</li>
+<li><p>show databases;  显示有哪些数据库</p>
+</li>
+<li><p>create database fist;  创建一个数据库 ，first是我数据库的名字</p>
+</li>
+<li><p>use first;       选择刚才创建的数据库</p>
+</li>
+<li><p>show tables;  看看选择的数据库中有什么表</p>
+</li>
+<li><p>create table birthday(name varchar(10),sex char(1),birth DATE,birthAdd VARCHAR(20));   创建一个birthday的表，姓名，性别，出生日期，出生城市。</p>
+</li>
+<li><p>这时候可以再看看有什么表 show tables;</p>
+</li>
+<li><p>describe birthday;  显式表的结构<br>​</p>
+</li>
+</ul>
+<h2 id="NoSql"><a href="#NoSql" class="headerlink" title="NoSql"></a>NoSql</h2><p>绝大部分非关系型数据库都是NoSQL数据库，这以为着不能支持JION之类的操作，这是一种权衡的结果，因为这样就能够做到读取的速度更快，以及通过数据分别存储到不同的服务器甚至不同的数据中心，方便的实现去中心化的数据存储。<br>现代的nosql数据库分四类：</p>
+<h3 id="键值数据库"><a href="#键值数据库" class="headerlink" title="键值数据库"></a>键值数据库</h3><p>用起来和python字典非常相似，每个键和一个单独的值相关联，通过键可以取出值，不支持值的查询。值可以是任意数据。不论数据库数据量有多大，读取的速度都不会改变。因为这样的特性，对于大多数应用来说不适合做主数据库，适合保存在一段时间会过期的简单对象，比如保存用户的会话数据和购物车数据。另外键值数据库普遍用来为引用和其他数据库做缓存。<br>最流行的键值数据库是<code>Redis,Riak和Amazon DynamoDB</code></p>
+<h3 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h3><p>在数据库保存的<strong>键值对集合</strong>叫做文档，是无固定表结构，就是说一个文档的结构不需要跟另外一个文档一样。<br>在文档创建后，可以添加更多的键值。<br>大多数文档数据库会把数据库以JSON(Java Script Object Notation)或JSON的超集或XML的格式来储存。<br>最流行的文档数据库是<code>MongoDB,CouchDB及Couchbase</code></p>
+<h3 id="列式数据库和基于图的数据库"><a href="#列式数据库和基于图的数据库" class="headerlink" title="列式数据库和基于图的数据库"></a>列式数据库和基于图的数据库</h3><p>这里先不做记录，接触的比较少。</p>
+<hr>
+<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p>MongoDB是最流行的NoSql数据库，是一种用文档存储的数据库。<br>文档是由BSON个数定义的。BSON是JSON的超集，意思是二进制的json(Binary JSON)。<br>BSON允许把JSON存为二进制格式，而不是字符串格式，这样能洁身大量空间。</p>
+<p>安装：<br><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">https://www.mongodb.com/download-center#community</a><br>默认给按到cpan<br>安装后，cmd进入bin目录（或者在path环境变量中配置）：<br>启动mongod：<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720170108112334.png" alt=""><br>你会看到有exception in initAndListen: 29 Data directory C:\data\db\ not found., terminating的错误。<br>把命令改成：<code>mongod --dbpath D:\MongoDB\data</code><br>当然，前提你得建立这个文件夹。<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170111120031.png" alt=""><br>窗口关闭，服务就关闭了。</p>
+<h3 id="可视化工具Robomongo"><a href="#可视化工具Robomongo" class="headerlink" title="可视化工具Robomongo"></a>可视化工具Robomongo</h3><p><a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a>.<br>用法很简单，相信你能看会。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/18/mysql与mongodb的安装与配置/"
+                     data-title="mysql与mongodb的安装与配置"
+                     data-url="http://haojen.github.io/2016/07/18/mysql与mongodb的安装与配置/"
+                     data-images=""
+                     data-content="MySql配置（免安装版）
+解压安装
+
+将下载好的 zip 压缩包解压到自己喜欢的文件夹，为了... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/20/linux下配置web服务/" data-toggle="tooltip" data-placement="top"
+                           title="linux下配置web服务">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/16/数据库与SQL/" data-toggle="tooltip" data-placement="top"
+                           title="数据库与SQL">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/18/mysql与mongodb的安装与配置/"
+                         data-title="mysql与mongodb的安装与配置"
+                         data-url="http://haojen.github.io/2016/07/18/mysql与mongodb的安装与配置/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置（免安装版）"><span class="toc-text">配置（免安装版）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令操作"><span class="toc-text">命令操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NoSql"><span class="toc-text">NoSql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#键值数据库"><span class="toc-text">键值数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文档数据库"><span class="toc-text">文档数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列式数据库和基于图的数据库"><span class="toc-text">列式数据库和基于图的数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB"><span class="toc-text">MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可视化工具Robomongo"><span class="toc-text">可视化工具Robomongo</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
+                        
+                        <a class="tag" href="/tags/#mysql，nosql"
+                           title="mysql，nosql">mysql，nosql</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        jquery｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/25/jquery/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>jquery</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#前端"
+                           title="前端">前端</a>
+                        
+                        <a class="tag" href="/tags/#jquery"
+                           title="jquery">jquery</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            jquery
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>jQuery 是一个兼容多浏览器的javascript库。<br>核心理念：write less,do more.<br>极大的简化了JavaScript编程。<br>jQuery库位于一个javaScript文件，包含了所有的jQuery函数<br>引用的话就和正常引用一个js文件相似就好了。<br>通常会把jQuery代码放到head部分的时间处理方法中。<br><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span> = <span class="string">"text/javascript"</span> <span class="attr">src</span> = <span class="string">"jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>官方下载地址：<a href="http://jquery.com/download/" target="_blank" rel="external">http://jquery.com/download/</a><br>版本向下兼容</p>
+<h3 id="jQuery语法"><a href="#jQuery语法" class="headerlink" title="jQuery语法"></a>jQuery语法</h3><p>jQuery语法是为HTML元素的选取编制的，可以对元素执行某些操作<br>基础语法：<code>$(selector).ation()</code><br>$:一个jQuery对象的缩写<br>selector:选择符，要查找和查询的HTML元素<br>action(): 对元素执行的操作</p>
+<p>eg:<br><code>$(this).hide()</code> 通过this选择 隐藏当前的HTML元素<br><code>$(&quot;#test&quot;).hide()</code> 通过id选择 隐藏id=”test”的元素<br><code>$(&quot;p&quot;).hide()</code> 通过标签名选择 隐藏所有<code>&lt;p&gt;</code>元素<br><code>$(&quot;.test&quot;).hide()</code> 通过class元素选择 隐藏所有class = “test”的元素</p>
+<h3 id="文档就绪函数"><a href="#文档就绪函数" class="headerlink" title="文档就绪函数"></a>文档就绪函数</h3><p>我们所有jQuery函数位于一个document ready函数中。<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                --some <span class="function"><span class="keyword">function</span></span></div><div class="line">&#125;)；</div></pre></td></tr></table></figure></p>
+<p>这是为了防止文档在完全加载（就绪）之前jQuery代码，如果在文档没有完全加载之前就运行函数。操作可能失败。</p>
+<h3 id="jQuery选择器"><a href="#jQuery选择器" class="headerlink" title="jQuery选择器"></a>jQuery选择器</h3><h4 id="元素选择器"><a href="#元素选择器" class="headerlink" title="元素选择器"></a>元素选择器</h4><p>jQuery元素选择器和属性允许您通过标签名、属性名或内容对HTML元素进行选择。<br>jQuery使用CSS选择器来选取HTML元素<br><code>$(&quot;div&quot;)</code>选取<div>元素<br><code>$(&quot;#demo&quot;)</code>选取所有id=”demo”的元素<br><code>$(&quot;div.intro&quot;)</code>选取所有class =”intro”的<code>&lt;div&gt;</code>元素<br><code>$(“div#demo&quot;)</code>选取所有id = “demo” 的<code>&lt;div&gt;</code>元素<br><code>$(&quot;p&quot;).css(&quot;background-color&quot;,&quot;red&quot;);</code> 所有 p 元素的背景颜色更改为红色：</div></p>
+<h4 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h4><p>jQuery使用XPath表达式来选择带有给定属性的元素。<br><code>$(&quot;[href]&quot;)</code> 选取所有带有href属性的元素<br><code>$(&quot;[href = &#39;#&#39;]&quot;)</code> 选取所有带有href值等于”#“的元素。<br><code>$(&quot;[href!=&#39;#&#39;]&quot;)</code>选取所有带有 href 值不等于 “#” 的元素。<br><code>$(&quot;[href$=&#39;.jpg&#39;]&quot;)</code>选取所有 href 值以 “.jpg” 结尾的元素。</p>
+<h3 id="事件函数"><a href="#事件函数" class="headerlink" title="事件函数"></a>事件函数</h3><p>jQuery事件处理方法是jQuery中的核心函数，时间处理程序指的是当HTLM中发生某些事件时所调用的方法。<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script type = <span class="string">"text/javascript"</span>&gt;</div><div class="line">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        &amp;(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            &amp;(<span class="string">"div"</span>).hide();</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>在上面的例子中，当按钮的点击事件被触发时会调用一个函数：<br><code>$(&quot;button&quot;).click(function(){..执行代码..})</code><br>一些常用的事件函数<br><code>$(selector).click(function)</code> 单机事件<br><code>$(selector).dblclick(function)</code> 双击事件<br><code>$(selector).focus(function)</code> 获得焦点<br><code>$(selector).mouseover(function)</code> 鼠标悬停事件</p>
+<h3 id="jQuery-html-操作"><a href="#jQuery-html-操作" class="headerlink" title="jQuery html 操作"></a>jQuery html 操作</h3><p>jQuery中非常重要的部分，就是操作DOM的能力</p>
+<h4 id="获得-设置内容"><a href="#获得-设置内容" class="headerlink" title="获得/设置内容"></a>获得/设置内容</h4><p>text() 设置或返回所选元素的文本内容<br>html() 设置或返回元素的内容（包括HTML标签）<br>val()  设置或返回表单字段的值<br><code>var aima = $(&quot;#aima&quot;).text();</code><br><code>(&quot;#aima&quot;).text(&quot;Hello aima!&quot;);</code></p>
+<h4 id="添加新内容的四个jQuery方法："><a href="#添加新内容的四个jQuery方法：" class="headerlink" title="添加新内容的四个jQuery方法："></a>添加新内容的四个jQuery方法：</h4><p>append() 在被选元素的结尾插入内容<br>prepend() 在被选元素的开头插入内容<br>after() 在被选元素之后插入内容<br>before() 在被选元素之前插入内容<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/jQuery%E6%B7%BB%E5%8A%A0%E5%86%85%E5%AE%B9%E7%9A%84%E6%96%B9%E6%B3%95.png" alt=""><br>黄色框内为被选内容</p>
+<h3 id="将您的jquery函数单独放到一个js文件中"><a href="#将您的jquery函数单独放到一个js文件中" class="headerlink" title="将您的jquery函数单独放到一个js文件中"></a>将您的jquery函数单独放到一个js文件中</h3><p>如果您的网站包含许多页面，并且您希望您的 jQuery 函数易于维护，那么请把您的 jQuery 函数放到独立的 .js 文件中。<br>当我们在教程中演示 jQuery 时，会将函数直接添加到 <head> 部分中。不过，把它们放到一个单独的文件中会更好，就像这样（通过 src 属性来引用文件）：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;head&gt;</div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"my_jquery_functions.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/head&gt;</span></div></pre></td></tr></table></figure></head></p>
+<h3 id="easyUI"><a href="#easyUI" class="headerlink" title="easyUI"></a>easyUI</h3><h4 id="引入必要文件"><a href="#引入必要文件" class="headerlink" title="引入必要文件"></a>引入必要文件</h4><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">//引入 jQuery 核心库，这里采用的是 2.0</div><div class="line"><span class="tag">&lt;<span class="name">scripttype="text</span>/<span class="attr">javascript</span>"<span class="attr">src</span>=<span class="string">"easyui/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line">//引入 jQuery EasyUI 核心库，这里采用的是 1.3.6</div><div class="line"><span class="tag">&lt;<span class="name">scripttype="text</span>/<span class="attr">javascript</span>"<span class="attr">src</span>=<span class="string">"easyui/jquery.easyui.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">//引入 EasyUI 中文提示信息</div><div class="line"><span class="tag">&lt;<span class="name">scripttype="text</span>/<span class="attr">javascript</span>"<span class="attr">src</span>=<span class="string">"easyui/locale/easyui-lang-zh_CN.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line">//引入自己开发的 JS 文件,没有可不写</div><div class="line"><span class="tag">&lt;<span class="name">scripttype="text</span>/<span class="attr">javascript</span>"<span class="attr">src</span>=<span class="string">"js/index.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line">//引入 EasyUI 核心 UI 文件 CSS</div><div class="line"><span class="tag">&lt;<span class="name">linkrel="stylesheet"type="text</span>/<span class="attr">css</span>"<span class="attr">href</span>=<span class="string">"easyui/themes/default/easyui.css"</span>/&gt;</span> </div><div class="line">//引入 EasyUI 图标文件</div><div class="line"><span class="tag">&lt;<span class="name">linkrel="stylesheet"type="text</span>/<span class="attr">css</span>"<span class="attr">href</span>=<span class="string">"easyui/themes/icon.css"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="加载UI组件的两种方式"><a href="#加载UI组件的两种方式" class="headerlink" title="加载UI组件的两种方式"></a>加载UI组件的两种方式</h4><ul>
+<li><p>使用class加载，格式：easyui-组件名</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"easyui-dialog"</span> <span class="attr">id</span>=<span class="string">"box"</span> <span class="attr">title</span>=<span class="string">"标题"</span> <span class="attr">style</span>=<span class="string">"width:400px;height:200px;"</span>&gt;</span> 内容部分 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>使用js调用加载<br><code>$(&#39;$box&#39;).dialog();</code><br>把上面的class属性去掉，再新建个js文件，在开头部分有引用，就可以用了</p>
+</li>
+</ul>
+<h4 id="来看一个完整的实例："><a href="#来看一个完整的实例：" class="headerlink" title="来看一个完整的实例："></a>来看一个完整的实例：</h4><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jQuery easyUI test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"easyui/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"easyui/jquery.easyui.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"easyui/locale/easyui-lang-zh_CN.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"easyui/themes/default/easyui.css"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"easyui/themes/icon.css"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--这里是第一种方式--&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;div id = "box" class = "easyui-dialog" style = "width:400px;height:200px"&gt;</span></div><div class="line">        内容部分</div><div class="line">    &lt;/div&gt;--&gt;</div><div class="line">     <span class="comment">&lt;!--这里是第二种方式--&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"box"</span> <span class="attr">style</span> = <span class="string">"width:400px;height:200px"</span>&gt;</span></div><div class="line">        内容部分</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>index.js文件：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="string">'box'</span>).dialog();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="parser解析器"><a href="#parser解析器" class="headerlink" title="parser解析器"></a>parser解析器</h4><p>Parser 解析器是专门解析渲染各种 UI 组件了，一般来说，我们并不需要使用它即可 自动完成 UI 组件的解析工作。当然，有时可能在某些环境下需要手动解析的情况。<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">//关闭自动解析功能，放在$(function() &#123;&#125;)外 </div><div class="line">$.parser.auto = false;</div><div class="line"></div><div class="line">//解析所有 UI </div><div class="line">$.parser.parse();</div><div class="line">//解析指定的 UI </div><div class="line">$.parser.parse('#box');</div><div class="line">PS：使用指定 UI 解析，必须要设置父类容器才可以解析到。比如：</div><div class="line"><span class="tag">&lt;<span class="name">divid="box"</span>&gt;</span> <span class="tag">&lt;<span class="name">divclass="easyui-dialog"title="标题"style="width:400px;height:200px;"</span>&gt;</span> <span class="tag">&lt;<span class="name">span</span>&gt;</span>内容部分<span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">//UI 组件解析完毕后执行，放在$(function () &#123;&#125;)外</div><div class="line">$.parser.onComplete = function () &#123; alert('UI 组件解析完毕！'); &#125;;</div></pre></td></tr></table></figure></p>
+<h4 id="面板组件"><a href="#面板组件" class="headerlink" title="面板组件"></a>面板组件</h4><p>加载方式：<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="comment">&lt;!--class--&gt;</span></div><div class="line"><span class="comment">&lt;!--中间的data-options是说可以关闭，有个关闭选框---&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class-</span>"<span class="attr">easyui-panel</span>" <span class="attr">data-options</span>=<span class="string">"closable:true"</span> <span class="attr">title</span>=<span class="string">"面板"</span> <span class="attr">style</span>=<span class="string">"width:500px"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!---js--&gt;</span></div><div class="line">$(function () &#123;</div><div class="line">$('#box').panel(&#123;</div><div class="line">    id:''  //面板的id</div><div class="line">    title: '面板',</div><div class="line">    width: 500,</div><div class="line">    height: 150,</div><div class="line">    iconCls : 'icon-search'.//设置一个图标</div><div class="line">    left : 100,</div><div class="line">    top : 100,</div><div class="line">&#125;);</div><div class="line">    $('#box').panel('panel').css('position','absolute');//这样就能设置这个面板的位置了 </div><div class="line">    <span class="comment">&lt;!--定义如何从ajax应答数据中提取内容，返回提取数据--&gt;</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h4><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span> = <span class="string">"easyui-dialog"</span> <span class="attr">style</span>=<span class="string">"width:400px;height:250px;"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>对话框继承window window继承panel</p>
+<h3 id="BootStrap"><a href="#BootStrap" class="headerlink" title="BootStrap"></a>BootStrap</h3><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>这里先说几个注意事项</p>
+<ul>
+<li><p>必须使用HTML5文档类型,也就说下面这样的结构是必须出现的 </p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>使用Bootstrap必须导入至少3个文件</p>
+<ul>
+<li>新 Bootstrap 核心 CSS 文件<br><code>&lt;link rel=&quot;stylesheet&quot;href=&quot;bootstrap.min.css&quot;&gt;</code></li>
+<li><p>jQuery文件。务必在bootstrap.min.js 之前引入<br><code>&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;</code></p>
+</li>
+<li><p>最新的 Bootstrap 核心 JavaScript 文件<br><code>&lt;script src=&quot;bootstrap.min.js&quot;&gt;&lt;/script&gt;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/25/jquery/"
+                     data-title="jquery"
+                     data-url="http://haojen.github.io/2016/07/25/jquery/"
+                     data-images=""
+                     data-content="写在前面jQuery 是一个兼容多浏览器的javascript库。核心理念：write les... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/26/html个人整理/" data-toggle="tooltip" data-placement="top"
+                           title="html个人整理">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/23/mybatis/" data-toggle="tooltip" data-placement="top"
+                           title="MyBatis">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/25/jquery/"
+                         data-title="jquery"
+                         data-url="http://haojen.github.io/2016/07/25/jquery/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery语法"><span class="toc-text">jQuery语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文档就绪函数"><span class="toc-text">文档就绪函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery选择器"><span class="toc-text">jQuery选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#元素选择器"><span class="toc-text">元素选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性选择器"><span class="toc-text">属性选择器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件函数"><span class="toc-text">事件函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery-html-操作"><span class="toc-text">jQuery html 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获得-设置内容"><span class="toc-text">获得/设置内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加新内容的四个jQuery方法："><span class="toc-text">添加新内容的四个jQuery方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将您的jquery函数单独放到一个js文件中"><span class="toc-text">将您的jquery函数单独放到一个js文件中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easyUI"><span class="toc-text">easyUI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#引入必要文件"><span class="toc-text">引入必要文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加载UI组件的两种方式"><span class="toc-text">加载UI组件的两种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#来看一个完整的实例："><span class="toc-text">来看一个完整的实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#parser解析器"><span class="toc-text">parser解析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面板组件"><span class="toc-text">面板组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对话框"><span class="toc-text">对话框</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BootStrap"><span class="toc-text">BootStrap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#前端"
+                           title="前端">前端</a>
+                        
+                        <a class="tag" href="/tags/#jquery"
+                           title="jquery">jquery</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

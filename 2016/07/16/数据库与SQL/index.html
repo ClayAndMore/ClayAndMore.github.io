@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        数据库与SQL｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/07/16/数据库与SQL/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>数据库与SQL</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2016-07-16
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
+                        
+                        <a class="tag" href="/tags/#sql"
+                           title="sql">sql</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            数据库与SQL
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>属性：每一列的列名<br>属性值：属性的值。<br>完全函数依赖：就是一组属性对应唯一一个其他属性，且这组属性中的任何一个对应其他属性不成立（这组属性的真子集x-&gt;y不成立）。<br>码（候选码）：上面的那组属性。<br>主属性：码中的属性。<br>非主属性：除了主属性的其他属性。<br>范式：nf(normal form)</p>
+<h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3><ul>
+<li>第一范式(1NF):属性或属性值不可分割。</li>
+<li>第二范式（2NF):其他字段<strong>完全依赖</strong>于主键（候选码）。</li>
+<li>第三范式（3NF):消除多表的数据冗余。</li>
+<li><p>BCNF：消除主属性对于码的传递性依赖。<br>传递性依赖：如 Z 函数依赖于 Y，且 Y 函数依赖于 X （严格来说还有一个X 不包含于Y，且 Y 不函数依赖于Z的前提条件），那么我们就称 Z 传递函数依赖于 X.<br>（BCNF)如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">非主属性：数量，</div><div class="line">传递依赖：管理员-&gt;仓库名-&gt;物品</div></pre></td></tr></table></figure>
+<p>消除依赖（两张表）：<br><code>仓库名-&gt;管理员</code><br><code>仓库名-&gt;物品-&gt;数量</code></p>
+</li>
+</ul>
+<h2 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h2><p>SQL语言(Structured Query Language,结构化查询语言),是一种通用的关系型数据库访问语言。<br>SQL语句已经成为一种国际标准，它用于描述需要执行哪些操作，而没有描述如何执行，数据库引擎会解释SQL语句。<br>数据库CRUD(增查改删）。</p>
+<h3 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h3><p><strong>Select 字段列表 From 数据表名 Where 查询条件 Order By 排序方式 Group By 分组方式</strong></p>
+<ul>
+<li>字段列表可以理解成竖着那一列啦</li>
+<li>Select子句和From子句是必须的，其他都是可选的</li>
+<li>如果查询整个表,比如表明为：工作单位表，Select <em> From 工作单位表。**</em>是字段通配符，表示该数据表中的所有字段**</li>
+<li>表中有两列字段（Id啦，单位名称啦），可以这样：<br><code>Select ID, 单位名称 From 工作单位表</code></li>
+<li>查某值的所有信息<br><code>Select * From 工作单位表 Where 单位名称 = “蓝天公司”</code><br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160422153431.png" alt=""><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">select birth from birthday where name = &apos;张三&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h3><p>Insert语句用于新增数据库记录，用法：<br><strong>Insert Into 表名 (字段列表) Values（数值列表）</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Insert Into 工作单位表 </div><div class="line">            (ID,单位名称，单位地址，负责人）</div><div class="line">Values</div><div class="line">            (20,&apos;天海公司&apos;,&apos;珠江路100号&apos;,&apos;张三&apos;)</div></pre></td></tr></table></figure></p>
+<p>若字段中有单引号，用两个连续的单引号进行转移<br>有的数据库引擎是双引号<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">insert into birthday set name=&apos;张三&apos;,sex=&apos;男&apos;,birth=&apos;1994-01-01&apos;,birthAdd=&apos;沈师大门&apos;;</div><div class="line">insert into birthday values (&apos;李四&apos;,&apos;男&apos;,&apos;1994-03-30&apos;,&apos;五环&apos;);</div></pre></td></tr></table></figure></p>
+<h3 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h3><p>Update语句用于修改数据库记录，用法：<br><strong>Update 表名 Set 字段名1=数值1，字段名2=数值2 Where 查询条件</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Update 工作单位表 Set </div><div class="line">         单位名称 = &apos;地龙公司&apos;,</div><div class="line">         单位地址 = &apos;珠江路100号&apos;,</div><div class="line">         负责人   = &apos;李四&apos;,</div><div class="line">Where ID = 20</div></pre></td></tr></table></figure></p>
+<p>==========<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">update birthday set birth = &apos;1995-06-06&apos; where name = &apos;张三&apos;;</div></pre></td></tr></table></figure></p>
+<p>注意，要设置Where语句，否则会更改所有记录，造成灾难性的后果。</p>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>Delete语句用于删除数据库记录<br><strong>Delete Form 表名 Where 查询条件</strong></p>
+<pre><code>Delete From 工作单位表
+Where ID = 20 
+</code></pre><p>这个SQL语句能删除ID值为20的所有记录<br>注意，要设置Where语句，否则删除所有记录，造成灾难性的后果</p>
+<pre><code>delete from birthday where name = &apos;李四&apos;;
+</code></pre><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>可以在语句中调用函数，这些函数从来源上可以分为三类：</p>
+<ul>
+<li>标准函数   ANSI SQL标准定义的函数，所有数据库都支持的</li>
+<li>系统特定函数  由特定数据库定义的函数</li>
+<li>用户自定义函数 这个不用解释了吧</li>
+</ul>
+<p>从功能上可分为：</p>
+<ul>
+<li>合计函数：</li>
+<li>Count：累计数据库记录的个数，查询结果是个整数，当用Count（<em>）返回所有记录的个数 用法：<br> `Select Count(</em>) From Orders` //* 可换成字段 如：OrderPrice</li>
+<li>Max：获取字段值的最大值</li>
+<li>Min: 获取字段值的最小值</li>
+<li>Arg: 获取字段值的算术平均值</li>
+<li>Sum：获得字段值的总和  </li>
+<li>标量函数：</li>
+<li>Abs: 获得数值的绝对值</li>
+<li>Sin：略</li>
+<li>Cos：略<br><hr><h2 id="SQL扩展"><a href="#SQL扩展" class="headerlink" title="SQL扩展"></a>SQL扩展</h2></li>
+</ul>
+<h3 id="修改表："><a href="#修改表：" class="headerlink" title="修改表："></a>修改表：</h3><figure class="highlight"><table><tr><td class="code"><pre><div class="line">atler table &lt;表名&gt;     //对表修改</div><div class="line">    add&lt;列名&gt;&lt;数据类型&gt;[约束] //加一列</div><div class="line">    drop。。。                  //删除一列</div><div class="line"></div><div class="line">drop table 表名  //删除一章表 和delete相比，delete删除的是数据</div><div class="line"></div><div class="line">eg:</div><div class="line">    alter table students add sclass char&#123;20&#125;</div><div class="line">    alter table students add constraint sage check (saga between 15 and 40)</div></pre></td></tr></table></figure>
+<h3 id="select的修改"><a href="#select的修改" class="headerlink" title="select的修改"></a>select的修改</h3><p>选择列的时候可以做些修改，比如表里有年龄，但是要出生年份，就可以在选择的时候使用2016-sage，这样直接返回的就是出生年份<br>还可以跟字符串，跟一些函数<br>或者换一个列名，起一个别名，如下面的汉字<br><figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">select</span> snage 姓名,<span class="string">'year of birth:'</span><span class="number">.2016</span>-sage 出生年份,<span class="keyword">LOWER</span>(sdept) <span class="keyword">form</span> student</div></pre></td></tr></table></figure></p>
+<h3 id="一些关键字"><a href="#一些关键字" class="headerlink" title="一些关键字"></a>一些关键字</h3><ul>
+<li>between关键字<br>where 条件 可以跟 where age between 17 and 19</li>
+<li>in 关键字 也可以是not in<br>select * from biao where age in (‘17’,’18’,’19’)</li>
+<li>like 关键字 近似匹配,也可以是 not like<br>跟两种符号连用 % ,<em>，也可以没有符号，但是会变成精准的匹配<br>select * from biao where name like ‘王%’<br>用%表示王后面可以是零到多个字符，如王一一，`</em>`表示一个字符如’a_’，但是一个汉字是两个字符所以是’王__’</li>
+<li>转义符<br>由上一条可知，如果要找的关键字里有<code>%_</code>，可用转义：like ‘DB_Design’ escape ‘\’</li>
+<li><p>空值查询<br>is null<br>where grade is null，无值的会输出<br>不为空<br>is not null<br>where grade is not null ,有值的会输出</p>
+</li>
+<li><p>and 和 or<br>where name = ‘cs’ and grade &lt;20<br>where name = ‘cs’ or name = ‘as’</p>
+</li>
+<li><p>对查询结果进行排序<br>order by 列名 desc/asc 降序/升序<br>select * from Student order by age asc,grade desc<br>查询结果按照年龄的升序排序，同一年龄的按照成绩的降序排序</p>
+</li>
+</ul>
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><p>父查询，子查询用小括号括起<br>求解顺序由内向外<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select * from student where class in(</div><div class="line">select class from student where name = '王红’</div><div class="line">)</div><div class="line"></div><div class="line">select * from student where sage = (</div><div class="line">    select sage form Student where sno='21212'</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>上面第一个是结果多值查询用in 来选择集合，而单值可以用等号<br>相关子查询exists（存在）,后面跟的是为真或者为假，顺序由外向内<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select name from student where exists(</div><div class="line">    select * from sc where sno = student.sno and con = 1</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h3 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h3><p>count ([distinct|all] 去重|不去重 *)表中的行数<br>count （[distinct|all] 列名）表中的某一列的个数<br>sum () 求和<br>max()<br>min()</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select count(*) from student //求学生表中的行数</div><div class="line">select count(distinct sno) form sc // 去掉重复的学号，共有多少</div></pre></td></tr></table></figure>
+<p>分组<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select cno,count(sno) from SC group by cno having count(sno)&gt;2</div><div class="line"><span class="comment">&lt;!---求男生里面成绩最好的和女生里面成绩最好的--&gt;</span></div><div class="line">select ssex,MAX(grade) from Student,SC where Student.Sno = SC.Sno</div><div class="line">group by ssex</div></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<table>
+<thead>
+<tr>
+<th>（无列名）</th>
+<th>ssex</th>
+<th>(无列名)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>男</td>
+<td>98</td>
+</tr>
+<tr>
+<td>2</td>
+<td>女</td>
+<td>88</td>
+</tr>
+</tbody>
+</table>
+<p>上面用了自然连接Student.Sno = SC.Sno将两个表连接起来，注意，分组时ssex目标列在其中没有用到聚集函数，而目标列中有聚集函数，这时，分组group中一定要有没有聚集函数的字段。</p>
+<h3 id="左连接与右连接"><a href="#左连接与右连接" class="headerlink" title="左连接与右连接"></a>左连接与右连接</h3><ul>
+<li>left join(左联接) 返回包括左表中的所有记录和右表中联结字段相等的记录 </li>
+<li>right join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录 </li>
+<li>inner join(等值连接) 只返回两个表中联结字段相等的行 </li>
+<li>full outer join(全连接) 返回两个表中所有数据 (这就不做介绍了)</li>
+</ul>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/left%20jion.png" alt=""> </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">select *from A</div><div class="line">left join B</div><div class="line">on A.aID = B.bID</div></pre></td></tr></table></figure>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/leftJoinResult.png" alt=""></p>
+<p>结果说明: left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的. 换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID). B表记录不足的地方均为NULL.<strong>左边外部联接将包含了从第一个（左边）开始的两个表中的全部记录，即使在第二个（右边）表中并没有相符值的记录。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">select *from A</div><div class="line">right join B</div><div class="line">on A.aID = B.bID.</div></pre></td></tr></table></figure>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/rightJoinResult.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">select *from A</div><div class="line">innerjoin B</div><div class="line">on A.aID = B.bID</div></pre></td></tr></table></figure>
+<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/innerJion.png" alt=""></p>
+<p>语法：FROM table1 LEFT JOIN table2 ON table1.field1 compopr table2.field2 </p>
+<p>说明：</p>
+<ul>
+<li>table1, table2参数用于指定要将记录组合的表的名称。 </li>
+</ul>
+<ul>
+<li>field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。 </li>
+</ul>
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h4><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF.png" alt=""><br>selcet * from student ,sc 这样student和sc 会形成一个笛卡尔积的表</p>
+<h4 id="多表连接"><a href="#多表连接" class="headerlink" title="多表连接"></a>多表连接</h4><ul>
+<li><p>等值与非等值连接<br>等值连接<br>表1，列1 = 表2，列2<br>非等值连接<br>表1，列1 &gt; 表2，列2</p>
+</li>
+<li><p>自然连接<br>select student。* ,con,grade. 对于上面的等值连接，这样返回的是我们需要的，而且去掉了重复的列表</p>
+</li>
+<li><p>外连接<br>左外连接 a left outer join b.以左边的表为基础，其他填充，没有的为空<br>右外连接 a right outer join b 以右边的表为基础，其他填充，没有的为空<br>全外连接 a full outer join b  全部的行都放在一个表</p>
+</li>
+<li><p>集合操作<br>union 并集 与 or 相对应，默认去重<br>intersect 交集 与 and 相对应，默认去重<br>except 差集<br>操作前提：<br>列数相同，每列对应的类型相同<br>如这两个语句可以求并集</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">select * from student where class = 'cs'</div><div class="line">union</div><div class="line">select * from student where age &gt;10</div></pre></td></tr></table></figure>
+</li>
+<li><p>消除重复<br>select distinct 列名 这样就是</p>
+</li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/16/数据库与SQL/"
+                     data-title="数据库与SQL"
+                     data-url="http://haojen.github.io/2016/07/16/数据库与SQL/"
+                     data-images=""
+                     data-content="数据库范式概念属性：每一列的列名属性值：属性的值。完全函数依赖：就是一组属性对应唯一一个其他属... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/18/mysql与mongodb的安装与配置/" data-toggle="tooltip" data-placement="top"
+                           title="mysql与mongodb的安装与配置">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/11/字符集/" data-toggle="tooltip" data-placement="top"
+                           title="字符集">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/16/数据库与SQL/"
+                         data-title="数据库与SQL"
+                         data-url="http://haojen.github.io/2016/07/16/数据库与SQL/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库范式"><span class="toc-text">数据库范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#范式"><span class="toc-text">范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL语言"><span class="toc-text">SQL语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询语句"><span class="toc-text">查询语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增数据"><span class="toc-text">新增数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改数据库"><span class="toc-text">修改数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据"><span class="toc-text">删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL扩展"><span class="toc-text">SQL扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改表："><span class="toc-text">修改表：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select的修改"><span class="toc-text">select的修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些关键字"><span class="toc-text">一些关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套"><span class="toc-text">嵌套</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚集函数"><span class="toc-text">聚集函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左连接与右连接"><span class="toc-text">左连接与右连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多表查询"><span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#笛卡尔积"><span class="toc-text">笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多表连接"><span class="toc-text">多表连接</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
+                        
+                        <a class="tag" href="/tags/#sql"
+                           title="sql">sql</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

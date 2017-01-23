@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        js｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2017/01/23/js/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>js</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-01-23
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#js"
+                           title="js">js</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            js
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>JavaScript语句是发送给浏览器的命令，这些命令的作用是告诉浏览器要做的事情。<br>是一门脚本语言，主流浏览器都支持js,可以让网页呈现各种动态效果，灵活的实现很多页面交互功能<br>使用<code>&lt;script&gt;</code>标签在网页中插入JavaScript，一般放入head或者body中<br><code>&lt;script type = &quot;text/javascript&quot;&gt;</code>表示在<code>&lt;script&gt;&lt;/script&gt;</code>之间的是文本类型text，javascript是为了告诉浏览器里面的文本是属于JavaScript语言。</p>
+<h3 id="引用js外部文件"><a href="#引用js外部文件" class="headerlink" title="引用js外部文件"></a>引用js外部文件</h3><p>文件后缀通常为.js。<br>在html中：<br><code>&lt;script src = &quot;script.js&quot;&gt;&lt;/script&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">&lt;script type = <span class="string">"text/javascript"</span>&gt;</div><div class="line">    alert(<span class="string">"hello aima!"</span>);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>行的结束就意味着语句的结束，通常在结尾加上一个分号来表示语句的结束。可以不写，但是养成良好的编码习惯。</p>
+<h3 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h3><p>单行注释//<br>多行注释/**/</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>用关键字var<br>var aima = 8;<br>可以重复赋值：<br>var aima = “aima”;</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>语法：<br>function 函数名（）{<br>    函数代码；<br>}</p>
+<h3 id="输出内容"><a href="#输出内容" class="headerlink" title="输出内容"></a>输出内容</h3><p>document.write() ,用于直接先html输出流写内容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">document</span>.write(<span class="string">"i love aima"</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> aimaWord = <span class="string">"hello aima!"</span>;</div><div class="line"><span class="built_in">document</span>.write(aimaWord);</div><div class="line"><span class="built_in">document</span>.write(aimaWord + <span class="string">"i love aima"</span>); </div><div class="line"><span class="built_in">document</span>.write(aimaWord + <span class="string">"&lt;br&gt;"</span>); <span class="comment">//输出helloword后，再输出一个换行符</span></div></pre></td></tr></table></figure>
+<h3 id="警告（alert消息对话框）"><a href="#警告（alert消息对话框）" class="headerlink" title="警告（alert消息对话框）"></a>警告（alert消息对话框）</h3><p>我们在访问网站的时候，有时候会弹出小窗口，这个窗口就是用alert来实现的<br>语法：<br>alert（字符串或者变量）<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script type = <span class="string">"text/javascript"</span>&gt;</div><div class="line">    alert(<span class="string">"hello!"</span>);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>弹出消息对话框，肯定要包含一个确定按钮。<br>常用alert进行调试</p>
+<h3 id="DOM结构"><a href="#DOM结构" class="headerlink" title="DOM结构"></a>DOM结构</h3><p>DOM（文档对象模型）将html文档呈现为带有元素、属性和文本的树结构（节点树）。</p>
+<h3 id="通过id获取元素"><a href="#通过id获取元素" class="headerlink" title="通过id获取元素"></a>通过id获取元素</h3><p>document.getElementById(“id”)  //返回结果null 或 object</p>
+<h3 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h3><p>innerHTML属性用于获取或替换HTML元素的内容<br>语法：<br>    Object.innerHTML<br>eg:<br>通过id=”aima”获取<div>元素，并将元素的内容输出和改变元素内容。<br>html代码：<code>&lt;div id=&quot;aima&quot;&gt;&lt;/div&gt;</code><br>js代码：<code>document.getElementById(&quot;aima&quot;).innerHTML = &quot; 爱码”</code></div></p>
+<h3 id="改变HTML样式"><a href="#改变HTML样式" class="headerlink" title="改变HTML样式"></a>改变HTML样式</h3><p>DOM允许JavaScript改变HTML元素的样式。<br>语法：<br>Object style.property = new style;<br>object是获取的元素对象。<br>property 基本属性表<br>eg:<br>改变div元素的样式，将字体颜色改为红色，字号改为12px.<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">var</span> aimaChar = <span class="built_in">document</span>.getElementById(<span class="string">"aima"</span>);</div><div class="line">    aimaChar.style.color = <span class="string">"#ff0000"</span>;</div><div class="line">    aimaChar.style.fontSize = <span class="string">"12px"</span></div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure></p>
+<p>并不是属性表中的属性和html中一样，比如上面的fontSize 和 html 中的font-size</p>
+<h3 id="控制类名（className属性）"><a href="#控制类名（className属性）" class="headerlink" title="控制类名（className属性）"></a>控制类名（className属性）</h3><p>className 属性设置或返回元素的class属性<br>语法：<br>object.className = classname<br>作用：<br>获取元素的class属性<br>为网页内的某个元素指定一个css样式来更改该元素的外观<br>html:<code>&lt;div id = &quot;aima&quot; class = &quot;aimastyle&quot;&gt; Hello aimaonline!&lt;/div&gt;</code><br>js: <code>var aimaChar = document.getElementById(&quot;aima&quot;);</code><br>    <code>aimaChar.className = &quot;newstyle&quot;</code></p>
+<h3 id="js对象"><a href="#js对象" class="headerlink" title="js对象"></a>js对象</h3><p>对象拥有属性和方法：<br>属性是和对象相关的值，访问方式：<br><code>对象名.属性名</code> 如：<code>str.length</code><br>方法是对象的相关动作，访问方式：<br><code>对象名.方法名（）</code></p>
+<h3 id="创建对象实例"><a href="#创建对象实例" class="headerlink" title="创建对象实例"></a>创建对象实例</h3><p>这个例子创建了对象的一个新实例，并向其添加了四个属性：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">person=new Object();</div><div class="line">person.firstname=&quot;John&quot;;</div><div class="line">person.lastname=&quot;Doe&quot;;</div><div class="line">person.age=50;</div><div class="line">person.eyecolor=&quot;blue&quot;;</div></pre></td></tr></table></figure></p>
+<p>上面的话可代替之：<br><code>person={firstname:&quot;John&quot;,lastname:&quot;Doe&quot;,age:50,eyecolor:&quot;blue&quot;};</code></p>
+<h3 id="in循环"><a href="#in循环" class="headerlink" title="in循环"></a>in循环</h3><p>in语句循环便利对象的属性<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var person=&#123;fname:&quot;John&quot;,lname:&quot;Doe&quot;,age:25&#125;; </div><div class="line">for (x in person)</div><div class="line">&#123;</div><div class="line">    txt=txt + person[x];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出：JohnDoe25</p>
+<h3 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h3><ul>
+<li><p>数字不分为整数类型和浮点型类型，所有的数字都是由浮点型类型。</p>
+</li>
+<li><p>整数（不使用小数点或指数计数法）最多为 15 位。<br>小数的最大位数是 17，但是浮点运算并不总是 100% 准确：<br><code>var x = 0.2+0.1;</code>// 输出结果为 0.30000000000000004</p>
+</li>
+</ul>
+<h4 id="无穷大（Infinity）"><a href="#无穷大（Infinity）" class="headerlink" title="无穷大（Infinity）"></a>无穷大（Infinity）</h4><p>当数字运算结果超过了JavaScript所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，在JavaScript中以Infinity表示。同样地，当负数的值超过了JavaScript所能表示的负数范围，结果为负无穷大，在JavaScript中以-Infinity表示。无穷大值的行为特性和我们所期望的是一致的：基于它们的加、减、乘和除运算结果还是无穷大（当然还保留它们的正负号）。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">myNumber=2;</div><div class="line">while (myNumber!=Infinity)</div><div class="line">&#123;</div><div class="line">    myNumber=myNumber*myNumber; // 重复计算直到 myNumber 等于 Infinity</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="NaN非数字值"><a href="#NaN非数字值" class="headerlink" title="NaN非数字值"></a>NaN非数字值</h4><p>NaN 属性是代表非数字值的特殊值。该属性用于指示某个值不是数字。可以把 Number 对象设置为该值，来指示其不是数字值。<br>你可以使用 isNaN() 全局函数来判断一个值是否是 NaN 值。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var x = 1000 / &quot;Apple&quot;;</div><div class="line">isNaN(x); // 返回 true</div><div class="line">var y = 100 / &quot;1000&quot;;</div><div class="line">isNaN(y); // 返回 false</div></pre></td></tr></table></figure></p>
+<h4 id="数字可以是数字或者对象"><a href="#数字可以是数字或者对象" class="headerlink" title="数字可以是数字或者对象"></a>数字可以是数字或者对象</h4><p>数字可以进行初始化 ，还可以对数字对象初始化<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var x = 123;</div><div class="line">var y = new Number(123);</div><div class="line">typeof(x) // 返回 Number</div><div class="line">typeof(y) // 返回 Object</div></pre></td></tr></table></figure></p>
+<h3 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>函数表达式<br><code>var x = function(a,b) {return a*b};</code><br>以上函数是一个匿名函数（函数没有名称）。<br>函数存储在变量中，不需要函数名称，通常通过变量名来调用。</li>
+<li>function()构造函数<br>函数可以通过内置的函数构造器来定义，<br><code>var myFunction = new Function(&quot;a&quot;,&quot;b&quot;,&quot;return a*b&quot;);</code><br>上面可以把new去掉，很多时候要避免new关键字。</li>
+<li><p>自调用函数<br>函数表达式可以 “自调用”。<br>自调用表达式会自动调用。<br>如果表达式后面紧跟 () ，则会自动调用。<br>不能自调用声明的函数。<br>通过添加括号，来说明它是一个函数表达式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">(function () &#123;</div><div class="line">    var x = &quot;Hello!!&quot;;      // 我将调用自己</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+</li>
+<li><p>函数定义作为对象的属性，称之为对象方法。<br>函数如果用于创建新的对象，称之为对象的构造函数。</p>
+</li>
+</ul>
+<h4 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h4><p>Arguments对象<br>如果函数调用时设置了过多的参数，参数将无法被引用，因为无法找到对应的参数名。 只能使用 arguments 对象来调用。<br>JavaScript 函数有个内置的对象 arguments 对象。<br>argument 对象包含了函数调用的参数数组。<br>通过这种方式你可以很方便的找到最后一个参数的值：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">x = findMax(1, 123, 500, 115, 44, 88);</div><div class="line">function findMax() &#123;</div><div class="line">    var i, max = 0;</div><div class="line">    for (i = 0; i &lt; arguments.length; i++) &#123;</div><div class="line">        if (arguments[i] &gt; max) &#123;</div><div class="line">            max = arguments[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return max;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="函数闭包"><a href="#函数闭包" class="headerlink" title="函数闭包"></a>函数闭包</h4><p>函数闭包可以实现对一个变量进行封装，比如一个计数变量，如果声明成全局变量当然谁都可以访问，如果让制定的函数来做，函数内的私有变量在调用函数时初始，在函数执行后会被销毁，那么无法完成基数，所以让函数只执行一次，通过函数内的函数来访问，便可以实现：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var add = (function () &#123;</div><div class="line">    var counter = 0;</div><div class="line">    return function () &#123;return counter += 1;&#125;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">add();</div><div class="line">add();</div><div class="line">add();</div><div class="line"></div><div class="line">// 计数器为 3</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/01/23/js/"
+                     data-title="js"
+                     data-url="http://haojen.github.io/2017/01/23/js/"
+                     data-images=""
+                     data-content="写在前面JavaScript语句是发送给浏览器的命令，这些命令的作用是告诉浏览器要做的事情。是... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/01/21/hexo搭建/" data-toggle="tooltip" data-placement="top"
+                           title="hexo搭建">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/01/23/js/"
+                         data-title="js"
+                         data-url="http://haojen.github.io/2017/01/23/js/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用js外部文件"><span class="toc-text">引用js外部文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释："><span class="toc-text">注释：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出内容"><span class="toc-text">输出内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#警告（alert消息对话框）"><span class="toc-text">警告（alert消息对话框）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM结构"><span class="toc-text">DOM结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过id获取元素"><span class="toc-text">通过id获取元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innerHTML属性"><span class="toc-text">innerHTML属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变HTML样式"><span class="toc-text">改变HTML样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制类名（className属性）"><span class="toc-text">控制类名（className属性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#js对象"><span class="toc-text">js对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建对象实例"><span class="toc-text">创建对象实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#in循环"><span class="toc-text">in循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字对象"><span class="toc-text">数字对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#无穷大（Infinity）"><span class="toc-text">无穷大（Infinity）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NaN非数字值"><span class="toc-text">NaN非数字值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数字可以是数字或者对象"><span class="toc-text">数字可以是数字或者对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数-1"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数参数"><span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数闭包"><span class="toc-text">函数闭包</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#js"
+                           title="js">js</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/卖豹的小画家">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

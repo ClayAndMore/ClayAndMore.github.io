@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python基础整理｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/01/30/python基础整理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python基础整理</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-01-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python基础整理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>linux 命令行将以\$开始，比如\$ls,$python<br>python命令行将以&gt;&gt;&gt;开始 如：&gt;&gt;&gt;print ‘Hello World!’<br>注释会以#开始<br>文件后缀.py<br>一行写不下可以用+\连接</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量不需要声明，直接 a=10,<br>type(a)，可以看变量的类型<br>收回变量直接赋新值就好<br>在python3中，一个int类型可以存任意大小的整数，甚至超过了64位，<br>None和False不一样。</p>
+<h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><ul>
+<li>tuple，定值表 ，也成为元组，s1=(1,2,true)  其中的值不可变更</li>
+<li>list，表(本质是个类)   s2=[1,2,[‘g’]] ,可变. 函数 <strong>range(n)</strong> ，建立一个从0到n-1的表</li>
+<li>下表引用 基本样式下限：上限：步长]<br><code>print s1[0:5:2]</code> 从下标0到下标4，每隔2取一个元素，输出为0，2，4<br>so,上限不包括本身</li>
+<li>尾部元素引用 s1[-1] 序列中最后一个元素，s1[-3]序列倒数第三个元素</li>
+<li>字符串也是只可以按list的元素算的，str=’abcdef’ 单引号和双引号都可以</li>
+</ul>
+<h4 id="关于序列的内置函数"><a href="#关于序列的内置函数" class="headerlink" title="关于序列的内置函数"></a>关于序列的内置函数</h4><ul>
+<li><p>适用于序列：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">len(s)         返回： 序列中包含元素的个数</div><div class="line">min(s)         返回： 序列中最小的元素</div><div class="line">max(s)         返回： 序列中最大的元素</div><div class="line">all(s)         返回： True, 如果所有元素都为True的话</div><div class="line">any(s)         返回： True, 如果任一元素为True的话</div></pre></td></tr></table></figure>
+</li>
+<li><p>查询功能，适用于表和定值表：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sum(s)         返回：序列中所有元素的和</div><div class="line"># x为元素值，i为下标(元素在序列中的位置)</div><div class="line"></div><div class="line">s.count(x)     返回： x在s中出现的次数</div><div class="line">s.index(x)     返回： x在s中第一次出现的下标</div></pre></td></tr></table></figure>
+</li>
+<li><p>只适用于表：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># l为一个表, l2为另一个表</div><div class="line"></div><div class="line">l.extend(l2)        在表l的末尾添加表l2的所有元素</div><div class="line">l.append(x)         在l的末尾附加x元素</div><div class="line">l.sort()            对l中的元素排序</div><div class="line">l.reverse()         将l中的元素逆序</div><div class="line">l.pop()             返回：表l的最后一个元素，并在表l中删除该元素</div><div class="line">del l[i]            删除该元素</div><div class="line"></div><div class="line">(以上这些方法都是在原来的表的上进行操作，会对原来的表产生影响，而不是返回一个新表。)</div></pre></td></tr></table></figure>
+</li>
+<li><p>用于字符串的方法。尽管字符串是定值表的特殊的一种，但字符串(string)类有一些方法是改变字符串的。这些方法的本质不是对原有字符串进行操作，而是删除原有字符串，再建立一个新的字符串，所以并不与定值表的特点相矛盾。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#str为一个字符串，sub为str的一个子字符串。s为一个序列，它的元素都是字符串。width为一个整数，用于说明新生成字符串的宽度。</div><div class="line"></div><div class="line">str.count(sub)       返回：sub在str中出现的次数</div><div class="line">str.find(sub)        返回：从左开始，查找sub在str中第一次出现的位置。如果str中不包含sub，返回 -1</div><div class="line"></div><div class="line">str.index(sub)       返回：从左开始，查找sub在str中第一次出现的位置。如果str中不包含sub，举出错误</div><div class="line"></div><div class="line">str.rfind(sub)       返回：从右开始，查找sub在str中第一次出现的位置。如果str中不包含sub，返回 -1</div><div class="line"></div><div class="line">str.rindex(sub)      返回：从右开始，查找sub在str中第一次出现的位置。如果str中不包含sub，举出错误</div><div class="line"></div><div class="line"></div><div class="line">str.isalnum()        返回：True， 如果所有的字符都是字母或数字</div><div class="line">str.isalpha()        返回：True，如果所有的字符都是字母</div><div class="line">str.isdigit()        返回：True，如果所有的字符都是数字</div><div class="line">str.istitle()        返回：True，如果所有的词的首字母都是大写</div><div class="line">str.isspace()        返回：True，如果所有的字符都是空格</div><div class="line">str.islower()        返回：True，如果所有的字符都是小写字母</div><div class="line">str.isupper()        返回：True，如果所有的字符都是大写字母</div><div class="line"></div><div class="line">str.split([sep, [max]])    返回：从左开始，以空格为分割符(separator)，将str分割为多个子字符串，总共分割max次。将所得的子字符串放在一个表中返回。可以str.split(&apos;,&apos;)的方式使用逗号或者其它分割符</div><div class="line"></div><div class="line">str.rsplit([sep, [max]])   返回：从右开始，以空格为分割符(separator)，将str分割为多个子字符串，总共分割max次。将所得的子字符串放在一个表中返回。可以str.rsplit(&apos;,&apos;)的方式使用逗号或者其它分割符</div><div class="line"></div><div class="line">str.join(s)                返回：将s中的元素，以str为分割符，合并成为一个字符串。</div><div class="line"></div><div class="line">str.strip([sub])           返回：去掉字符串开头和结尾的空格。也可以提供参数sub，去掉位于字符串开头和结尾的sub  </div><div class="line"></div><div class="line">str.replace(sub, new_sub)  返回：用一个新的字符串new_sub替换str中的sub</div><div class="line">str.capitalize()           返回：将str第一个字母大写</div><div class="line">str.lower()                返回：将str全部字母改为小写</div><div class="line">str.upper()                返回：将str全部字母改为大写</div><div class="line">str.swapcase()             返回：将str大写字母改为小写，小写改为大写</div><div class="line">str.title()                返回：将str的每个词(以空格分隔)的首字母大写</div><div class="line"></div><div class="line">str.center(width)          返回：长度为width的字符串，将原字符串放入该字符串中心，其它空余位置为空格。</div><div class="line"></div><div class="line">str.ljust(width)           返回：长度为width的字符串，将原字符串左对齐放入该字符串，其它空余位置为空格。</div><div class="line"></div><div class="line">str.rjust(width)           返回：长度为width的字符串，将原字符串右对齐放入该字符串，其它空余位置为空格。</div><div class="line">#str为一个字符串，sub为str的一个子字符串。s为一个序列，它的元素都是字符串。width为一个整数，用于说明新生成字符串的宽度。</div><div class="line"></div><div class="line">str.count(sub)       返回：sub在str中出现的次数</div><div class="line">str.find(sub)        返回：从左开始，查找sub在str中第一次出现的位置。如果str中不包含sub，返回 -1</div><div class="line"></div><div class="line">str.index(sub)       返回：从左开始，查找sub在str中第一次出现的位置。如果str中不包含sub，举出错误</div><div class="line"></div><div class="line">str.rfind(sub)       返回：从右开始，查找sub在str中第一次出现的位置。如果str中不包含sub，返回 -1</div><div class="line"></div><div class="line">str.rindex(sub)      返回：从右开始，查找sub在str中第一次出现的位置。如果str中不包含sub，举出错误</div><div class="line"></div><div class="line"></div><div class="line">str.isalnum()        返回：True， 如果所有的字符都是字母或数字</div><div class="line">str.isalpha()        返回：True，如果所有的字符都是字母</div><div class="line">str.isdigit()        返回：True，如果所有的字符都是数字</div><div class="line">str.istitle()        返回：True，如果所有的词的首字母都是大写</div><div class="line">str.isspace()        返回：True，如果所有的字符都是空格</div><div class="line">str.islower()        返回：True，如果所有的字符都是小写字母</div><div class="line">str.isupper()        返回：True，如果所有的字符都是大写字母</div><div class="line"></div><div class="line">str.split([sep, [max]])    返回：从左开始，以空格为分割符(separator)，将str分割为多个子字符串，总共分割max次。将所得的子字符串放在一个表中返回。可以str.split(&apos;,&apos;)的方式使用逗号或者其它分割符</div><div class="line"></div><div class="line">str.rsplit([sep, [max]])   返回：从右开始，以空格为分割符(separator)，将str分割为多个子字符串，总共分割max次。将所得的子字符串放在一个表中返回。可以str.rsplit(&apos;,&apos;)的方式使用逗号或者其它分割符</div><div class="line"></div><div class="line">str.join(s)                返回：将s中的元素，以str为分割符，合并成为一个字符串。</div><div class="line"></div><div class="line">str.strip([sub])           返回：去掉字符串开头和结尾的空格。也可以提供参数sub，去掉位于字符串开头和结尾的sub  </div><div class="line"></div><div class="line">str.replace(sub, new_sub)  返回：用一个新的字符串new_sub替换str中的sub</div><div class="line">str.capitalize()           返回：将str第一个字母大写</div><div class="line">str.lower()                返回：将str全部字母改为小写</div><div class="line">str.upper()                返回：将str全部字母改为大写</div><div class="line">str.swapcase()             返回：将str大写字母改为小写，小写改为大写</div><div class="line">str.title()                返回：将str的每个词(以空格分隔)的首字母大写</div><div class="line"></div><div class="line">str.center(width)          返回：长度为width的字符串，将原字符串放入该字符串中心，其它空余位置为空格。</div><div class="line"></div><div class="line">str.ljust(width)           返回：长度为width的字符串，将原字符串左对齐放入该字符串，其它空余位置为空格。</div><div class="line"></div><div class="line">str.rjust(width)           返回：长度为width的字符串，将原字符串右对齐放入该字符串，其它空余位置为空格。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//一般写法</div><div class="line">if(i&gt;0)&#123;</div><div class="line">    x=1;</div><div class="line">    y=1;</div><div class="line">&#125;</div><div class="line"># python 写法</div><div class="line">if i&gt;0</div><div class="line">    x=1;</div><div class="line">    y=1;</div></pre></td></tr></table></figure>
+<p>通过缩来实现不同层次<br>一个if结构：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">if i&gt;0</div><div class="line">    i=1</div><div class="line">elif i&lt;0 # 可以写多个elif</div><div class="line">    i=2</div><div class="line">els:</div><div class="line">    i=0</div></pre></td></tr></table></figure></p>
+<p>elif可理解为else if</p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p><code>for 元素 in 序列：</code><br><code>statement</code></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def square_sum(a,b):</div><div class="line">    c=a+b</div><div class="line">    return c</div></pre></td></tr></table></figure>
+<p>def 关键字通知python我们在定义一个函数，没有return时返回none.<br>参数传递，可以sum(1,2),或者sum(a=1,b=1).<br>函数中的pass语句表示什么也没做。</p>
+<p>###函数参数<br>用<em>收集位置参数，以元祖的形式返回，如果有使用的位置参数，</em>会收集剩下的<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def print_args(a,b,*args)</div><div class="line">    print(&quot;have a&quot;,a)</div><div class="line">    print(&quot;have b&quot;,b)</div><div class="line">    print(&quot;the rest:&quot;,args)</div></pre></td></tr></table></figure></p>
+<p>用**可以将参数收集到一个字典中，参数的名字是字典的键，对应参数的值是字典的值。</p>
+<p><strong>在python总圆括号意味着调用函数，在没有圆括号的情况下，会把函数当成普通对象</strong></p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># 定义</div><div class="line">class Bird(object):</div><div class="line">    have_feather = True</div><div class="line">    way_of_reproduction = &apos;egg&apos;</div><div class="line">    # 方法</div><div class="line">    def move(self,dx,dy):</div><div class="line">    position = [0,0]</div><div class="line">    position[0] = position[0]+dx</div><div class="line">    position[1] = position[1]+dy</div><div class="line">    return position </div><div class="line">    </div><div class="line"># 使用</div><div class="line">summer = Bird()</div><div class="line">print summer.way_of_reproduction</div><div class="line"></div><div class="line"># 继承</div><div class="line">class Chicken(Bird);</div><div class="line">    way_of_move = &apos;walk&apos;</div></pre></td></tr></table></figure>
+<p>方法中有个self，方便我们引用自身对象，无论用或不用，第一个参数必须是self.传参可以不传.这个相当与其他语言中的this，可以在方法中用本类的属性</p>
+<h3 id="init-方法"><a href="#init-方法" class="headerlink" title="_init_()方法"></a><code>_init_()方法</code></h3><p>python中有一些特殊方法，特殊方法的特点是名字前后有两个下划线<br>如果在类中定义了init这个方法，python会自动嗲用这个方法，这个过程也叫初始化</p>
+<h3 id="repr-方法"><a href="#repr-方法" class="headerlink" title="__repr__()方法"></a><code>__repr__()</code>方法</h3><p>这个函数，对应repr(object)这个功能。意思是当需要显示一个对象在屏幕上时，将这个对象的属性或者是方法整理成一个可以打印输出的格式。</p>
+<p>这个功能与eval也可以对应。打印出的结果直接放到eval里，通常可以获得原来的对象。<br>比如：<br>t1=datetime.datetime.now()<br>print repr(t1)<br>结果是<br>datetime.datetime(2014, 9, 9, 6, 34, 29, 756000)</p>
+<h3 id="dir-和-help"><a href="#dir-和-help" class="headerlink" title="dir() 和 help"></a>dir() 和 help</h3><p>dir()可以用来查询一个类或者对象的所有属性 dir(list)<br>help() 来查询相应文档  help（list)</p>
+<h3 id="运算符是特殊方法"><a href="#运算符是特殊方法" class="headerlink" title="运算符是特殊方法"></a>运算符是特殊方法</h3><p>使用dir(list)的时候，能看到一个属性，是add()。从形式上看是特殊方法（下划线，下划线）。它特殊在哪呢？<br>这个方法定义了”+”运算符对于list对象的意义，两个list的对象相加时，会进行的操作。<br><code>&gt;&gt;&gt;print [1,2,3] + [5,6,9]</code><br>运算符，比如+, -, &gt;, &lt;, 以及下标引用[start:end]等等，从根本上都是定义在类内部的方法。<br>尝试一下：<br><code>&gt;&gt;&gt;print [1,2,3] - [3,4]</code><br>会有错误信息，说明该运算符“-”没有定义。现在我们继承list类，添加对”-“的定义：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class superList(list):</div><div class="line">    def __sub__(self, b):</div><div class="line">        a = self[:]     # 这里，self是supeList的对象。由于superList继承于list，它可以利用和list[:]相同的引用方法来表示整个对象。</div><div class="line">        b = b[:]        </div><div class="line">        while len(b) &gt; 0:</div><div class="line">            element_b = b.pop()</div><div class="line">            if element_b in a:</div><div class="line">                a.remove(element_b)</div><div class="line">        return a</div><div class="line"></div><div class="line">print superList([1,2,3]) - superList([3,4])</div></pre></td></tr></table></figure></p>
+<p>内置函数len()用来返回list所包含的元素的总数。内置函数<strong>sub</strong>() 定义了“-”的操作：从第一个表中去掉第二个表中出现的元素。如果<strong>sub</strong>() 已经在父类中定义，你又在子类中定义了，那么子类的对象会参考子类的定义，而不会载入父类的定义。任何其他的属性也是这样。</p>
+<h3 id="词典（字典）"><a href="#词典（字典）" class="headerlink" title="词典（字典）"></a>词典（字典）</h3><p>可以理解为一种key-value的list<br><code>dic = {&#39;tom&#39;:11,&#39;sam&#39;:12,&#39;lily&#39;:100}</code><br>与表不同的是，不能通过下下标来引用，要通过键来引用<br><code>print dic[&#39;tom&#39;]</code><br>循环词典：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">dic = &#123;&apos;lilei&apos;: 90, &apos;lily&apos;: 100, &apos;sam&apos;: 57, &apos;tom&apos;: 90&#125;</div><div class="line">for key in dic:</div><div class="line">    print dic[key]</div></pre></td></tr></table></figure></p>
+<p>常用方法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt;print dic.keys()           # 返回dic所有的键</div><div class="line">&gt;&gt;&gt;print dic.values()         # 返回dic所有的值</div><div class="line">&gt;&gt;&gt;print dic.items()          # 返回dic所有的元素（键值对）</div><div class="line">&gt;&gt;&gt;dic.clear()                # 清空dic，dict变为&#123;&#125;</div><div class="line">&gt;&gt;&gt;del dic[&apos;tom&apos;]             # 删除 dic 的‘tom’元素</div><div class="line">del是Python中保留的关键字，用于删除对象。</div><div class="line">与表类似，你可以用len()查询词典中的元素总数。</div><div class="line">&gt;&gt;&gt;print len(dic)</div></pre></td></tr></table></figure></p>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
+<li>创建文件<pre><code>`对象名 = open(文件名，模式)`
+常用的模式：
+</code></pre><ul>
+<li>r 打开只读文件，该文件必须存在。</li>
+<li>r+ 打开可读写的文件，该文件必须存在。</li>
+<li>w 打开只写文件，若文件存在则文件长度清为0，即该文件内容会消失。若文件不存在则 建立该文件。</li>
+<li>w+ 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件。</li>
+<li>a 以附加的方式打开只写文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾，即文件原先的内容会被保留。</li>
+<li>a+ 以附加方式打开可读写的文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾后，即文件原先的内容会被保留。<br>上述的形态字符串都可以再加一个b字符，如rb、w+b或ab＋等组合，加入b 字符用来告诉函数库打开的文件为二进制文件，而非纯文字文件。\</li>
+</ul>
+</li>
+<li><p>读取 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">content = f.read(N)          # 读取N bytes的数据</div><div class="line">content = f.readline()       # 读取一行</div><div class="line">content = f.readlines()      # 读取所有行，储存在列表中，每个元素是一行。</div></pre></td></tr></table></figure>
+</li>
+<li><p>写入<br><code>f.write(&#39;I like apple!\n&#39;)      # 将&#39;I like apple&#39;写入文件并换行</code></p>
+</li>
+<li>关闭文件<br><code>f.close()</code></li>
+</ul>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><p>相当与引用其他.py文件，类似于java中的引入包。<br><code>import 文件名</code><br>使用其他文件中的对象：<code>文件名(模块).对象</code><br>其他引入方式：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import a as b             # 引入模块a，并将模块a重命名为b</div><div class="line">from a import function1   # 从模块a中引入function1对象。调用a中对象时，我们不用再说明模块，即直接使用function1，而不是a.function1。</div><div class="line">from a import *           # 从模块a中引入所有对象。调用a中对象时，我们不用再说明模块，即直接使用对象，而不是a.对象。</div></pre></td></tr></table></figure></p>
+<h3 id="模块包"><a href="#模块包" class="headerlink" title="模块包"></a>模块包</h3><p>可以将功能相似的模块放在同一个文件夹（比如说this_dir）中，构成一个模块包。通过</p>
+<p><code>import this_dir.module</code><br>引入this_dir文件夹中的module模块。</p>
+<p>该文件夹中必须包含一个 <code>__init__.py</code> 的文件，提醒Python，该文件夹为一个模块包。<strong>init</strong>.py 可以是一个空文件。</p>
+<h3 id="包裹传递"><a href="#包裹传递" class="headerlink" title="包裹传递"></a>包裹传递</h3><ul>
+<li>在传递函数的参数时，我们不知道有多少个参数，这时可以传递包裹<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def func(*name):</div><div class="line">    print type(name)</div><div class="line">    print name</div><div class="line"></div><div class="line">func(1,4,6)</div><div class="line">func(5,6,7,1,2,3)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>所有的参数被name收集，根据位置合并成一个元组(tuple)，这就是包裹位置传递。</p>
+<ul>
+<li>包裹关键字传递：<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def func(**dict):</div><div class="line">    print type(dict)</div><div class="line">    print dict</div><div class="line"></div><div class="line">func(a=1,b=9)</div><div class="line">func(m=2,n=1,c=11)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>与上面一个例子类似，dict是一个字典，收集所有的关键字，传递给函数func。为了提醒Python，参数dict是包裹关键字传递所用的字典，在dict前加 <em> </em></p>
+<ul>
+<li>定义的时候没有定义包裹也可以在传递的时候用：<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def func(a,b,c):</div><div class="line">    print a,b,c</div><div class="line"></div><div class="line">args = (1,3,4)</div><div class="line">func(*args)</div><div class="line"># 相应的：</div><div class="line">dict = &#123;&apos;a&apos;:1,&apos;b&apos;:2,&apos;c&apos;:3&#125;</div><div class="line">func(**dict)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="循环设计"><a href="#循环设计" class="headerlink" title="循环设计"></a>循环设计</h3><ul>
+<li><p>range()</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">S = &apos;abcdefghijk&apos;</div><div class="line">for i in range(0,len(S),2):</div><div class="line">    print S[i]</div></pre></td></tr></table></figure>
+</li>
+<li><p>enumerate()<br>利用enumerate()函数，可以在每次循环中同时得到下标和元素：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">S = &apos;abcdefghijk&apos;</div><div class="line">for (index,char) in enumerate(S):</div><div class="line">    print index</div><div class="line">    print char</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>实际上，enumerate()在每次循环中，返回的是一个包含两个元素的定值表(tuple)，两个元素分别赋予index和char。</p>
+<ul>
+<li>zip()<br>如果你多个等长的序列，然后想要每次循环时从各个序列分别取出一个元素，可以利用zip()方便地实现：<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ta = [1,2,3]</div><div class="line">tb = [9,8,7]</div><div class="line">tc = [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;]</div><div class="line">for (a,b,c) in zip(ta,tb,tc):</div><div class="line">    print(a,b,c)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>zip()函数的功能，就是从多个列表中，依次各取出一个元素。每次取出的(来自不同列表的)元素合成一个元组，合并成的元组放入zip()返回的列表中。zip()函数起到了聚合列表的功能。<br>分解聚合后的列表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ta = [1,2,3]</div><div class="line">tb = [9,8,7]</div><div class="line"></div><div class="line"># cluster</div><div class="line">zipped = zip(ta,tb)</div><div class="line">print(zipped)</div><div class="line"></div><div class="line"># decompose</div><div class="line">na, nb = zip(*zipped)</div><div class="line">print(na, nb)</div></pre></td></tr></table></figure></p>
+<h3 id="循环对象"><a href="#循环对象" class="headerlink" title="循环对象"></a>循环对象</h3><p>在python3中有个<strong>next</strong>() 方法，进行到下个结果，最后出现StopIteration错误<br>假设有个test.txt的文件：、<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1234</div><div class="line">abcd</div><div class="line">efg</div></pre></td></tr></table></figure></p>
+<p>运行python命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt;f = open(&apos;test.txt&apos;)</div><div class="line">&gt;&gt;&gt;f.next()</div><div class="line">&gt;&gt;&gt;f.next()</div><div class="line">..#直到最后出现stoplteration.</div></pre></td></tr></table></figure></p>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>generator的主要目的是构建一个用户自定义的循环对象，编写方法和函数相似，只是把return的地方改为yield，每次运行到生成器的时候在yield处暂停，返回yield后面值，当再次调用的时候，从暂停的地方继续运行，每次循环使用一个yield返回的值。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def gen():</div><div class="line">    a = 100</div><div class="line">    yield a</div><div class="line">    a = a*8</div><div class="line">    yield a</div><div class="line">    yield 1000</div></pre></td></tr></table></figure></p>
+<h4 id="生成器表达式："><a href="#生成器表达式：" class="headerlink" title="生成器表达式："></a>生成器表达式：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def gen():</div><div class="line">    for i in range(4):</div><div class="line">        yield i</div></pre></td></tr></table></figure>
+<p>等价于：<br><code>G=(x for x in range(4))</code></p>
+<h3 id="推导式"><a href="#推导式" class="headerlink" title="推导式"></a>推导式</h3><h4 id="表推导"><a href="#表推导" class="headerlink" title="表推导"></a>表推导</h4><p><code>[expression for item in iterable if condition]</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">L = []</div><div class="line">for x in range(10):</div><div class="line">    L.append(x**2)</div></pre></td></tr></table></figure></p>
+<p>推导：<br><code>L = [x**2 for x in range(10)]</code></p>
+<p>创建一个整数列表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">number_list = [number for number in range(1,6)]</div><div class="line">[1,2,3,4,5]</div><div class="line">number_list = [number for number in range(1,6) if number $2 == 1]</div><div class="line">[1,3,5]</div></pre></td></tr></table></figure></p>
+<p>第一个number为列表红生成的值，可以用表达式，比如number-1<br>第二个number为临时的range中的循环变量。</p>
+<h4 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h4><h3 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h3><h4 id="lambda表达"><a href="#lambda表达" class="headerlink" title="lambda表达"></a>lambda表达</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def func(x,y):</div><div class="line">    return x+y</div><div class="line">----------------</div><div class="line">func = lambda x,y:x+y</div></pre></td></tr></table></figure>
+<h4 id="map-函数"><a href="#map-函数" class="headerlink" title="map()函数"></a>map()函数</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">re = map((lambda x,y: x+y),[1,2,3],[6,7,9])</div></pre></td></tr></table></figure>
+<p>map()将每次从两个表中分别取出一个元素，带入lambda所定义的函数。结果返回到表re中。<br>map函数第一个参数是一个函数对象。</p>
+<h4 id="filter-函数-根据条件判断"><a href="#filter-函数-根据条件判断" class="headerlink" title="filter()函数(根据条件判断)"></a>filter()函数(根据条件判断)</h4><p>filter函数的第一个参数也是一个函数对象。它也是将作为参数的函数对象作用于多个元素。如果函数对象返回的是True，则该次的元素被储存于返回的表中。 filter通过读入的函数来筛选数据。同样，在Python 3.X中，filter返回的不是表，而是循环对象。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def func(a):</div><div class="line">    if a &gt; 100:</div><div class="line">        return True</div><div class="line">    else:</div><div class="line">        return False</div><div class="line"></div><div class="line">print filter(func,[10,56,101,500])</div></pre></td></tr></table></figure></p>
+<h4 id="reduce-函数-累积传参）"><a href="#reduce-函数-累积传参）" class="headerlink" title="reduce()函数(累积传参）"></a>reduce()函数(累积传参）</h4><p><code>print reduce((lambda x,y: x+y),[1,2,5,7,9])</code><br>相当于((1+2)+5)+7)+9<br>reduce()函数在3.0里面不能直接用的，它被定义在了functools包里面，需要引入包。</p>
+<h3 id="错误和异常"><a href="#错误和异常" class="headerlink" title="错误和异常"></a>错误和异常</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">try:</div><div class="line">    ...</div><div class="line">except exception1:</div><div class="line">    ...</div><div class="line">except exception2:</div><div class="line">    ...</div><div class="line">except:</div><div class="line">    ...</div><div class="line">else:</div><div class="line">    ...</div><div class="line">finally:</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<ul>
+<li>try - 有异常 - except 1 或者 2，都没有，到except - finally</li>
+<li>try - 无异常 - else - finally</li>
+</ul>
+<h4 id="抛异常"><a href="#抛异常" class="headerlink" title="抛异常"></a>抛异常</h4><p><code>raise StopIteration</code><br>StopIteration是一个类。抛出异常时，会自动有一个中间环节，就是生成StopIteration的一个对象。Python实际上抛出的，是这个对象。当然，也可以自行生成对象:<br><code>raise StopIteration()</code></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/01/30/python基础整理/"
+                     data-title="python基础整理"
+                     data-url="https://clayandmore.github.io/2017/01/30/python基础整理/"
+                     data-images=""
+                     data-content="linux 命令行将以\$开始，比如\$ls,$pythonpython命令行将以&gt;&g... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/01/30/python进阶整理/" data-toggle="tooltip" data-placement="top"
+                           title="python进阶整理">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/01/29/win10优盘重装系统/" data-toggle="tooltip" data-placement="top"
+                           title="win10优盘重装系统">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/01/30/python基础整理/"
+                         data-title="python基础整理"
+                         data-url="https://clayandmore.github.io/2017/01/30/python基础整理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#序列"><span class="toc-text">序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于序列的内置函数"><span class="toc-text">关于序列的内置函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代"><span class="toc-text">迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类"><span class="toc-text">类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#init-方法"><span class="toc-text">_init_()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#repr-方法"><span class="toc-text">__repr__()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dir-和-help"><span class="toc-text">dir() 和 help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符是特殊方法"><span class="toc-text">运算符是特殊方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#词典（字典）"><span class="toc-text">词典（字典）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块"><span class="toc-text">模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块包"><span class="toc-text">模块包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#包裹传递"><span class="toc-text">包裹传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环设计"><span class="toc-text">循环设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环对象"><span class="toc-text">循环对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-text">生成器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成器表达式："><span class="toc-text">生成器表达式：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推导式"><span class="toc-text">推导式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#表推导"><span class="toc-text">表推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字典推导式"><span class="toc-text">字典推导式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数对象"><span class="toc-text">函数对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda表达"><span class="toc-text">lambda表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#map-函数"><span class="toc-text">map()函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#filter-函数-根据条件判断"><span class="toc-text">filter()函数(根据条件判断)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reduce-函数-累积传参）"><span class="toc-text">reduce()函数(累积传参）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误和异常"><span class="toc-text">错误和异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#抛异常"><span class="toc-text">抛异常</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

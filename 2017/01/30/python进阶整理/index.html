@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python进阶整理｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/01/30/python进阶整理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python进阶整理</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-01-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python进阶整理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="特殊方法"><a href="#特殊方法" class="headerlink" title="特殊方法"></a>特殊方法</h3><p>python是多范式语言，既可以面向对象，也可以函数式，依赖于python的对象中的特殊方法。<br>格式：<code>_特殊方法名_()</code><br>运算符（如+）、内置函数（如len()）、表元素（如list[3]），有特殊方法的函数可以被认为对象等。</p>
+<h3 id="上下文管理器"><a href="#上下文管理器" class="headerlink" title="上下文管理器"></a>上下文管理器</h3><p>先看两段程序：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># without context manager</div><div class="line">f = open(&quot;new.txt&quot;, &quot;w&quot;)</div><div class="line">print(f.closed)               # whether the file is open</div><div class="line">f.write(&quot;Hello World!&quot;)</div><div class="line">f.close()</div><div class="line">print(f.closed)</div></pre></td></tr></table></figure></p>
+<p>用上下文管理器：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># with context manager</div><div class="line">with open(&quot;new.txt&quot;, &quot;w&quot;) as f:</div><div class="line">    print(f.closed)</div><div class="line">    f.write(&quot;Hello World!&quot;)</div><div class="line">print(f.closed)</div></pre></td></tr></table></figure></p>
+<p>两段程序是相同的操作，但是第二段程序没有关闭文件的链接，只是用<strong>缩进</strong><br>和<code>with...as..</code>上下文管理来规定了对象的使用范围。<br>对于文件对象f来说，它定义了<strong>enter</strong>()和<strong>exit</strong>()方法(可以通过dir(f)看到)。在f的<strong>exit</strong>()方法中，有self.close()语句。所以在使用上下文管理器时，我们就不用明文关闭f文件了。</p>
+<h3 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h3><p>Python一切皆对象(object)，每个对象都可能有多个属性(attribute)。Python的属性有一套统一的管理方案。</p>
+<h4 id="属性的-dict-系统"><a href="#属性的-dict-系统" class="headerlink" title="属性的_dict_系统"></a>属性的<code>_dict_</code>系统</h4><p>对象的属性储存在对象的<code>__dict__</code>属性中。<code>__dict__</code>为一个词典，键为属性名，对应的值为属性本身。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class bird(object):</div><div class="line">    feather = True</div><div class="line"></div><div class="line">class chicken(bird):</div><div class="line">    fly = False</div><div class="line">    def __init__(self, age):</div><div class="line">        self.age = age</div><div class="line"></div><div class="line">summer = chicken(2)</div><div class="line"></div><div class="line">print(bird.__dict__)</div><div class="line">print(chicken.__dict__)</div><div class="line">print(summer.__dict__)</div></pre></td></tr></table></figure></p>
+<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;&apos;__dict__&apos;: &lt;attribute &apos;__dict__&apos; of &apos;bird&apos; objects&gt;, &apos;__module__&apos;: &apos;__main__&apos;, &apos;__weakref__&apos;: &lt;attribute &apos;__weakref__&apos; of &apos;bird&apos; objects&gt;, &apos;feather&apos;: True, &apos;__doc__&apos;: None&#125;</div><div class="line"></div><div class="line"></div><div class="line">&#123;&apos;fly&apos;: False, &apos;__module__&apos;: &apos;__main__&apos;, &apos;__doc__&apos;: None, &apos;__init__&apos;: &lt;function __init__ at 0x2b91db476d70&gt;&#125;</div><div class="line"></div><div class="line"></div><div class="line">&#123;&apos;age&apos;: 2&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，Python中的属性是分层定义的，比如这里分为object/bird/chicken/summer这四层。当我们需要调用某个属性的时候，Python会一层层向上遍历，直到找到那个属性。(某个属性可能出现再不同的层被重复定义，Python向上的过程中，会选取先遇到的那一个，也就是比较低层的属性定义)。</p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><p>同一个对象的不同属性之间可能存在依赖关系。当某个属性被修改时，我们希望依赖于该属性的其他属性也同时变化。这时，我们不能通过<code>__dict__</code>的方式来静态的储存属性。Python提供了多种即时生成属性的方法。其中一种称为特性(property)。特性是特殊的属性。比如我们为chicken类增加一个特性adult。当对象的age超过1时，adult为True；否则为False：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class bird(object):</div><div class="line">    feather = True</div><div class="line"></div><div class="line">class chicken(bird):</div><div class="line">    fly = False</div><div class="line">    def __init__(self, age):</div><div class="line">        self.age = age</div><div class="line">    def getAdult(self):</div><div class="line">        if self.age &gt; 1.0: return True</div><div class="line">        else: return False</div><div class="line">    adult = property(getAdult)   # property is built-in</div><div class="line"></div><div class="line">summer = chicken(2)</div><div class="line"></div><div class="line">print(summer.adult)</div><div class="line">summer.age = 0.5</div><div class="line">print(summer.adult)</div></pre></td></tr></table></figure></p>
+<p>特性使用内置函数property()来创建。property()最多可以加载四个参数。前三个参数为函数，分别用于处理查询特性、修改特性、删除特性。最后一个参数为特性的文档，可以为一个字符串，起说明作用。<br>进一步说明：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class num(object):</div><div class="line">    def __init__(self, value):</div><div class="line">        self.value = value</div><div class="line">    def getNeg(self):</div><div class="line">        return -self.value</div><div class="line">    def setNeg(self, value):</div><div class="line">        self.value = -value</div><div class="line">    def delNeg(self):</div><div class="line">        print(&quot;value also deleted&quot;)</div><div class="line">        del self.value</div><div class="line">    neg = property(getNeg, setNeg, delNeg, &quot;I&apos;m negative&quot;)</div><div class="line"></div><div class="line">x = num(1.1)</div><div class="line">print(x.neg)</div><div class="line">x.neg = -22</div><div class="line">print(x.value)</div><div class="line">print(num.neg.__doc__)</div><div class="line">del x.neg</div></pre></td></tr></table></figure></p>
+<p>上面的num为一个数字，而neg为一个特性，用来表示数字的负数。当一个数字确定的时候，它的负数总是确定的；而当我们修改一个数的负数时，它本身的值也应该变化。这两点由getNeg和setNeg来实现。而delNeg表示的是，如果删除特性neg，那么应该执行的操作是删除属性value。property()的最后一个参数(“I’m negative”)为特性negative的说明文档。</p>
+<h4 id="使用特殊方法getattr"><a href="#使用特殊方法getattr" class="headerlink" title="使用特殊方法getattr"></a>使用特殊方法<em>getattr</em></h4><p>我们可以用<strong>getattr</strong>(self, name)来查询即时生成的属性。当我们查询一个属性时，如果通过<strong>dict</strong>方法无法找到该属性，那么Python会调用对象的<strong>getattr</strong>方法，来即时生成该属性。比如:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class bird(object):</div><div class="line">    feather = True</div><div class="line"></div><div class="line">class chicken(bird):</div><div class="line">    fly = False</div><div class="line">    def __init__(self, age):</div><div class="line">        self.age = age</div><div class="line">    def __getattr__(self, name):</div><div class="line">        if name == &apos;adult&apos;:</div><div class="line">            if self.age &gt; 1.0: return True</div><div class="line">            else: return False</div><div class="line">        else: raise AttributeError(name)</div><div class="line"></div><div class="line">summer = chicken(2)</div><div class="line"></div><div class="line">print(summer.adult)</div><div class="line">summer.age = 0.5</div><div class="line">print(summer.adult)</div><div class="line"></div><div class="line">print(summer.male)</div></pre></td></tr></table></figure></p>
+<p>每个特性需要有自己的处理函数，而<strong>getattr</strong>可以将所有的即时生成属性放在同一个函数中处理。<strong>getattr</strong>可以根据函数名区别处理不同的属性。比如上面我们查询属性名male的时候，raise AttributeError。</p>
+<p>(Python中还有一个<strong>getattribute</strong>特殊方法，用于查询任意属性。<strong>getattr</strong>只能用来查询不在<strong>dict</strong>系统中的属性)<br><strong>setattr</strong>(self, name, value)和<strong>delattr</strong>(self, name)可用于修改和删除属性。它们的应用面更广，可用于任意属性。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>Python以函数对象为基础，为闭包这一语法结构提供支持的 (我们在特殊方法与多范式中，已经多次看到Python使用对象来实现一些特殊的语法)。Python一切皆对象，函数这一语法结构也是一个对象。在函数对象中，我们像使用一个普通对象一样使用函数对象，比如更改函数对象的名字，或者将函数对象作为参数进行传递。<br>一个函数和它的环境变量合在一起，就构成了一个<strong>闭包</strong>(closure)。<br>在Python中，所谓的闭包是一个包含有环境变量取值的函数对象。环境变量取值被保存在函数对象的<strong>closure</strong>属性中。比如下面的代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def line_conf():</div><div class="line">    b = 15</div><div class="line">    def line(x):</div><div class="line">        return 2*x+b</div><div class="line">    return line       # return a function object</div><div class="line"></div><div class="line">b = 5</div><div class="line">my_line = line_conf()</div><div class="line">print(my_line.__closure__)</div><div class="line">print(my_line.__closure__[0].cell_contents)</div></pre></td></tr></table></figure></p>
+<p>按理说用函数的时候会调用环境中存在的值b=5,但是实际上用的定义时的b=15。<br>简单来说：<strong>闭包是函数被调用时，用的是定义时的值，不是当前存在的值</strong>。<br>看一个实际例子：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def line_conf(a, b):</div><div class="line">    def line(x):</div><div class="line">        return a*x + b</div><div class="line">    return line</div><div class="line"></div><div class="line">line1 = line_conf(1, 1)</div><div class="line">line2 = line_conf(4, 5)</div><div class="line">print(line1(5), line2(5))</div></pre></td></tr></table></figure></p>
+<p>环境line和环境a,b构成闭包，通过参数a,b最终确定了形式 a*x+b,只要换a,b的值，就可以获得不同的直线表达函数，由此，闭包具有提高代码可复用性的作用。<br>如果没有闭包，我们需要每次创建直线函数的时候同时说明a,b,x。这样，我们就需要更多的参数传递，也减少了代码的可移植性。</p>
+<h4 id="闭包与并行计算"><a href="#闭包与并行计算" class="headerlink" title="闭包与并行计算"></a>闭包与并行计算</h4><p>闭包有效的减少了函数所需定义的参数数目。这对于并行运算来说有重要的意义。在并行运算的环境下，我们可以让每台电脑负责一个函数，然后将一台电脑的输出和下一台电脑的输入串联起来。最终，我们像流水线一样工作，从串联的电脑集群一端输入数据，从另一端输出数据。这样的情境最适合只有一个参数输入的函数。闭包就可以实现这一目的。</p>
+<p>并行运算正成为一个热点。这也是函数式编程又热起来的一个重要原因。函数式编程早在1950年代就已经存在，但应用并不广泛。然而，我们上面描述的流水线式的工作并行集群过程，正适合函数式编程。由于函数式编程这一天然优势，越来越多的语言也开始加入对函数式编程范式的支持。</p>
+<p><hr></p>
+<h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><p>装饰器可以对一个函数、方法或者类进行加工。<br>先看这样的代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># get square sum</div><div class="line">def square_sum(a, b):</div><div class="line">    print(&quot;intput:&quot;, a, b)</div><div class="line">    return a**2 + b**2</div><div class="line"></div><div class="line"># get square diff</div><div class="line">def square_diff(a, b):</div><div class="line">    print(&quot;input&quot;, a, b)</div><div class="line">    return a**2 - b**2</div><div class="line"></div><div class="line">print(square_sum(3, 4))</div><div class="line">print(square_diff(3, 4))</div></pre></td></tr></table></figure></p>
+<p>两个计算函数，分别有输出。我们用装饰器把输出函数提出去：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def decorator(F):</div><div class="line">    def new_F(a, b):</div><div class="line">        print(&quot;input&quot;, a, b)</div><div class="line">        return F(a, b)</div><div class="line">    return new_F</div><div class="line"></div><div class="line"># get square sum</div><div class="line">@decorator</div><div class="line">def square_sum(a, b):</div><div class="line">    return a**2 + b**2</div><div class="line"></div><div class="line"># get square diff</div><div class="line">@decorator</div><div class="line">def square_diff(a, b):</div><div class="line">    return a**2 - b**2</div><div class="line"></div><div class="line">print(square_sum(3, 4))</div><div class="line">print(square_diff(3, 4))</div></pre></td></tr></table></figure></p>
+<p>定义好装饰器后，我们就可以通过@语法使用了。在函数square_sum和square_diff定义之前调用@decorator，我们实际上将square_sum或square_diff传递给decorator，并将decorator返回的新的可调用对象赋给原来的函数名(square_sum或square_diff)。 所以，当我们调用square_sum(3, 4)的时候，就相当于：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">square_sum = decorator(square_sum)</div><div class="line">square_sum(3, 4)</div></pre></td></tr></table></figure></p>
+<p>我们知道，Python中的变量名和对象是分离的。变量名可以指向任意一个对象。从本质上，装饰器起到的就是这样一个重新指向变量名的作用(name binding)，让同一个变量名指向一个新返回的可调用对象，从而达到修改可调用对象的目的。</p>
+<p>与加工函数类似，我们可以使用装饰器加工类的方法。</p>
+<p>如果我们有其他的类似函数，我们可以继续调用decorator来修饰函数，而不用重复修改函数或者增加新的封装。这样，我们就提高了程序的可重复利用性，并增加了程序的可读性。</p>
+<h4 id="含参的装饰器"><a href="#含参的装饰器" class="headerlink" title="含参的装饰器"></a>含参的装饰器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># a new wrapper layer</div><div class="line">def pre_str(pre=&apos;&apos;):</div><div class="line">    # old decorator</div><div class="line">    def decorator(F):</div><div class="line">        def new_F(a, b):</div><div class="line">            print(pre + &quot;input&quot;, a, b)</div><div class="line">            return F(a, b)</div><div class="line">        return new_F</div><div class="line">    return decorator</div><div class="line"></div><div class="line"># get square sum</div><div class="line">@pre_str(&apos;^_^&apos;)</div><div class="line">def square_sum(a, b):</div><div class="line">    return a**2 + b**2</div><div class="line"></div><div class="line"># get square diff</div><div class="line">@pre_str(&apos;T_T&apos;)</div><div class="line">def square_diff(a, b):</div><div class="line">    return a**2 - b**2</div><div class="line"></div><div class="line">print(square_sum(3, 4))</div><div class="line">print(square_diff(3, 4))</div></pre></td></tr></table></figure>
+<p>上面的pre_str是允许参数的装饰器。它实际上是对原有装饰器的一个函数封装，并返回一个装饰器。我们可以将它理解为一个含有环境参量的闭包。当我们使用@pre<em>str(‘^</em>^’)调用的时候，Python能够发现这一层的封装，并把参数传递到装饰器的环境中。该调用相当于:<br><code>square_sum = pre_str(&#39;^_^&#39;) (square_sum)</code></p>
+<h4 id="装饰类"><a href="#装饰类" class="headerlink" title="装饰类"></a>装饰类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def decorator(aClass):</div><div class="line">    class newClass:</div><div class="line">        def __init__(self, age):</div><div class="line">            self.total_display   = 0</div><div class="line">            self.wrapped         = aClass(age)</div><div class="line">        def display(self):</div><div class="line">            self.total_display += 1</div><div class="line">            print(&quot;total display&quot;, self.total_display)</div><div class="line">            self.wrapped.display()</div><div class="line">    return newClass</div><div class="line"></div><div class="line">@decorator</div><div class="line">class Bird:</div><div class="line">    def __init__(self, age):</div><div class="line">        self.age = age</div><div class="line">    def display(self):</div><div class="line">        print(&quot;My age is&quot;,self.age)</div><div class="line"></div><div class="line">eagleLord = Bird(5)</div><div class="line">for i in range(3):</div><div class="line">    eagleLord.display()</div></pre></td></tr></table></figure>
+<p>在decorator中，我们返回了一个新类newClass。在新类中，我们记录了原来类生成的对象（self.wrapped），并附加了新的属性total_display，用于记录调用display的次数。我们也同时更改了display方法。</p>
+<p>通过修改，我们的Bird类可以显示调用display的次数了。</p>
+<hr>
+
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>为了探索对象在内存的存储，我们可以求助于Python的内置函数id()。它用于返回对象的身份(identity)。其实，这里所谓的身份，就是该对象的内存地址。<br><code>a=1
+print(id(a))</code><br>输出11246696<br>这就是1的内存地址，a为地址的引用。<br>python 对于相同整数和短字符串，保留了同一份引用。对于其它，即使内容相同，还是创建新的对象。is()函数可以判断是不是同一个引用。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># True</div><div class="line">a = 1</div><div class="line">b = 1</div><div class="line">print(a is b)</div><div class="line"></div><div class="line"># True</div><div class="line">a = &quot;good&quot;</div><div class="line">b = &quot;good&quot;</div><div class="line">print(a is b)</div><div class="line"></div><div class="line"># False</div><div class="line">a = &quot;very good morning&quot;</div><div class="line">b = &quot;very good morning&quot;</div><div class="line">print(a is b)</div><div class="line"></div><div class="line"># False</div><div class="line">a = []</div><div class="line">b = []</div><div class="line">print(a is b)</div></pre></td></tr></table></figure></p>
+<h4 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h4><p>如果对象的引用计数变为0,就是没有任何引用指向该对象，那么对象就可以被垃圾回收。<br>但垃圾回收是个费时的操作，python会记录分配对象和取消分配对象的次数，当达到一定阈值时，垃圾回收才会启动。<br>我们可以通过gc模块的get_threshold()方法来看阈值：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import gc</div><div class="line">print(gc.get_threshold())</div></pre></td></tr></table></figure></p>
+<p>返回（700，10，10）,后面的两个10是与分代回收相关的阈值，后面可以看到。700即是垃圾回收启动的阈值。可以通过gc中的set_threshold()方法重新设置。<br>我们也可以手动启动垃圾回收，即使用gc.collect()。</p>
+<h4 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h4><p>存活越久的对象越有价值，我们会减少对它的扫面次数。<br>Python将所有的对象分为0，1，2三代。所有的新建对象都是0代对象。当某一代对象经历过垃圾回收，依然存活，那么它就被归入下一代对象。垃圾回收启动时，一定会扫描所有的0代对象。如果0代经过一定次数垃圾回收，那么就启动对0代和1代的扫描清理。当1代也经历了一定次数的垃圾回收后，那么会启动对0，1，2，即对所有对象进行扫描。<br>这两个次数即上面get_threshold()返回的(700, 10, 10)返回的两个10。也就是说，每10次0代垃圾回收，会配合1次1代的垃圾回收；而每10次1代的垃圾回收，才会有1次的2代垃圾回收。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/01/30/python进阶整理/"
+                     data-title="python进阶整理"
+                     data-url="https://clayandmore.github.io/2017/01/30/python进阶整理/"
+                     data-images=""
+                     data-content="特殊方法python是多范式语言，既可以面向对象，也可以函数式，依赖于python的对象中的特... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/01/30/Flask整理/" data-toggle="tooltip" data-placement="top"
+                           title="Flask整理">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/01/30/python基础整理/" data-toggle="tooltip" data-placement="top"
+                           title="python基础整理">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/01/30/python进阶整理/"
+                         data-title="python进阶整理"
+                         data-url="https://clayandmore.github.io/2017/01/30/python进阶整理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊方法"><span class="toc-text">特殊方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上下文管理器"><span class="toc-text">上下文管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的属性"><span class="toc-text">对象的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#属性的-dict-系统"><span class="toc-text">属性的_dict_系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特性"><span class="toc-text">特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用特殊方法getattr"><span class="toc-text">使用特殊方法getattr</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包"><span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#闭包与并行计算"><span class="toc-text">闭包与并行计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰器"><span class="toc-text">装饰器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#含参的装饰器"><span class="toc-text">含参的装饰器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#装饰类"><span class="toc-text">装饰类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理"><span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾回收"><span class="toc-text">垃圾回收</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分代回收"><span class="toc-text">分代回收</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

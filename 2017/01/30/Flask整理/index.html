@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Flask整理｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/01/30/Flask整理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Flask整理</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-01-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Flask整理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="使用FlaskScipt"><a href="#使用FlaskScipt" class="headerlink" title="使用FlaskScipt"></a>使用FlaskScipt</h3><p><code>pip install flask-script</code></p>
+<p>使用它可以创建命令，在程序上下文中执行，这样能对Flask对象进行修改。<br>扩展只有在Flask应用对象被创建后才会被初始化。</p>
+<p>flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些指令在 Flask 的应用上下文中执行，可以达到修改 Flask 对象的目的。<br>除此之外，flask-script 还能够启动 Flask 开发环境服务器，和开启包含有应用上下文的 <a href="http://lib.csdn.net/base/python" target="_blank" rel="external">Python</a> 指令行。</p>
+<h3 id="程序和请求上下文"><a href="#程序和请求上下文" class="headerlink" title="程序和请求上下文"></a>程序和请求上下文</h3><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>上下文</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>current_app</td>
+<td>程序上下文</td>
+<td>当前激活程序的程序实例</td>
+</tr>
+<tr>
+<td>g</td>
+<td>程序上下文</td>
+<td>处理请求时用作临时存储的对象，每次请求都会重设这个变量</td>
+</tr>
+<tr>
+<td>request</td>
+<td>请求上下文</td>
+<td>请求对象，封装了客户端发出的HTTP请求中的内容</td>
+</tr>
+<tr>
+<td>session</td>
+<td>请求上下文</td>
+<td>用户会话，用于存储请求之间需要“记住”的值的词典</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SQLAlchemy"><a href="#SQLAlchemy" class="headerlink" title="SQLAlchemy"></a>SQLAlchemy</h3><p> <code>pip install flask-sqlachemy</code></p>
+<ul>
+<li>基于数据库抽象出数据模型，我们需要用SQLAlchemy的python包。</li>
+<li>它在最底层包装了数据库操作接口，在最上层提供了对象关系映射（ORM）。</li>
+<li>ORM是在不同数据结构和系统类型的数据源之间传递和转换数据的技术。</li>
+<li>这里，把他用来将数据传成Python对象的集合。</li>
+<li>同时，python这样的语言，允许在不同的对象间建立引用，读取和设置他们的属性。</li>
+<li>为了将SQLAlchemy绑定到我们的程序上下文中，我们用Flask SQLAlchemy，它在SQLAlchemy上提供了一层包装，这样就可以结合Flask的一些特性来方便的调用SQLAlchemy的功能。</li>
+</ul>
+<p>需要一些特定的包，来作为SQLAlchemy与你选择的数据库之间的连接器。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#MySql</div><div class="line">$ pip install PyMySql</div><div class="line">#Oracle</div><div class="line">$ pip install cx_Oracle</div><div class="line">#sqlite不用</div></pre></td></tr></table></figure></p>
+<h4 id="创建uri来链接数据库"><a href="#创建uri来链接数据库" class="headerlink" title="创建uri来链接数据库"></a>创建uri来链接数据库</h4><p>uri类似url，包含了SQLAlchemy创建连接所有信息。一般形式：<br>SQLALCHEMY_DATABASE_URI=<code>datebasetype+driver://user:passeword@ip:port/db_name(数据库名）</code><br>如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#mysql</div><div class="line">mysql+pymysql://root:123456@127.0.0.1:3306/wanglusb?charset=utf8</div><div class="line">#sqlite</div><div class="line">SQLite : sqlite:////absolute/path/to/database</div><div class="line">#Oracle</div><div class="line">oracle+cx_oracle://user:password@ip:port/db_name</div></pre></td></tr></table></figure></p>
+<p>补：sqlite是无需运行服务的sql数据库，所有数据都包含在一个文件中，而且支持python。<br>SQLite数据库不需要使用服务器，因此不用指定hostname、username和password。URL中的database是硬盘上文件的文件名。</p>
+<h4 id="创建数据模型"><a href="#创建数据模型" class="headerlink" title="创建数据模型"></a>创建数据模型</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask_sqlalchemy import SQLAlchemy</div><div class="line">db = SQLAlchemy(app)     #SQLAlchemy 会从app的配置中读取信息，自动链接到数据库。</div><div class="line"></div><div class="line"></div><div class="line">class User(db.Model):</div><div class="line">    id=db.Column(db.Integer(),primary_key=True)</div><div class="line">    username = db.Column(db.String(255))</div><div class="line">    password = db.Column(db.String(255))</div><div class="line">    # password1 = db.Column(db.String(255),nullable=True,unique=True,index=1,default=&quot;dj&quot;)   </div><div class="line">    #是否唯一(unique)，是否加索引(index),还有其他的比如：是否可以为空（nullable=True）,默认值（default）</div><div class="line"></div><div class="line">    def __int__(self,username):</div><div class="line">        self.username=username</div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        return &quot;&lt;User &apos;&#123;&#125;&apos;&quot;.format(self.username)</div></pre></td></tr></table></figure>
+<p>继承db.Model，这样我们得到了一个有三个字段的表，这个User类的属性值是db.Colum类的实力，每个属性都代表了这个数据库里的一个字段。在db.Colum的构造函数里，第一个参数是可选的，对应的是实际数据库中的字段名，没有指定，默认为属性名。<br>如指定：<code>username = db.Colum(&#39;user_name&#39;,db.String(255))</code><br>第二个参数告诉SQLALchemy把什么类型的python类型来处理：</p>
+<ul>
+<li>db.String和db.Text会接受python的字符串，转化为varchar和text类型的字段。</li>
+<li>db.Boolean接收python的True或False值，数据库支持则转，不支持转0，1.</li>
+<li>db.Date,db.DateTime,db.Time使用了python中datetime原生包中的同名类。</li>
+<li>db.Integer和Float会接受python中的任意数值类型。括号参数说明限制该字段的储存长度。</li>
+</ul>
+<p>primary_key告诉SQLAlchem这个字段做主键索引，每个模型类必须有个一个主键才能正常工作。<br>设置表名，默认是该类的小写作为表名，在该类下添加：<br><code>__tablename__=&#39;table_name&#39;</code><br>可以更改，或将已经存在的名。</p>
+<ul>
+<li><strong><strong>init</strong>()</strong>: 其实我们可以省略定义 class User 的构造器. 这样的话 SQLAlchemy 会自动帮我们创建构造器, 并且所有定义的字段名将会成为此构造器的关键字参数名. <strong>EXAMPLE</strong>:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def __init__(self, id, username, password):11</div></pre></td></tr></table></figure>
+<ul>
+<li><strong><strong>repr</strong>()</strong>: 该方法返回一个对象的 <em>字符串表达式</em>. 与 <strong><strong>str</strong>()</strong> 不同, 前者返回的是字符串表达式, 能被 eval() 处理；后者返回的是字符串, 不能被 eval() 处理得到原来的对象, 但与 print 语句结合使用时, 会被默认调用. 与 repr() 类似, 将对象转化为便于供 Python 解释器读取的形式, 返回一个可以用来表示对象的可打印字符串.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [15]:user = User(&apos;JMilkfan&apos;)</div><div class="line"></div><div class="line">In [16]:user</div><div class="line">&lt;Model User `JMilkfan`&gt;    </div><div class="line"># 直接调用对象实际上是隐式的调用了 User.__repr__(user) </div><div class="line"># __repr__() 其定义了类实例化对象的可打印字符串表达式</div></pre></td></tr></table></figure>
+<h4 id="在数据库中根据模型创建表"><a href="#在数据库中根据模型创建表" class="headerlink" title="在数据库中根据模型创建表"></a>在数据库中根据模型创建表</h4><p>在manager.py文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask_script import Manager,Server</div><div class="line">from sqlAclchemy import app,User</div><div class="line"></div><div class="line">manager = Manager(app)</div><div class="line">manager.add_command(&quot;server&quot;,Server()) #可以运行命令：python manage.py server 来运行整个项目</div><div class="line"></div><div class="line">@manager.shell</div><div class="line">def make_shell_context():  #这个函数会创建python命令行在上下文中执行。</div><div class="line">    return dict(app=app,User=User)    # 返回的字典会告诉FLaskScript在打开命令行时进行一些默认的导入工作</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    manager.run()</div></pre></td></tr></table></figure></p>
+<p>在控制台创建表：<br><code>python manager,py shell</code><br><code>db.create_all()</code></p>
+<h4 id="数据库迁移"><a href="#数据库迁移" class="headerlink" title="数据库迁移"></a>数据库迁移</h4><p>工具Alembic可根据我们的SQLAlchemy模型的变化自动创建数据库迁移记录，保存了我们数据库结构变化的历史信息。让我们升级或者降级到某个已保存的版本。这些历史文件本身就是python程序文件。<br>我们不会直接使用Alembic,而是会使用Flask-Migrate，这是为SQLAlchemy专门创建的一个扩展，并且可以跟Flask Script一起使用。<br>pip:<code>pip install Flask-Migrate</code><br>添加到manage.py中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask_script import Manager,Server</div><div class="line">from flask_migrate import Migrate,MigrateCommand </div><div class="line"></div><div class="line">from main import app,db,User,Post,Tag</div><div class="line">migrate = Migrate(app,db)</div><div class="line"></div><div class="line">manager=Manager(app)</div><div class="line">manager.add_command(&quot;server&quot;,Server())</div><div class="line">manager.add_command(&apos;db&apos;,MigrateCommand)</div><div class="line"></div><div class="line">@manager.shell</div><div class="line">def make_shell_context():</div><div class="line">    return dict(app=app,db=db,User=User,Post=Post,Tag=Tag_</div><div class="line"></div><div class="line">if __name__ == &quot;__name__&quot;</div><div class="line">    manager.run()</div></pre></td></tr></table></figure></p>
+<p>通过app对象和SQLAlchemy的实例初始化了Migrate对象，通过命令来调用。<br>运行下面命令可以看到可用命令列表：<br><code>$python manage.py db</code><br>开始跟踪我们的数据库变更：<br><code>$python manage.py db init</code><br>上面这个命令会在项目目录里面创建一个叫migrations的文件夹，所有的记录文件都会被保存在里面。我们可以进行首次迁移：<br><code>python manage.py db migrate -m&quot;initial migration</code><br>上面这个命令会让Alembic扫描我们所有的SQLAlchemy对象，找到在此之前没有被记录过的所有表和列，-m参数来提交保存信息，通过提交保存信息寻找所需的迁移记录版本是最容易的方法。<br>每个迁移记录文件都被保存在migrations/version/文件中。<br>执行下面命令，把迁移记录应用到数据库上，并改变数据库的结构：<br><code>python manage.py db upgrade</code><br>要返回以前的版本通过history命令找到版本号：<br><code>python manage.py db history</code><br>再把版本好给downgrade命令：<br><code>pyhon manage.py db downgrade 7ded34bc4fb</code><br>同git一样，每个迁移记录都由一个哈希值来表示。可以将迁移记录和git提交记录对应起来。</p>
+<hr>
+<h3 id="WTForm"><a href="#WTForm" class="headerlink" title="WTForm"></a>WTForm</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p>Flask提供的请求对象能提供用于处理web表单的信息，如request.form能获取post请求中提交的表单数据。WTForm是一个服务端表单检验库，它可对常见的表单类型进行输入合法性验证。<br>Flask WTForm是基于WTForm的Falsk扩展，增加了一些特性：JinjiaHTML渲染，预防跨域请求伪造（CSRF）和SQL注入攻击。<br>安装：<code>pip install Flask-WTF</code><br>为了让WTForm的安全工作能够正常工作，我们需要一个密钥，来生成加密的签名。<br>在config.py里的Config对象：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Config(object):</div><div class="line">    SECRET_KEY=&apos;你的密钥&apos;</div></pre></td></tr></table></figure></p>
+<p>WTForm 由三部分组成：</p>
+<ul>
+<li>字段：对输入的初步检查</li>
+<li>检验器：在字段上加的函数，用来确保输入字符的限制条件。</li>
+<li>表单：一个python类，<br>main.py加入如下内容<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask_wtf import Form # 最新改为FlaskFrom</div><div class="line">from wtforms import StringField,SubmitField</div><div class="line">from wtforms.validators import DataRequired</div><div class="line"></div><div class="line">class NameForm(Form):           #使用Flask-WTF时，每个web表单都继承一个From/FlaskFrom类。</div><div class="line">    name = StringField(&apos;What is your named&apos;,validators=[DataRequired()])</div><div class="line">    submit = SubmitField(&apos;Submit&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Form基类由Flask-WTF扩展定义，从flask_wtf中导入。<br>字段和验证函数可以直接从wtforms包中导入。</p>
+<p>name和submit就是字段，也就是类的属性了。StringField代表type=”text”的<code>&lt;input&gt;</code>元素，那么SumbmitFild代表type=’submit’<br>第一个参数代表显示相应的名字。如’submit’显现了按钮的名字。</p>
+<h4 id="支持的html字段"><a href="#支持的html字段" class="headerlink" title="支持的html字段"></a>支持的html字段</h4><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StringField</td>
+<td>文本字段</td>
+</tr>
+<tr>
+<td>TextAreaField</td>
+<td>多行文本字段</td>
+</tr>
+<tr>
+<td>PasswordField</td>
+<td>密码文本字段</td>
+</tr>
+<tr>
+<td>HiddenField</td>
+<td>隐藏文本字段</td>
+</tr>
+<tr>
+<td>DateField</td>
+<td>文本字段，值为datetime.date格式</td>
+</tr>
+<tr>
+<td>DateTimeField</td>
+<td>文本字段，值为datetime,datetime格式</td>
+</tr>
+<tr>
+<td>IntegerField</td>
+<td>文本字段，值为整数</td>
+</tr>
+<tr>
+<td>DecimalField</td>
+<td>值为decimal.Decimal</td>
+</tr>
+<tr>
+<td>FloatField</td>
+<td>文本字段，值为浮点数</td>
+</tr>
+<tr>
+<td>BooleanField</td>
+<td>复选框，值为True和False</td>
+</tr>
+<tr>
+<td>RadioField</td>
+<td>一组单选框</td>
+</tr>
+<tr>
+<td>SelectField</td>
+<td>下拉列表</td>
+</tr>
+<tr>
+<td>SelectMultipleField</td>
+<td>下拉列表，可以选多个值</td>
+</tr>
+<tr>
+<td>FileField</td>
+<td>文件上传字段</td>
+</tr>
+<tr>
+<td>SubmitField</td>
+<td>表单提交按钮</td>
+</tr>
+<tr>
+<td>FormField</td>
+<td>把表单作为字段嵌入另一个表单</td>
+</tr>
+<tr>
+<td>FieldList</td>
+<td>一组指定类型的字段</td>
+</tr>
+</tbody>
+</table>
+<h4 id="表单验证函数"><a href="#表单验证函数" class="headerlink" title="表单验证函数"></a>表单验证函数</h4><p>如上文的参数validators,它定义了该数据的验证器列表，如DataRequired()代表了输入值不能为空。<br>| 验证函数         | 说明                     |<br>| ———— | ———————- |<br>| DataRequired | 字段不能为空                 |<br>| Emai         | 验证电子邮箱                 |<br>| EqualTo      | 比较两个字段的值，常用与输入两次密码进行确认 |<br>| IPAddress    | 验证IPv4的网络地址            |<br>| Length       | 验证输入字符串的长度             |<br>| NumberRange  | 验证输入的值在数字范围内           |<br>| Optional     | 无输入值时跳转其他验证函数          |<br>| Regexp       | 使用正则表达式验证输入值           |<br>| URL          | 验证URL                  |<br>| AnyOf        | 确保输入值在可选值列表中           |<br>| NoneOf       | 确保输入值不在可选值列表中          |</p>
+<h4 id="自定义检验器"><a href="#自定义检验器" class="headerlink" title="自定义检验器"></a>自定义检验器</h4><p>定义一个函数，接受表单对象和字段对象为参数，不符合要求抛出一个WTForm.ValidationError：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import re </div><div class="line">import wtforms</div><div class="line">def custom_email(form,field):</div><div class="line">    if not re.match(r&quot;[^@]+@[^@</div></pre></td></tr></table></figure></p>
+<h4 id="视图函数中处理表单"><a href="#视图函数中处理表单" class="headerlink" title="视图函数中处理表单"></a>视图函数中处理表单</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@app.route(&apos;/&apos;.methods=[&apos;GET&apos;,&apos;POST&apos;])</div><div class="line">def index():</div><div class="line">    name = None    # 局部变量存放表单中输入的有效名字</div><div class="line">    form = NameForm() # 这里就是上面定义的表单函数了</div><div class="line">    if form.validate_on_submit():</div><div class="line">        name = form.name.data  #接受输入框传来的数据</div><div class="line">        form.name.data=&apos;&apos;      #将数据清空返回输入框</div><div class="line">        return render_template(&apos;index.html&apos;,form=form,name=name)</div></pre></td></tr></table></figure>
+<p>methods参数告诉函数注册为POST和GET的请求提交。<br>get提交的数据以字符串的形式附加到URL中，大多数以post提交。<br>validate_on_submit函数，如果数据能被所有验证函数接受，返回True。否则false。</p>
+<h4 id="模板接收表单"><a href="#模板接收表单" class="headerlink" title="模板接收表单"></a>模板接收表单</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;form method=&quot;post&quot;&gt;</div><div class="line">    &#123;&#123;form.hidden_tag()&#125;&#125;</div><div class="line">    &#123;&#123;form.name.label&#125;&#125;&#123;&#123;form.name(id=&apos;may-text-field&apos;)&#125;&#125;</div><div class="line">    &#123;&#123;form.submit()&#125;&#125;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>这里的form就是我们传过来的那个参数。<br>但是这种方式太过于繁琐，我们更推荐用Flask-Bootstrap<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;%import &quot;bootstrap/wtf.html&quot; as wtf%&#125;</div><div class="line">&#123;&#123;wtf.quick_form(form)&#125;&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="重定向和用户会话session"><a href="#重定向和用户会话session" class="headerlink" title="重定向和用户会话session"></a>重定向和用户会话session</h4><p>当用户刷新时，浏览器会有提示框，因为刷新页面时浏览器会重新发送之前已经发送过的最后一个请求。<br>解决方案：不让Web程序把POST请求作为浏览器发送的最后一个请求——重定向。、<br>并在刷新后记住上次填的内容，用到session。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask import Flask,render_template,session,url_for,redirect</div><div class="line">@app.route(&apos;/&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])</div><div class="line">def index():</div><div class="line">    name = None</div><div class="line">    nameForm = NameForm()</div><div class="line"></div><div class="line">    if nameForm.validate_on_submit():</div><div class="line">        session[&apos;name&apos;] = nameForm.name.data</div><div class="line">        nameForm.name.data = &apos;&apos;</div><div class="line">        return redirect(url_for(&apos;index&apos;))</div><div class="line"></div><div class="line">    return render_template(&apos;index.html&apos;,form=nameForm,name=session.get(&apos;name&apos;))</div></pre></td></tr></table></figure></p>
+<ul>
+<li>session[‘name’]存储了同一个会话的中文本框中的内容</li>
+<li>redirect（）是个辅助函数，用来生成http重定向响应，参数是重定向的URL</li>
+<li>url_for(),当然redirect(url_for(‘index’))也可以写成redirect(‘/‘),但是推荐使用url_for()生成URL，因为这个函数使用URL映射生成URL，从而保证URL和定义的路由兼容，而且修改路由名字后依然后依然可用。``url_for()<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* session.get(&apos;name&apos;)直接从会话中中读出name参数的值，也可以使用session[&apos;name&apos;]读取，但是推荐使用session.get(&apos;name&apos;),使用get()获取字典中键对应的值以避免未找到键的异常情况，因为对于不存在的键，get()会返回默认值None.</div><div class="line"></div><div class="line">#### flush消息</div><div class="line">用户提交了一项有错误的登陆表单后，服务器发回的相应重新渲染了登陆表单，并在表单上显示一个消息，提示用户用户名或密码错误。</div><div class="line">这是Flask的核心特性，flash函数可以实现这种效果。</div><div class="line"></div><div class="line">### 使用蓝图创建控制器（controller）</div><div class="line">mvc中，最后一块是控制器，我们在main.py中已经了解了试图函数的基本用法，我们需要更强大更复杂的方式来将视图函数组织成更机密的整体。</div><div class="line"></div><div class="line">#### 请求构建和销毁，和全局变量</div><div class="line">请求中会访问全局变量，所有函数都会访问到它。</div><div class="line">Flask中装饰器函数`@app.before_request`会在每个请求被创建的时候**之前**执行它所装饰的函数。</div><div class="line">`@app.teardown_request`会在每个请求结束的时候执行。</div><div class="line">全局变量g（为每个特点请求临时存储特定数据，并且是线程安全的。）</div><div class="line"></div><div class="line">#### 自定义错误页面</div><div class="line">如果向用户显示浏览器默认的错误页面，会显得特别突兀，而且没有让用户返回主页。</div><div class="line">Flask的abort()返回错误页面时，可以用errorhandler装饰器来显示你自己定义的模板。</div></pre></td></tr></table></figure></li>
+</ul>
+<p>@app.errorhandler(404)<br>def page_not_found(error):<br>    return render_template(‘pageNotFound.html’),404<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">app.errorhandle可以接收一个或者多个http状态码。</div><div class="line"></div><div class="line">#### 使用类描述视图</div><div class="line">如果很多视图处理函数都会用到一些通用的功能，我们把他总结成几个函数比较好，这时用类来体现，享受继承的好处。</div></pre></td></tr></table></figure></p>
+<p>from falsk.views import View  # 导入视图类 </p>
+<p>class GenericView(View):<br>    def <strong>init</strong>(self,template):<br>        self.template= template<br>        super(GenericView,self).<strong>init</strong>()</p>
+<pre><code>def dispatch_request(self):
+    return render_template(self,template)
+</code></pre><p>app.add_url_rule(<br>    ‘/‘,<br>    view_func=GenericView.as_view(<br>    ‘home’,template=’home.html’<br>    )<br>)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">View类是flask代替视图函数注册路由的另一种实现方式。</div><div class="line">dispatch_request函数是一个普通函数，返回了一个HTML字符串。</div><div class="line">app.add-url_rule()跟app.route()作用类似，同样是把一个路由返回到一个函数上。</div><div class="line">第一个参数定义了绑定的路由,</div><div class="line">view_func变量定义了用来处理路由的函数，as_view会把类转成一个试图函数，所以这里第一个参数定义了转成试图函数的名字，使得url_for()之类的函数能够通过这个名字找到，后面的其他参数会直接传递给该试图类的`__int__()`方法。</div><div class="line">**非get方式**：</div><div class="line">跟普通的函数一样，在使用view类试图的时候，除GET为的其他http请求需要被显式的声明才能使用。</div></pre></td></tr></table></figure></p>
+<p>class GenericView(View):<br>    methonds=[‘GET’,’POST’]<br>    …<br>    def dispatch_request(self):<br>        if request.method == ‘GET’:<br>            return render_template(self.template)<br>        elif request.method == ‘POST’:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#### 方法视图</div><div class="line">处理多种HTTP请求时，会写大量的判断语句：</div></pre></td></tr></table></figure></p>
+<p>@app.route(‘/user’,method=[‘GET’,’POST’,’PUT’,’DELETE’])<br>def users():<br>    if request.method==’GET’:<br>    …<br>    elif request.method==’POST’:<br>    …<br>    elif request.method==’PUT’:<br>    …<br>    elif request.method==’DELETE’:<br>    …<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">我们用MethonView(方法视图）来解决。他把每种http请求写成一个同名的类方法。</div></pre></td></tr></table></figure></p>
+<p>from flask.views import MethodView</p>
+<p>class UserView(MethodView):<br>    def get(self):<br>    …<br>    def post(self):<br>    …<br>    def put(self):<br>    …<br>    def delete(self):<br>    …<br>    app.add_url_rule(){<br>    ‘/user’.<br>    view_func=UserView.as_view(‘user’)}<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">app.add-url_rule()跟app.route()作用类似，同样是把一个路由返回到一个函数上。</div><div class="line">第一个参数定义了绑定的路由.</div><div class="line">View_func变量地冠以了处理路由的函数。</div><div class="line"></div><div class="line">#### 蓝图</div><div class="line">在Flask中，蓝图（blueprint)是一种用来扩展自已有Flask应用结构的方式。</div><div class="line">把共有的东西统一起来，让结构更紧密。</div></pre></td></tr></table></figure></p>
+<p>from flask import Blueprint<br>blueprint=Blueprint(<br>    ‘blogblue’,   #蓝图名<br>    <strong>name</strong>,      # 当前包的名字，我们只要把<strong>name</strong>传给它就可以了。<br>    template_folder=’templates/blog’,  #所有模板文件都放到blog文件夹下<br>    static_folder=’static/example’,<br>    url_prefix=’/hh’<br>)<br>@example.route(‘/‘)<br>def home():<br>    return render_template(‘home.html’)<br><code>``
+前两个参数是固定的，其他参数规定蓝图去什么位置找文件，如上，对应的页面会渲染templates/blog/home.html.
+url_prefix选项会自动把URL前缀添加在这个蓝图所有的路由之前。所以渲染上面的模板实际路径是：</code>127.0.0.1：5000/hh/<code>**使用url_for**:
+在蓝本中使用url_for()函数和原来在程序中使用不一样，蓝本中的全部端点上加入一个命名空间。其实这个命名空间就是蓝图的名字（如上blogblue），所以home的端点名是bolgblue,其url使用</code>url_for(‘bolgblue.home’)<code>可以省略蓝本名:</code>url_for(‘.index’)<code>**注册**：
+最后的</code>if <strong>name</strong>=’<strong>main</strong>‘:<code>语句之前注册蓝图：</code>app.register_blueprint(blueprint)`<br>要在末尾导入，因为其他文件也要导入蓝本，这样可以避免循环导入依赖。</p>
+<hr>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/snipaste20170104_120159.png" alt=""></p>
+<h3 id="需求文件"><a href="#需求文件" class="headerlink" title="需求文件"></a>需求文件</h3><p>一个txt文件，写了各个扩展的版本<br><code>pip freeze&gt;requirements.txt</code><br>创建一个新的和上面版本一样的虚拟环境：<br><code>pip install -r requirements.txt</code></p>
+<h3 id="Flask-Login"><a href="#Flask-Login" class="headerlink" title="Flask Login"></a>Flask Login</h3><h4 id="用浏览器cookies"><a href="#用浏览器cookies" class="headerlink" title="用浏览器cookies"></a>用浏览器cookies</h4><p>用哈希加密后的密码存入数据库，哈希算法有很多，可能被暴力破解找到合适的明文。我们选择Bcrypt作为哈希算法，它故意设计成计算起来低效而缓慢。<br>安装：<code>pip install Flask-Bcrypt</code></p>
+<h3 id="构建RESTful-Flaks-API"><a href="#构建RESTful-Flaks-API" class="headerlink" title="构建RESTful Flaks API"></a>构建RESTful Flaks API</h3><p>Rest是人们对通信所做的约束，</p>
+<ul>
+<li>客户端和服务端关心的业务是完全分离的</li>
+<li>服务端是无状态的，处理请求所需要的信息都u要求储存在客户端、</li>
+<li>所有资源必须有同意接口的形式</li>
+</ul>
+<p>等，当一个系统满足了所有这些约束，可以被认为它是一个RESTful系统。最常见的形式是由http和json构建的。每种资源都有自己url来定位。</p>
+<table>
+<thead>
+<tr>
+<th>http请求方法</th>
+<th>url</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>get</td>
+<td><a href="http://host/resource" target="_blank" rel="external">http://host/resource</a></td>
+<td>返回该资源所有的条目</td>
+</tr>
+<tr>
+<td>get</td>
+<td><a href="http://host/resource/1" target="_blank" rel="external">http://host/resource/1</a></td>
+<td>返回id为1的资源</td>
+</tr>
+<tr>
+<td>post</td>
+<td><a href="http://host/resource" target="_blank" rel="external">http://host/resource</a></td>
+<td>通过post的表单内容创建一个新的资源</td>
+</tr>
+<tr>
+<td>put</td>
+<td><a href="http://host/resource/1" target="_blank" rel="external">http://host/resource/1</a></td>
+<td>修改id为1的已存在的资源</td>
+</tr>
+<tr>
+<td>delete</td>
+<td><a href="http://host/resource/1" target="_blank" rel="external">http://host/resource/1</a></td>
+<td>删除id为1的资源</td>
+</tr>
+</tbody>
+</table>
+<p><strong>URI</strong>: <code>protocol://hostname[:port]/path</code> 定义了某一类资源<br><strong>URL</strong>: <code>protocol://hostname[:port]/path/[;parameters][?query]#fragment</code> 定义了某一个具体的资源单位</p>
+<h4 id="为什么要构建restful-api"><a href="#为什么要构建restful-api" class="headerlink" title="为什么要构建restful api"></a>为什么要构建restful api</h4><p>对于一个 blog application 而言, 其实完全可以不用到 restful api 也能满足日常所需. 加入 restful api 的唯一目标就是加强该项目的可扩展性, 为后期所要实现的诸如: 博客迁移/数据备份/功能扩展 提供统一且可靠的接口.</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/01/30/Flask整理/"
+                     data-title="Flask整理"
+                     data-url="https://clayandmore.github.io/2017/01/30/Flask整理/"
+                     data-images=""
+                     data-content="使用FlaskSciptpip install flask-script
+使用它可以创建命令，... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/02/01/flask开发前的准备/" data-toggle="tooltip" data-placement="top"
+                           title="flask开发前的准备">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/01/30/python进阶整理/" data-toggle="tooltip" data-placement="top"
+                           title="python进阶整理">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/01/30/Flask整理/"
+                         data-title="Flask整理"
+                         data-url="https://clayandmore.github.io/2017/01/30/Flask整理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用FlaskScipt"><span class="toc-text">使用FlaskScipt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序和请求上下文"><span class="toc-text">程序和请求上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQLAlchemy"><span class="toc-text">SQLAlchemy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建uri来链接数据库"><span class="toc-text">创建uri来链接数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建数据模型"><span class="toc-text">创建数据模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在数据库中根据模型创建表"><span class="toc-text">在数据库中根据模型创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库迁移"><span class="toc-text">数据库迁移</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WTForm"><span class="toc-text">WTForm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础"><span class="toc-text">基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持的html字段"><span class="toc-text">支持的html字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表单验证函数"><span class="toc-text">表单验证函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义检验器"><span class="toc-text">自定义检验器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#视图函数中处理表单"><span class="toc-text">视图函数中处理表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模板接收表单"><span class="toc-text">模板接收表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重定向和用户会话session"><span class="toc-text">重定向和用户会话session</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需求文件"><span class="toc-text">需求文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Login"><span class="toc-text">Flask Login</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用浏览器cookies"><span class="toc-text">用浏览器cookies</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建RESTful-Flaks-API"><span class="toc-text">构建RESTful Flaks API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要构建restful-api"><span class="toc-text">为什么要构建restful api</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

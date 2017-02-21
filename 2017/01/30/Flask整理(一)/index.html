@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Flask整理(一)｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/01/30/Flask整理(一)/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Flask整理(一)</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-01-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Flask整理(一)
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="使用FlaskScipt"><a href="#使用FlaskScipt" class="headerlink" title="使用FlaskScipt"></a>使用FlaskScipt</h3><p><code>pip install flask-script</code></p>
+<p>使用它可以创建命令，在程序上下文中执行，这样能对Flask对象进行修改。<br>扩展只有在Flask应用对象被创建后才会被初始化。</p>
+<p>flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些指令在 Flask 的应用上下文中执行，可以达到修改 Flask 对象的目的。<br>除此之外，flask-script 还能够启动 Flask 开发环境服务器，和开启包含有应用上下文的 <a href="http://lib.csdn.net/base/python" target="_blank" rel="external">Python</a> 指令行。</p>
+<h4 id="config-py文件"><a href="#config-py文件" class="headerlink" title="config.py文件"></a>config.py文件</h4><p>这个文件是应用程序的配置文件：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">"""Base config class."""</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProdConfig</span><span class="params">(Config)</span>:</span></div><div class="line">    <span class="string">"""Production config class.生产环境"""</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DevConfig</span><span class="params">(Config)</span>:</span></div><div class="line">    <span class="string">"""Development config class.开发环境"""</span></div><div class="line">    <span class="comment"># Open the DEBUG</span></div><div class="line">    DEBUG = <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<p>DEBUG为Ture进入调试模式，可以在代码修改后重新载入，不能用于生产环境，werkzeug默认启用pin码的身份验证，让调试环境下的攻击者更难利用调试器 </p>
+<p><code>Debugger pin code:146-867-947</code></p>
+<h4 id="manage-py文件"><a href="#manage-py文件" class="headerlink" title="manage.py文件"></a>manage.py文件</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># import Flask Script object</span></div><div class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager, Server</div><div class="line"><span class="keyword">import</span> main</div><div class="line"></div><div class="line"><span class="comment"># Init manager object via app object</span></div><div class="line">manager = Manager(main.app)</div><div class="line"></div><div class="line"><span class="comment"># Create a new commands: server</span></div><div class="line"><span class="comment"># This command will be run the Flask development_env server</span></div><div class="line"><span class="comment">#可以运行命令：python manage.py server 来运行整个项目</span></div><div class="line">manager.add_command(<span class="string">"server"</span>, Server())</div><div class="line"></div><div class="line"><span class="meta">@manager.shell</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_shell_context</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""Create a python CLI.</span></div><div class="line"></div><div class="line">    return: Default import object</div><div class="line">    type: `Dict`</div><div class="line">    """</div><div class="line">    <span class="comment"># 确保有导入 Flask app object，否则启动的 CLI 上下文中仍然没有 app 对象</span></div><div class="line">    <span class="keyword">return</span> dict(app=main.app)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    manager.run()</div></pre></td></tr></table></figure>
+<p>CLI是Command Line Interface的缩写，即命令行界面</p>
+<h4 id="main-py文件"><a href="#main-py文件" class="headerlink" title="main.py文件"></a>main.py文件</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line"></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> DevConfig</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line"><span class="comment"># Get the config from object of DecConfig</span></div><div class="line">app.config.from_object(DevConfig)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app.run()</div></pre></td></tr></table></figure>
+<p>app.config字典可以用来存储框架，扩展和程序本身的配置变量。这个对象还提供了一些方法，可以从文件或者环境中导入变量值。</p>
+<h3 id="程序和请求上下文"><a href="#程序和请求上下文" class="headerlink" title="程序和请求上下文"></a>程序和请求上下文</h3><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>上下文</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>current_app</td>
+<td>程序上下文</td>
+<td>当前激活程序的程序实例</td>
+</tr>
+<tr>
+<td>g</td>
+<td>程序上下文</td>
+<td>处理请求时用作临时存储的对象，每次请求都会重设这个变量</td>
+</tr>
+<tr>
+<td>request</td>
+<td>请求上下文</td>
+<td>请求对象，封装了客户端发出的HTTP请求中的内容</td>
+</tr>
+<tr>
+<td>session</td>
+<td>请求上下文</td>
+<td>用户会话，用于存储请求之间需要“记住”的值的词典</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SQLAlchemy"><a href="#SQLAlchemy" class="headerlink" title="SQLAlchemy"></a>SQLAlchemy</h3><p> <code>pip install flask-sqlachemy</code></p>
+<ul>
+<li>基于数据库抽象出数据模型，我们需要用SQLAlchemy的python包。</li>
+<li>它在最底层包装了数据库操作接口，在最上层提供了对象关系映射（ORM）。</li>
+<li>ORM是在不同数据结构和系统类型的数据源之间传递和转换数据的技术。</li>
+<li>这里，把他用来将数据传成Python对象的集合。</li>
+<li>同时，python这样的语言，允许在不同的对象间建立引用，读取和设置他们的属性。</li>
+<li>为了将SQLAlchemy绑定到我们的程序上下文中，我们用Flask SQLAlchemy，它在SQLAlchemy上提供了一层包装，这样就可以结合Flask的一些特性来方便的调用SQLAlchemy的功能。</li>
+</ul>
+<p>需要一些特定的包，来作为SQLAlchemy与你选择的数据库之间的连接器。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#MySql</div><div class="line">$ pip install PyMySql</div><div class="line">#Oracle</div><div class="line">$ pip install cx_Oracle</div><div class="line">#sqlite不用</div></pre></td></tr></table></figure></p>
+<h4 id="创建uri来链接数据库"><a href="#创建uri来链接数据库" class="headerlink" title="创建uri来链接数据库"></a>创建uri来链接数据库</h4><p>uri类似url，包含了SQLAlchemy创建连接所有信息。一般形式：<br>SQLALCHEMY_DATABASE_URI=<code>datebasetype+driver://user:passeword@ip:port/db_name(数据库名）</code><br>如:config.py<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#mysql</div><div class="line">mysql+pymysql://root:123456@127.0.0.1:3306/datatest?charset=utf8</div><div class="line">#sqlite</div><div class="line">SQLite : sqlite:////absolute/path/to/database</div><div class="line">#Oracle</div><div class="line">oracle+cx_oracle://user:password@ip:port/db_name</div></pre></td></tr></table></figure></p>
+<p>补：sqlite是无需运行服务的sql数据库，所有数据都包含在一个文件中，而且支持python。<br>SQLite数据库不需要使用服务器，因此不用指定hostname、username和password。URL中的database是硬盘上文件的文件名。</p>
+<h4 id="创建数据模型"><a href="#创建数据模型" class="headerlink" title="创建数据模型"></a>创建数据模型</h4><p>models.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</div><div class="line"><span class="keyword">from</span> main <span class="keyword">import</span> app</div><div class="line">db = SQLAlchemy(app)     <span class="comment">#SQLAlchemy 会从app的配置中读取信息，自动链接到数据库。</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></div><div class="line">    id=db.Column(db.Integer(),primary_key=<span class="keyword">True</span>)</div><div class="line">    username = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    password = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    <span class="comment"># password1 = db.Column(db.String(255),nullable=True,unique=True,index=1,default="dj")   </span></div><div class="line">    <span class="comment">#是否唯一(unique)，是否加索引(index),还有其他的比如：是否可以为空（nullable=True）,默认值（default）</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__int__</span><span class="params">(self,username)</span>:</span></div><div class="line">        self.username=username</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"&lt;User '&#123;&#125;'"</span>.format(self.username)</div></pre></td></tr></table></figure>
+<p>继承db.Model，这样我们得到了一个有三个字段的表，这个User类的属性值是db.Colum类的实力，每个属性都代表了这个数据库里的一个字段。在db.Colum的构造函数里，第一个参数是可选的，对应的是实际数据库中的字段名，没有指定，默认为属性名。<br>如指定：<code>username = db.Colum(&#39;user_name&#39;,db.String(255))</code></p>
+<p>第二个参数告诉SQLALchemy把什么类型的python类型来处理：</p>
+<ul>
+<li>db.String和db.Text会接受python的字符串，转化为varchar和text类型的字段。</li>
+<li>db.Boolean接收python的True或False值，数据库支持则转，不支持转0，1.</li>
+<li>db.Date,db.DateTime,db.Time使用了python中datetime原生包中的同名类。</li>
+<li>db.Integer和Float会接受python中的任意数值类型。括号参数说明限制该字段的储存长度。</li>
+</ul>
+<p>primary_key告诉SQLAlchem这个字段做主键索引，每个模型类必须有个一个主键才能正常工作。<br>设置表名，默认是该类的小写作为表名，在该类下添加：<br><code>__tablename__=&#39;table_name&#39;</code><br>可以更改，或将已经存在的名。</p>
+<ul>
+<li><strong><strong>init</strong>()</strong>: 其实我们可以省略定义 class User 的构造器. 这样的话 SQLAlchemy 会自动帮我们创建构造器, 并且所有定义的字段名将会成为此构造器的关键字参数名. <strong>EXAMPLE</strong>:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def __init__(self, id, username, password):11</div></pre></td></tr></table></figure>
+<ul>
+<li><strong><strong>repr</strong>()</strong>: 该方法返回一个对象的 <em>字符串表达式</em>. 与 <strong><strong>str</strong>()</strong> 不同, 前者返回的是字符串表达式, 能被 eval() 处理；后者返回的是字符串, 不能被 eval() 处理得到原来的对象, 但与 print 语句结合使用时, 会被默认调用. 与 repr() 类似, 将对象转化为便于供 Python 解释器读取的形式, 返回一个可以用来表示对象的可打印字符串.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [15]:user = User(&apos;JMilkfan&apos;)</div><div class="line"></div><div class="line">In [16]:user</div><div class="line">&lt;Model User `JMilkfan`&gt;    </div><div class="line"># 直接调用对象实际上是隐式的调用了 User.__repr__(user) </div><div class="line"># __repr__() 其定义了类实例化对象的可打印字符串表达式</div></pre></td></tr></table></figure>
+<h4 id="在数据库中根据模型创建表"><a href="#在数据库中根据模型创建表" class="headerlink" title="在数据库中根据模型创建表"></a>在数据库中根据模型创建表</h4><p>在manager.py文件：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_script <span class="keyword">import</span> Manager,Server</div><div class="line"><span class="keyword">from</span> main <span class="keyword">import</span> app</div><div class="line"><span class="keyword">from</span> models <span class="keyword">import</span> db,User</div><div class="line"></div><div class="line">manager = Manager(app)</div><div class="line">manager.add_command(<span class="string">"server"</span>,Server()) <span class="comment">#可以运行命令：python manage.py server 来运行整个项目</span></div><div class="line"></div><div class="line"><span class="meta">@manager.shell</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_shell_context</span><span class="params">()</span>:</span>  <span class="comment">#这个函数会创建python命令行在上下文中执行。</span></div><div class="line">    <span class="keyword">return</span> dict(app=app,</div><div class="line">    			db=db,</div><div class="line">    			User=User)    <span class="comment"># 返回的字典会告诉FLaskScript在打开命令行时进行一些默认的导入工作,每定义一个数据模型，都要进行导入</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    manager.run()</div></pre></td></tr></table></figure></p>
+<p>在控制台创建表：<br><code>python manager,py shell</code><br><code>db.create_all()</code></p>
+<h4 id="SQLAlchemy的CRUD"><a href="#SQLAlchemy的CRUD" class="headerlink" title="SQLAlchemy的CRUD"></a>SQLAlchemy的CRUD</h4><p>在 manager shell 中完成:</p>
+<ul>
+<li>create增添数据</li>
+</ul>
+<p><strong>add</strong>: 把数据添加到会话对象中 (数据状态为待保存)</p>
+<p><strong>commit</strong>: 将会话对象中的数据提交 (数据被写入数据库中)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from uuid import uuid4</div><div class="line">&gt;&gt;&gt; user = User(id=str(uuid4()), username=&apos;jmilkfan&apos;, password=&apos;fanguiju&apos;)</div><div class="line">&gt;&gt;&gt; db.session.add(user)</div><div class="line">&gt;&gt;&gt; db.session.commit()</div></pre></td></tr></table></figure>
+<ul>
+<li>retrieve 读取数据</li>
+</ul>
+<p>通过 <strong>Model.query</strong> 方法对数据进行查询. <code>Model.query == db.session.query(Model)</code> 两种写法是等效的. 区别在于前者使用的是 <strong>flask_sqlalchemy.BaseQuery object</strong>, 后者使用的是 <strong>sqlalchemy.orm.query.Query object</strong> . 但两者本质上都是一个 <strong>Query</strong> 对象.</p>
+<p><strong>读取数据有两种情况:</strong></p>
+<p>获取一条记录：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = User.query.first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.username</div><div class="line"><span class="string">u'fanguiju'</span></div><div class="line"><span class="comment"># 返回表中的第一条记录</span></div><div class="line"><span class="comment"># 其中 User.query 返回的是 flask_sqlalchemy.BaseQuery object</span></div><div class="line"><span class="comment"># flask_sqlalchemy.BaseQuery object 拥有对数据库操作的所有抽像方法</span></div><div class="line"></div><div class="line"><span class="comment"># or</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = User.query.get(<span class="string">'49f86ede-f1e5-410e-b564-27a97e12560c'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user</div><div class="line">&lt;Model User `claymore`&gt;</div><div class="line"><span class="comment"># 返回表中指定主键的一条记录</span></div><div class="line"></div><div class="line"><span class="comment"># or</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).filter_by(id=<span class="string">'49f86ede-f1e5-410e-b564-27a97e12560c'</span>).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user</div><div class="line">&lt;Model User `claymore`&gt;</div><div class="line"><span class="comment"># 返回符合过滤条件的第一条记录</span></div><div class="line"><span class="comment"># 其中 db.session.query(User).filter_by(id='49f86ede-f1e5-410e-b564-27a97e12560c') 返回的是一个 sqlalchemy.orm.query.Query object 对象</span></div><div class="line"><span class="comment"># sqlalchemy.orm.query.Query.first() 才是一个 User 对象</span></div></pre></td></tr></table></figure>
+<p>Query的过滤器</p>
+<p>在查询数据时, 可以根据一定的条件集合来获得过滤后的数据. SQLAlchemy 提供了过滤器 <code>query.filter_by()</code> 和 <code>query.filter()</code>, 过滤器接受的参数就是过滤条件, 有下面几种形式:</p>
+<ul>
+<li>字段键值对, EG. <code>username=&#39;fanguiju&#39;</code></li>
+<li>比较表达式, EG. <code>User.id &gt; 100</code></li>
+<li>逻辑函数, EG. <code>in_/not_/or_</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; user = db.session.query(User).filter(User.username.in_([&apos;fanguiju&apos;, &apos;jmilkfan&apos;])).limit(1).all()   # 当然也可以结合链式函数来使用</div><div class="line">&gt;&gt;&gt; user</div><div class="line">[&lt;Model User `cc`&gt;]</div><div class="line"></div><div class="line">&gt;&gt;&gt; user = db.session.query(User).filter(not_(User.password == None)).all()</div><div class="line">&gt;&gt;&gt; user</div><div class="line">[&lt;Model User `cc`&gt;, &lt;Model User `aa`&gt;]</div><div class="line"></div><div class="line">&gt;&gt;&gt; user = db.session.query(User).filter(or_(not_(User.username == None), User.password != None)).all()</div><div class="line">&gt;&gt;&gt; user</div><div class="line">[&lt;Model User `cc`&gt;, &lt;Model User `aa`&gt;]</div></pre></td></tr></table></figure>
+<p>可以将 <code>query.filter()</code> 内置的逻辑函数 <code>in_/not_/or_</code> 结合使用来实现更复杂的过滤.</p>
+<p>两个过滤器的区别：</p>
+<p>实质区别在于filter_by只能使用等号（不是==），应该更快，可以走索引<br>filter可以使用&gt;，&lt;取一定范围信息。用==。</p>
+<p>获取多条记录：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 获取多条记录</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).filter_by(username=<span class="string">'cc'</span>).all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user</div><div class="line">[&lt;Model User `cc`&gt;]</div><div class="line"><span class="comment"># 返回符合过滤条件的所有记录, 将所有 username == fanguiju 的记录都获取</span></div><div class="line"></div><div class="line"><span class="comment"># 获取全部数据</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users = User.query.all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users</div><div class="line">[&lt;Model User `cc`&gt;, &lt;Model User `aa`&gt;]</div><div class="line"><span class="comment"># or</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.query(User).all()</div><div class="line">[&lt;Model User `cc`&gt;, &lt;Model User `aa`&gt;]</div><div class="line"></div><div class="line"><span class="comment"># 获取数量限制数据，这个返回特征常与数据的分页功能结合使用.</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users = db.session.query(User).limit(<span class="number">10</span>).all()</div><div class="line"></div><div class="line"><span class="comment"># 排序返回的记录</span></div><div class="line"><span class="comment"># 正向排序</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users = db.session.query(User).order_by(User.username).all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users</div><div class="line">[&lt;Model User `fanguiju`&gt;, &lt;Model User `jmilkfan`&gt;]</div><div class="line"></div><div class="line"><span class="comment"># 反向排序</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users = db.session.query(User).order_by(User.username.desc()).all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users</div><div class="line">[&lt;Model User `jmilkfan`&gt;, &lt;Model User `fanguiju`&gt;]</div><div class="line"></div><div class="line"><span class="comment"># 链式调用，一条读取语句的链式操作都是一个 first() 或 all() 函数结束的. 它们会终止链式调用并返回结果.</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>users = db.session.query(User).order_by(User.username).limit(<span class="number">10</span>).all()</div></pre></td></tr></table></figure>
+<p>分页函数：</p>
+<p><strong>pagination()</strong>: 是专门设计来实现分页功能的函数, 所以必须由 <strong>flask_sqlalchemy.BaseQuery object</strong> 来调用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>User.query.paginate(<span class="number">1</span>,<span class="number">10</span>)     <span class="comment"># 查询第 1 页,且 1 页显示 10 条内容</span></div><div class="line">&lt;flask_sqlalchemy.Pagination object at <span class="number">0x7f214419fe50</span>&gt;</div><div class="line"></div><div class="line"><span class="comment"># paginate() 与 first()/all() 不同, 后者返回的是一个 models 对象或 models 对象列表, 而前者返回的是一个 pagination 对象. 而且 pagination 对象还包含了几个特有的属性:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page = User.query.paginate(<span class="number">1</span>, <span class="number">10</span>)</div><div class="line"></div><div class="line"><span class="comment"># 获取这一页所包含的数据对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page.items</div><div class="line">[&lt;Model User `fanguiju`&gt;, &lt;Model User `jmilkfan`&gt;]</div><div class="line"></div><div class="line"><span class="comment"># 获取这一页的页码</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page.page</div><div class="line"><span class="number">1</span></div><div class="line"></div><div class="line"><span class="comment"># 获取总共的页数</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page.pages</div><div class="line"><span class="number">1</span></div><div class="line"></div><div class="line"><span class="comment"># 是否有上一页</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page.has_prev</div><div class="line"><span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="comment"># 如果有上一页的话, 获取上一页的 pagination 对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> user_page.has_prev:</div><div class="line"><span class="meta">... </span>    user_page.prev()</div><div class="line"><span class="meta">... </span></div><div class="line"></div><div class="line"><span class="comment"># 是否有下一页</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_page.has_next</div><div class="line"><span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="comment"># 如果有下一页的话, 获取下一个的 pagination 对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> user_page.has_next:</div><div class="line"><span class="meta">... </span>    user_page.next()</div><div class="line">...</div></pre></td></tr></table></figure>
+<ul>
+<li>update 更新数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.username</div><div class="line"><span class="string">u'fanguiju'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).update(&#123;<span class="string">'username'</span>: <span class="string">'update_fanguiju'</span>&#125;)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.username</div><div class="line"><span class="string">u'update_fanguiju'</span></div></pre></td></tr></table></figure>
+<p>如上述例子, 先定位到你希望更新的记录, 然后通过 Query 对象的 <code>update()</code> 传递要更新内容. <strong>注意</strong>: 更新的内容必须是 Dict 数据类型.</p>
+<p><strong>需要注意的是</strong>: 就如使用原生 SQL 指令来更新记录一样, 如果没有指定要更新具体的哪一条记录的话, 会将该字段所在列的所有记录值一同更新, 所以切记使用过滤条件来定位到具体需要更新的记录.</p>
+<p>而且 <code>update()</code> 会自动的添加 User 的实例化对象到 session 中, 所以直接 commit 就可以写入到数据库了.</p>
+<ul>
+<li>delete 删除数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; user = db.session.query(User).first()</div><div class="line">&gt;&gt;&gt; user</div><div class="line">&lt;Model User `update_fanguiju`&gt;</div><div class="line"></div><div class="line">&gt;&gt;&gt; db.session.delete(user)</div><div class="line">&gt;&gt;&gt; db.session.commit()</div></pre></td></tr></table></figure>
+<h4 id="model间的关系"><a href="#model间的关系" class="headerlink" title="model间的关系"></a>model间的关系</h4><ul>
+<li><p>one to many 一对多</p>
+<p>一个用户可以有博客，每篇博客之对应一个作者，它们之间的关系为一对多</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></div><div class="line">    </div><div class="line">    __tablename__ = <span class="string">'users'</span></div><div class="line">    id = db.Column(db.String(<span class="number">45</span>), primary_key=<span class="keyword">True</span>)</div><div class="line">    username = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    password = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    <span class="comment"># Establish contact with Post's ForeignKey: user_id</span></div><div class="line">    <span class="comment">#会在 SQLAlchemy 中创建一个虚拟的列，该列会与 Post.user_id (db.ForeignKey) 建立联系</span></div><div class="line">    posts = db.relationship(</div><div class="line">        <span class="string">'Post'</span>,</div><div class="line">        backref=<span class="string">'users'</span>,</div><div class="line">        lazy=<span class="string">'dynamic'</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span><span class="params">(db.Model)</span>:</span></div><div class="line"></div><div class="line">    __tablename__ = <span class="string">'posts'</span></div><div class="line">    id = db.Column(db.String(<span class="number">45</span>), primary_key=<span class="keyword">True</span>)</div><div class="line">    title = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    text = db.Column(db.Text())</div><div class="line">    publish_date = db.Column(db.DateTime)</div><div class="line">    <span class="comment"># Set the foreign key for Post,user_id 字段是 posts 表的外键</span></div><div class="line">    user_id = db.Column(db.String(<span class="number">45</span>), db.ForeignKey(<span class="string">'users.id'</span>))，</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果你没有在父表类指定 <code>__tablename__</code> 属性，那么这一条语句我们应该这么写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">user_id = db.Column(db.String(45), db.ForeignKey(&apos;User.id&apos;))</div></pre></td></tr></table></figure>
+<p>但是一般不建议写成这样，因为在 SQLAlchemy 初始化期间， User 对象可能还没有被创建出来，所以同时也建议在定义 models class 的时候应该指定 <code>__tablename__</code> 属性。</p>
+<ul>
+<li>db.relationship</li>
+</ul>
+<p>会在 SQLAlchemy 中创建一个虚拟的列，该列会与 <code>Post.user_id</code> (db.ForeignKey) 建立联系。</p>
+<p>第一个参数是关联的数据模型的类。</p>
+<p><code>backref</code>:用于指定表之间的双向关系，如果在一对多的关系中建立双向的关系，这样的话在对方看来这就是一个多对一的关系。</p>
+<p><code>lazy</code>:指定 SQLAlchemy 加载关联对象的方式。</p>
+<ul>
+<li><code>lazy=subquery</code>: 会在加载 Post 对象后，将与 Post 相关联的对象全部加载，这样就可以减少 Query 的动作，也就是减少了对 DB 的 I/O 操作。但可能会返回大量不被使用的数据，会影响效率。</li>
+<li><code>lazy=dynamic</code>: 只有被使用时，对象才会被加载，并且返回式会进行过滤，<em>如果现在或将来需要返回的数据量很大，建议使用这种方式</em>。Post 就属于这种对象。</li>
+</ul>
+<p>to use:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> uuid <span class="keyword">import</span> uuid4</div><div class="line"><span class="comment"># 实例化一个 User 的对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = User(id=str(uuid4()), username=<span class="string">'jmilkfan'</span>, password=<span class="string">'fanguiju'</span>)</div><div class="line"><span class="comment"># 写入一条 users 记录     </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(user)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.posts</div><div class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x22bc410</span>&gt;</div><div class="line"></div><div class="line"><span class="comment"># 现在因为还没有添加 posts 的记录所以为空</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.posts.all()</div><div class="line">[]</div><div class="line"></div><div class="line"><span class="comment"># 实例化一个 Post 的对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_one = Post(<span class="string">'First Post'</span>)</div><div class="line"><span class="comment"># 主键值是非空的，必须指定一个，否则会报错</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_one.id = str(uuid4())</div><div class="line"><span class="comment"># 指定该 post 是属于哪一个 user 的</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_one.user_id = user.id</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(post_one)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.posts.all()</div><div class="line">[&lt;Model Post `First Post`&gt;]</div><div class="line"></div><div class="line"><span class="comment"># 获取一个已经存在数据库中的记录 user </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user = db.session.query(User).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.id</div><div class="line"><span class="string">u'ad7fd192-89d8-4b53-af96-fceb1f91070f'</span></div><div class="line"></div><div class="line"><span class="comment"># 实例化一个 Post 的对象 post_second</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_second = Post(<span class="string">'Second Post'</span>)</div><div class="line"><span class="comment"># 必须为其设置主键值</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_second.id = str(uuid4())</div><div class="line"><span class="comment"># 现在该 post_second 对象是没有关联到任何 user 的</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_second.users</div><div class="line"><span class="comment"># 为 post_second 指定一个 user 对象</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>post_second.users = user</div><div class="line"></div><div class="line"><span class="comment"># 将 post_second 写入数据库</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.add(post_second)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.commit()</div><div class="line"><span class="comment"># 写入完成之后，user 才能够通过关系来访问到属于其下的 posts</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user.posts.all()</div><div class="line">[&lt;Model Post `Second Post`&gt;, &lt;Model Post `First Post`&gt;]</div></pre></td></tr></table></figure>
+<ul>
+<li>many to many 多对多</li>
+</ul>
+<p>一个博客和tag标签之间的关系是多对多：</p>
+<p>多对多关系会在两个类之间增加一个关联表。 这个关联的表在 <code>relationship()</code> 方法中通过 <strong>secondary</strong> 参数来表示。通常的，这个表会通过 MetaData 对象来与声明基类关联， 所以这个 ForeignKey 指令会使用链接来定位到远程的表：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">posts_tags = db.Table(<span class="string">'posts_tags'</span>,</div><div class="line">    db.Column(<span class="string">'post_id'</span>, db.String(<span class="number">45</span>), db.ForeignKey(<span class="string">'posts.id'</span>)),</div><div class="line">    db.Column(<span class="string">'tag_id'</span>, db.String(<span class="number">45</span>), db.ForeignKey(<span class="string">'tags.id'</span>)))</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span><span class="params">(db.Model)</span>:</span></div><div class="line"></div><div class="line">    __tablename__ = <span class="string">'posts'</span></div><div class="line">    id = db.Column(db.String(<span class="number">45</span>), primary_key=<span class="keyword">True</span>)</div><div class="line">    title = db.Column(db.String(<span class="number">255</span>))</div><div class="line">    text = db.Column(db.Text())</div><div class="line">    publish_date = db.Column(db.DateTime)</div><div class="line">    <span class="comment"># Set the foreign key for Post</span></div><div class="line">    user_id = db.Column(db.String(<span class="number">45</span>), db.ForeignKey(<span class="string">'users.id'</span>))</div><div class="line">  </div><div class="line">    <span class="comment"># many to many: posts &lt;==&gt; tags</span></div><div class="line">    tags = db.relationship(</div><div class="line">        <span class="string">'Tag'</span>,</div><div class="line">        secondary=posts_tags,<span class="comment">#会告知 SQLAlchemy 该 many to many 的关联保存在 posts_tags 表中</span></div><div class="line">        backref=db.backref(<span class="string">'posts'</span>, lazy=<span class="string">'dynamic'</span>))</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tag</span><span class="params">(db.Model)</span>:</span></div><div class="line">    <span class="string">"""Represents Proected tags."""</span></div><div class="line"></div><div class="line">    __tablename__ = <span class="string">'tags'</span></div><div class="line">    id = db.Column(db.String(<span class="number">45</span>), primary_key=<span class="keyword">True</span>)</div><div class="line">    name = db.Column(db.String(<span class="number">255</span>))</div></pre></td></tr></table></figure>
+<p><strong>backref</strong>：声明表之间的关系是双向，帮助手册 <code>help(db.backref)</code>。需要注意的是：在 one to many 中的 backref 是一个普通的对象，而在 many to many 中的 backref 是一个 List 对象。</p>
+<p>实际上 db.Table 对象对<a href="http://lib.csdn.net/base/mysql" target="_blank" rel="external">数据库</a>的操作比 db.Model 更底层一些。后者是基于前者来提供的一种对象化包装，表示数据库中的一条记录。 <strong>posts_tags</strong> 表对象之所以使用 db.Table 不使用 db.Model 来定义，是因为我们不需要对 <strong>posts_tags</strong> (self.name)进行直接的操作(不需要对象化)，<strong>posts_tags</strong> 代表了两张表之间的关联，会由数据库自身来进行处理。</p>
+<p>to use:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; db.create_all()</div><div class="line">&gt;&gt;&gt; posts = db.session.query(Post).all()</div><div class="line">&gt;&gt;&gt; posts</div><div class="line">[&lt;Model Post `Second Post`&gt;, &lt;Model Post `First Post`&gt;]</div><div class="line">&gt;&gt;&gt; post_one = posts[1]</div><div class="line">&gt;&gt;&gt; post_two = posts[0]</div><div class="line"></div><div class="line"># 实例化 3 个 Tag 的对象</div><div class="line">&gt;&gt;&gt; from uuid import uuid4</div><div class="line">&gt;&gt;&gt; tag_one = Tag(&apos;JmilkFan&apos;)</div><div class="line">&gt;&gt;&gt; tag_one.id = str(uuid4())</div><div class="line">&gt;&gt;&gt; tag_two = Tag(&apos;FanGuiju&apos;)</div><div class="line">&gt;&gt;&gt; tag_two.id = str(uuid4())</div><div class="line">&gt;&gt;&gt; tag_three = Tag(&apos;Flask&apos;)</div><div class="line">&gt;&gt;&gt; tag_three.id = str(uuid4())</div><div class="line"></div><div class="line"># 将 Tag 的实例化对象赋值给 Post 实例化对象的 tags 属性</div><div class="line"># 即指定 Tag 和 Post 之间的关联状态</div><div class="line"># post_one 对应一个 tag</div><div class="line"># post_two 对应三个 tags</div><div class="line"># tag_one/tag_three 对应一个 post</div><div class="line"># tag_two 对象两个 posts</div><div class="line">&gt;&gt;&gt; post_one.tags</div><div class="line">[]</div><div class="line">&gt;&gt;&gt; post_one.tags = [tag_two]</div><div class="line">&gt;&gt;&gt; post_two.tags = [tag_one, tag_two, tag_three]</div><div class="line"></div><div class="line">&gt;&gt;&gt; db.session.add(post_one)</div><div class="line">&gt;&gt;&gt; db.session.add(post_two)</div><div class="line">&gt;&gt;&gt; db.session.commit()</div><div class="line"></div><div class="line">#在上面说过了 many to many 的 backref 是一个 List 对象，所以我们还可以反过来为 tags 添加一个 posts 对象(引用)。</div><div class="line">&gt;&gt;&gt; tag_one.posts.all()</div><div class="line">[&lt;Model Post `Second Post`&gt;]</div><div class="line">&gt;&gt;&gt; tag_one.posts.append(post_one)</div><div class="line">&gt;&gt;&gt; tag_one.posts.all()</div><div class="line">[&lt;Model Post `Second Post`&gt;, &lt;Model Post `First Post`&gt;]</div><div class="line">&gt;&gt;&gt; post_one.tags</div><div class="line">[&lt;Model Tag `FanGuiju`&gt;, &lt;Model Tag `JmilkFan`&gt;]</div><div class="line"># 因为修改了 tag_one 的 posts 属性(添加了 post_one 的引用)，所以需要重新提交 tag_one 才会被写入到数据库。</div><div class="line">&gt;&gt;&gt; db.session.add(tag_one)</div><div class="line">&gt;&gt;&gt; db.session.commit()</div></pre></td></tr></table></figure>
+<h4 id="数据库迁移"><a href="#数据库迁移" class="headerlink" title="数据库迁移"></a>数据库迁移</h4><p>工具Alembic可根据我们的SQLAlchemy模型的变化自动创建数据库迁移记录，保存了我们数据库结构变化的历史信息。让我们升级或者降级到某个已保存的版本。这些历史文件本身就是python程序文件。<br>我们不会直接使用Alembic,而是会使用Flask-Migrate，这是为SQLAlchemy专门创建的一个扩展，并且可以跟Flask Script一起使用。<br>pip:<code>pip install Flask-Migrate</code><br>添加到manage.py中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask_script import Manager,Server</div><div class="line">from flask_migrate import Migrate,MigrateCommand </div><div class="line"></div><div class="line">from main import app,db,User,Post,Tag</div><div class="line">migrate = Migrate(app,db)</div><div class="line"></div><div class="line">manager=Manager(app)</div><div class="line">manager.add_command(&quot;server&quot;,Server())</div><div class="line">manager.add_command(&apos;db&apos;,MigrateCommand)</div><div class="line"></div><div class="line">@manager.shell</div><div class="line">def make_shell_context():</div><div class="line">    return dict(app=app,db=db,User=User,Post=Post,Tag=Tag_</div><div class="line"></div><div class="line">if __name__ == &quot;__name__&quot;</div><div class="line">    manager.run()</div></pre></td></tr></table></figure></p>
+<p>通过app对象和SQLAlchemy的实例初始化了Migrate对象，通过命令来调用。<br>运行下面命令可以看到可用命令列表：<br><code>$python manage.py db</code><br>开始跟踪我们的数据库变更：<br><code>$python manage.py db init</code><br>上面这个命令会在项目目录里面创建一个叫migrations的文件夹，所有的记录文件都会被保存在里面。我们可以进行首次迁移：<br><code>python manage.py db migrate -m&quot;initial migration</code><br>上面这个命令会让Alembic扫描我们所有的SQLAlchemy对象，找到在此之前没有被记录过的所有表和列，-m参数来提交保存信息，通过提交保存信息寻找所需的迁移记录版本是最容易的方法。<br>每个迁移记录文件都被保存在migrations/version/文件中。<br>执行下面命令，把迁移记录应用到数据库上，并改变数据库的结构：<br><code>python manage.py db upgrade</code><br>要返回以前的版本通过history命令找到版本号：<br><code>python manage.py db history</code><br>再把版本好给downgrade命令：<br><code>pyhon manage.py db downgrade 7ded34bc4fb</code><br>同git一样，每个迁移记录都由一个哈希值来表示。可以将迁移记录和git提交记录对应起来。</p>
+<hr>
+<h3 id="WTForm"><a href="#WTForm" class="headerlink" title="WTForm"></a>WTForm</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p>Flask提供的请求对象能提供用于处理web表单的信息，如request.form能获取post请求中提交的表单数据。WTForm是一个服务端表单检验库，它可对常见的表单类型进行输入合法性验证。<br>Flask WTForm是基于WTForm的Falsk扩展，增加了一些特性：JinjiaHTML渲染，预防跨域请求伪造（CSRF）和SQL注入攻击。<br>安装：<code>pip install Flask-WTF</code><br>为了让WTForm的安全工作能够正常工作，我们需要一个密钥，来生成加密的签名。</p>
+<p>这个密钥可以在多个扩展中使用。</p>
+<p>在config.py里的Config对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Config(object):</div><div class="line">    SECRET_KEY=&apos;你的密钥&apos;</div></pre></td></tr></table></figure>
+<p>WTForm 由三部分组成：</p>
+<ul>
+<li>字段：对输入的初步检查</li>
+<li>检验器：在字段上加的函数，用来确保输入字符的限制条件。</li>
+<li>表单：一个python类，<br>forms.py加入如下内容<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_wtf <span class="keyword">import</span> Form <span class="comment"># 最新改为FlaskFrom</span></div><div class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> StringField,SubmitField</div><div class="line"><span class="keyword">from</span> wtforms.validators <span class="keyword">import</span> DataRequired</div><div class="line"></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">NameForm</span><span class="params">(FlaskForm)</span>:</span>           <span class="comment">#使用Flask-WTF时，每个web表单都继承一个From类。</span></div><div class="line">    name = StringField(<span class="string">'What is your named'</span>,validators=[DataRequired()])</div><div class="line">    submit = SubmitField(<span class="string">'Submit'</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Form基类由Flask-WTF扩展定义，从flask_wtf中导入。<br>字段和验证函数可以直接从wtforms包中导入。</p>
+<p>字段类的第一个参数为输入框标题,如果是按钮就是按钮名字，第二个参数为绑定到该字段的检验器列表，由 wtforms.validators 提供</p>
+<h4 id="支持的html字段"><a href="#支持的html字段" class="headerlink" title="支持的html字段"></a>支持的html字段</h4><table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StringField</td>
+<td>文本字段</td>
+</tr>
+<tr>
+<td>TextAreaField</td>
+<td>多行文本字段</td>
+</tr>
+<tr>
+<td>PasswordField</td>
+<td>密码文本字段</td>
+</tr>
+<tr>
+<td>HiddenField</td>
+<td>隐藏文本字段</td>
+</tr>
+<tr>
+<td>DateField</td>
+<td>文本字段，值为datetime.date格式</td>
+</tr>
+<tr>
+<td>DateTimeField</td>
+<td>文本字段，值为datetime,datetime格式</td>
+</tr>
+<tr>
+<td>IntegerField</td>
+<td>文本字段，值为整数</td>
+</tr>
+<tr>
+<td>DecimalField</td>
+<td>值为decimal.Decimal</td>
+</tr>
+<tr>
+<td>FloatField</td>
+<td>文本字段，值为浮点数</td>
+</tr>
+<tr>
+<td>BooleanField</td>
+<td>复选框，值为True和False</td>
+</tr>
+<tr>
+<td>RadioField</td>
+<td>一组单选框</td>
+</tr>
+<tr>
+<td>SelectField</td>
+<td>下拉列表</td>
+</tr>
+<tr>
+<td>SelectMultipleField</td>
+<td>下拉列表，可以选多个值</td>
+</tr>
+<tr>
+<td>FileField</td>
+<td>文件上传字段</td>
+</tr>
+<tr>
+<td>SubmitField</td>
+<td>表单提交按钮</td>
+</tr>
+<tr>
+<td>FormField</td>
+<td>把表单作为字段嵌入另一个表单</td>
+</tr>
+<tr>
+<td>FieldList</td>
+<td>一组指定类型的字段</td>
+</tr>
+</tbody>
+</table>
+<h4 id="表单验证函数"><a href="#表单验证函数" class="headerlink" title="表单验证函数"></a>表单验证函数</h4><p>如上文的参数validators,它定义了该数据的验证器列表，如DataRequired()代表了输入值不能为空。<br>| 验证函数         | 说明                     |<br>| ———— | ———————- |<br>| DataRequired | 字段不能为空                 |<br>| Emai         | 验证电子邮箱                 |<br>| EqualTo      | 比较两个字段的值，常用与输入两次密码进行确认 |<br>| IPAddress    | 验证IPv4的网络地址            |<br>| Length       | 验证输入字符串的长度             |<br>| NumberRange  | 验证输入的值在数字范围内           |<br>| Optional     | 无输入值时跳转其他验证函数          |<br>| Regexp       | 使用正则表达式验证输入值           |<br>| URL          | 验证URL                  |<br>| AnyOf        | 确保输入值在可选值列表中           |<br>| NoneOf       | 确保输入值不在可选值列表中          |</p>
+<h4 id="自定义检验器"><a href="#自定义检验器" class="headerlink" title="自定义检验器"></a>自定义检验器</h4><p>定义一个函数，接受表单对象和字段对象为参数，不符合要求抛出一个WTForm.ValidationError：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import re </div><div class="line">import wtforms</div><div class="line">def custom_email(form,field):</div><div class="line">    if not re.match(r&quot;[^@]+@[^@</div></pre></td></tr></table></figure></p>
+<h4 id="视图函数中处理表单"><a href="#视图函数中处理表单" class="headerlink" title="视图函数中处理表单"></a>视图函数中处理表单</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@app.route(&apos;/&apos;.methods=[&apos;GET&apos;,&apos;POST&apos;])</div><div class="line">def index():</div><div class="line">    name = None    # 局部变量存放表单中输入的有效名字</div><div class="line">    form = NameForm() # 这里就是上面定义的表单函数了</div><div class="line">    if form.validate_on_submit():</div><div class="line">        name = form.name.data  #接受输入框传来的数据</div><div class="line">        form.name.data=&apos;&apos;      #将数据清空返回输入框</div><div class="line">        return render_template(&apos;index.html&apos;,form=form,name=name)</div></pre></td></tr></table></figure>
+<p>methods参数告诉函数注册为POST和GET的请求提交。<br>get提交的数据以字符串的形式附加到URL中，大多数以post提交。<br>validate_on_submit函数，如果数据能被所有验证函数接受，返回True。否则false。</p>
+<h4 id="模板接收表单"><a href="#模板接收表单" class="headerlink" title="模板接收表单"></a>模板接收表单</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;form method=&quot;post&quot;&gt;</div><div class="line">    &#123;&#123;form.hidden_tag()&#125;&#125;</div><div class="line">    &#123;&#123;form.name.label&#125;&#125;&#123;&#123;form.name(id=&apos;may-text-field&apos;)&#125;&#125;</div><div class="line">    &#123;&#123;form.submit()&#125;&#125;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>这里的form就是我们传过来的那个参数。<br>但是这种方式太过于繁琐，我们更推荐用Flask-Bootstrap<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;%import &quot;bootstrap/wtf.html&quot; as wtf%&#125;</div><div class="line">&#123;&#123;wtf.quick_form(form)&#125;&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="重定向和用户会话session"><a href="#重定向和用户会话session" class="headerlink" title="重定向和用户会话session"></a>重定向和用户会话session</h4><p>当用户刷新时，浏览器会有提示框，因为刷新页面时浏览器会重新发送之前已经发送过的最后一个请求。<br>解决方案：不让Web程序把POST请求作为浏览器发送的最后一个请求——重定向。、<br>并在刷新后记住上次填的内容，用到session。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">from flask import Flask,render_template,session,url_for,redirect</div><div class="line">@app.route(&apos;/&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])</div><div class="line">def index():</div><div class="line">    name = None</div><div class="line">    nameForm = NameForm()</div><div class="line"></div><div class="line">    if nameForm.validate_on_submit():</div><div class="line">        session[&apos;name&apos;] = nameForm.name.data</div><div class="line">        nameForm.name.data = &apos;&apos;</div><div class="line">        return redirect(url_for(&apos;index&apos;))</div><div class="line"></div><div class="line">    return render_template(&apos;index.html&apos;,form=nameForm,name=session.get(&apos;name&apos;))</div></pre></td></tr></table></figure></p>
+<ul>
+<li>session[‘name’]存储了同一个会话的中文本框中的内容</li>
+<li>redirect（）是个辅助函数，用来生成http重定向响应，参数是重定向的URL</li>
+<li>url_for(),当然redirect(url_for(‘index’))也可以写成redirect(‘/‘),但是推荐使用url_for()生成URL，因为这个函数使用URL映射生成URL，从而保证URL和定义的路由兼容，而且修改路由名字后依然后依然可用。``url_for()<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* session.get(&apos;name&apos;)直接从会话中中读出name参数的值，也可以使用session[&apos;name&apos;]读取，但是推荐使用session.get(&apos;name&apos;),使用get()获取字典中键对应的值以避免未找到键的异常情况，因为对于不存在的键，get()会返回默认值None.</div><div class="line"></div><div class="line">#### flush消息</div><div class="line">用户提交了一项有错误的登陆表单后，服务器发回的相应重新渲染了登陆表单，并在表单上显示一个消息，提示用户用户名或密码错误。</div><div class="line">这是Flask的核心特性，flash函数可以实现这种效果。</div><div class="line"></div><div class="line">```python</div><div class="line">from flask import Flask,render_template,session,redirect,url_for,flash</div><div class="line">@app.route(&apos;/&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])</div><div class="line">def index():</div><div class="line">    form=NameForm()</div><div class="line">    if form.validate_on_submit():</div><div class="line">        old_name=session.get(&apos;name&apos;) # 和上次的名字做比较</div><div class="line">        if old_name is not None and old_name!=from.name.data:</div><div class="line">            flash(&apos;你已经改变了名字&apos;)</div><div class="line">        session[&apos;name&apos;]=fomr.name.data #存储上这次的名字</div><div class="line">        return redirect(url_for(&apos;index&apos;))</div><div class="line">    return render_template(&apos;index.html&apos;,form=form,name=session.get(&apos;name&apos;))</div></pre></td></tr></table></figure></li>
+</ul>
+<p>这个示例中，每次提交的名字会储存在用户会话中的名字进行比较，而会话中存储的名字是前一次在这个表单中提交的数据。如果两个名字不一样，就会调用flash()函数，再发给客户端的下一个相应中显示一个消息。</p>
+<p>我们要将flush消息显示出来：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line">&#123;% block content %&#125;</div><div class="line">    </div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line"></div><div class="line">&#123;% for message in get_flashed_messages() %&#125;</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert-warning"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"close"</span> <span class="attr">data-dismiss</span>=<span class="string">"alert"</span>&gt;</span>&amp;times;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">&#123;&#123; message &#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">&#123;% endfor %&#125;</div><div class="line"></div><div class="line">  &#123;% block page_content %&#125;&#123;% endblock %&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure>
+<p>在模板中使用循环是因为在之前的请求循环中每次调用flash()函数都会生成一个消息，所以可能有多个消息在排队，get_flashed_messages()函数获取的消息在下次调用时不会再次返回，只显示一次就消失。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/01/30/Flask整理(一)/"
+                     data-title="Flask整理(一)"
+                     data-url="https://clayandmore.github.io/2017/01/30/Flask整理(一)/"
+                     data-images=""
+                     data-content="使用FlaskSciptpip install flask-script
+使用它可以创建命令，... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/01/31/Flask整理（二）/" data-toggle="tooltip" data-placement="top"
+                           title="Flask整理(二)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/01/30/python进阶整理/" data-toggle="tooltip" data-placement="top"
+                           title="python进阶整理">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/01/30/Flask整理(一)/"
+                         data-title="Flask整理(一)"
+                         data-url="https://clayandmore.github.io/2017/01/30/Flask整理(一)/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用FlaskScipt"><span class="toc-text">使用FlaskScipt</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#config-py文件"><span class="toc-text">config.py文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#manage-py文件"><span class="toc-text">manage.py文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#main-py文件"><span class="toc-text">main.py文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序和请求上下文"><span class="toc-text">程序和请求上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQLAlchemy"><span class="toc-text">SQLAlchemy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建uri来链接数据库"><span class="toc-text">创建uri来链接数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建数据模型"><span class="toc-text">创建数据模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在数据库中根据模型创建表"><span class="toc-text">在数据库中根据模型创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQLAlchemy的CRUD"><span class="toc-text">SQLAlchemy的CRUD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#model间的关系"><span class="toc-text">model间的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库迁移"><span class="toc-text">数据库迁移</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WTForm"><span class="toc-text">WTForm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础"><span class="toc-text">基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持的html字段"><span class="toc-text">支持的html字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表单验证函数"><span class="toc-text">表单验证函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义检验器"><span class="toc-text">自定义检验器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#视图函数中处理表单"><span class="toc-text">视图函数中处理表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模板接收表单"><span class="toc-text">模板接收表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重定向和用户会话session"><span class="toc-text">重定向和用户会话session</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -201,6 +201,11 @@
 <h3 id="wsgi和werkzeug"><a href="#wsgi和werkzeug" class="headerlink" title="wsgi和werkzeug"></a>wsgi和werkzeug</h3><p>CGI:(Common Gateway Interface) 公用网关接口，是WWW技术中最重要的技术之一，有着不可替代的重要地位.</p>
 <p>WSGI是Web Server Gateway Interface的缩写。以层的角度来看，WSGI所在层的位置低于CGI。但与CGI不同的是WSGI具有很强的伸缩性且能运行于多线程或多进程的环境下，这是因为WSGI只是一份标准并没有定义如何去实现。</p>
 <p>Werkzeug是Python的<a href="http://baike.baidu.com/view/1660037.htm" target="_blank" rel="external">WSGI</a>规范的实用函数库。使用广泛，基于<a href="http://baike.baidu.com/view/1178915.htm" target="_blank" rel="external">BSD协议</a>.。</p>
+<h3 id="openid和OAuth"><a href="#openid和OAuth" class="headerlink" title="openid和OAuth"></a>openid和OAuth</h3><p>前者是网站对用户进行认证，让网站知道“你是你所声称的URL的属主”<br>后者其实并不包括认证，只不过“只有认证成功的人才能进行授权”，结果类似于“认证+授权”了。OAuth相当于：A网站给B网站一个令牌，然后告诉B网站说根据这个令牌你可以获取到某用户在A网站上允许你访问的所有信息作者</p>
+<h3 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h3><p>Python Package Index，所有的pip安装的包都来自PyPI。</p>
+<h3 id="钩子"><a href="#钩子" class="headerlink" title="钩子"></a>钩子</h3><p>个具体化的说法叫回调函数。linux内核中就有很多这样的机制，底层用c语言的函数指针来调用函数，顶层将该指针指向某个函数，以此来达到解耦代码的目的</p>
+<p>windows中：</p>
+<p>钩子实际上是一个处理消息的程序段，通过系统调用，把它挂入系统。每当特定的消息发出，在没有到达目的窗口前，钩子程序就先捕获该消息，亦即钩子函数先得到控制权。这时钩子函数即可以加工处理（改变）该消息，也可以不作处理而继续传递该消息，还可以强制结束消息的传递。</p>
 <h3 id="一些docker命令"><a href="#一些docker命令" class="headerlink" title="一些docker命令"></a>一些docker命令</h3><h4 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h4><p><code>docker pull test/web_develop:dev</code></p>
 <p>它会先看主机上是否有，如果没有会从<strong>镜像仓库Dockers Hub</strong>下载这个镜像。</p>
 <h4 id="查看镜像列表"><a href="#查看镜像列表" class="headerlink" title="查看镜像列表"></a>查看镜像列表</h4><p><code>docker images</code></p>
@@ -258,8 +263,8 @@
                     
                     
                     <li class="next">
-                        <a href="/2017/01/30/Flask整理/" data-toggle="tooltip" data-placement="top"
-                           title="Flask整理">Next Post &rarr;</a>
+                        <a href="/2017/01/31/Flask整理（二）/" data-toggle="tooltip" data-placement="top"
+                           title="Flask整理(二)">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -282,7 +287,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vagrant-和-docker"><span class="toc-text">vagrant 和 docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wsgi和werkzeug"><span class="toc-text">wsgi和werkzeug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些docker命令"><span class="toc-text">一些docker命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下载镜像"><span class="toc-text">下载镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看镜像列表"><span class="toc-text">查看镜像列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动容器"><span class="toc-text">启动容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#退出容器"><span class="toc-text">退出容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重新进入一个存在的容器"><span class="toc-text">重新进入一个存在的容器</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vagrant-和-docker"><span class="toc-text">vagrant 和 docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wsgi和werkzeug"><span class="toc-text">wsgi和werkzeug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openid和OAuth"><span class="toc-text">openid和OAuth</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PyPI"><span class="toc-text">PyPI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#钩子"><span class="toc-text">钩子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些docker命令"><span class="toc-text">一些docker命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下载镜像"><span class="toc-text">下载镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看镜像列表"><span class="toc-text">查看镜像列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动容器"><span class="toc-text">启动容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#退出容器"><span class="toc-text">退出容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重新进入一个存在的容器"><span class="toc-text">重新进入一个存在的容器</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

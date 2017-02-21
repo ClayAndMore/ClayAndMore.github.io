@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        心如沟壑 后土难填｜Claymore&#39;s blog
+        使用pdb调试python代码｜Claymore&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://clayandmore.github.io/2017/12/31/首页/">
+    <link rel="canonical" href="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -144,13 +144,13 @@
 
 
 <img class="wechat-title-img"
-     src="http://ojynuthay.bkt.clouddn.com/blueWithe.jpg">
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('http://ojynuthay.bkt.clouddn.com/blueWithe.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
     }
 
     
@@ -161,15 +161,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>心如沟壑 后土难填</h1>
+                    <h1>使用pdb调试python代码</h1>
                     
                     <span class="meta">
                          作者 Claymore
                         <span>
-                          日期 2017-12-31
+                          日期 2017-02-20
                          </span>
                     </span>
                     <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
                         
                     </div>
                 </div>
@@ -178,7 +181,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            心如沟壑 后土难填
+            使用pdb调试python代码
         </span>
     </div>
 </header>
@@ -189,18 +192,82 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="当一个人的爱建立在占有和索取上，"><a href="#当一个人的爱建立在占有和索取上，" class="headerlink" title="当一个人的爱建立在占有和索取上，"></a><strong>当一个人的爱建立在占有和索取上，</strong></h2><h2 id="内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，"><a href="#内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，" class="headerlink" title="内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，"></a><strong>内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，</strong></h2><h2 id="他已经分不出多余的爱去爱对方。"><a href="#他已经分不出多余的爱去爱对方。" class="headerlink" title="他已经分不出多余的爱去爱对方。"></a><strong>他已经分不出多余的爱去爱对方。</strong></h2><p><img src="http://ojynuthay.bkt.clouddn.com/shouye.jpg" alt=""></p>
+                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>pdb 是 python 自带的一个包，为 python 程序提供了一种交互的源代码调试功能，主要特性包括设置断点、单步调试、进入函数调试、查看当前代码、查看栈片段、动态改变变量的值等。pdb 提供了一些常用的调试命令，详情见表 </p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>break 或 b 设置断点</td>
+<td>设置断点</td>
+</tr>
+<tr>
+<td>continue 或 c</td>
+<td>继续执行程序，一直跑到下个断点</td>
+</tr>
+<tr>
+<td>list 或 l</td>
+<td>查看当前行的代码段</td>
+</tr>
+<tr>
+<td>step 或 s</td>
+<td>进入函数</td>
+</tr>
+<tr>
+<td>return 或 r</td>
+<td>执行代码直到从当前函数返回</td>
+</tr>
+<tr>
+<td>exit 或 q</td>
+<td>中止并退出</td>
+</tr>
+<tr>
+<td>next 或 n</td>
+<td>执行下一行</td>
+</tr>
+<tr>
+<td>p</td>
+<td>打印变量的值</td>
+</tr>
+<tr>
+<td>help</td>
+<td>帮助</td>
+</tr>
+</tbody>
+</table>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>一个python文件：pdbtest.py:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pdb</div><div class="line"></div><div class="line">a=<span class="string">'aaa'</span></div><div class="line">pdb.set_trace()</div><div class="line">b=<span class="string">'bbb'</span></div><div class="line">c=<span class="string">'ccc'</span></div><div class="line">final=a+b+c</div><div class="line">print(final)</div></pre></td></tr></table></figure>
+<p>执行：python pdbtest.py。</p>
+<p>out:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(5)&lt;module&gt;()</div><div class="line">-&gt; b=&apos;bbb&apos;</div></pre></td></tr></table></figure>
+<p>说明在这个文件的第五行代码<code>b= bbb</code>处停下，但是是这句代码的上面，这句话并没有执行。</p>
+<p>这时你的光标会停在（pdb）后面，输入上方表格指令，可实现相关操作。比如我输入：</p>
+<p><code>(pdb)n</code>按下回车就会执行<code>b=bbb</code>这条语句。</p>
+<p>other:再按下回车会执行上面一样的语句。</p>
+<h4 id="打印变量"><a href="#打印变量" class="headerlink" title="打印变量"></a>打印变量</h4><p><code>(pdb)p final</code></p>
+<p>则会输出最后final的值</p>
+<h4 id="看当前代码所调试在的位置"><a href="#看当前代码所调试在的位置" class="headerlink" title="看当前代码所调试在的位置"></a>看当前代码所调试在的位置</h4><p><code>(pdb)l</code> </p>
+<p>out:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">  1     import pdb</div><div class="line">  2</div><div class="line">  3     a=&apos;aaa&apos;</div><div class="line">  4     pdb.set_trace()</div><div class="line">  5  -&gt; b=&apos;bbb&apos;</div><div class="line">  6     c=&apos;ccc&apos;</div><div class="line">  7     final=a+b+c</div><div class="line">  8     print(final)</div><div class="line">[EOF]</div></pre></td></tr></table></figure>
+<p>箭头所指向的位置就是当前调试的位置。</p>
+<h4 id="进入函数"><a href="#进入函数" class="headerlink" title="进入函数"></a>进入函数</h4><p>输入n会直接执行函数的不会进入函数内部，在调试有函数语句的地方直接输入s,可进入函数进行单步调试。再按r退出函数</p>
+<h4 id="调试中改变变量的值"><a href="#调试中改变变量的值" class="headerlink" title="调试中改变变量的值"></a>调试中改变变量的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">(VirtualEnv16Y12M) D:\WorkSpace\pyWorkSpace\Follow&gt;python pd</div><div class="line">btest.py</div><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(5)&lt;module&gt;()</div><div class="line">-&gt; b=&apos;bbb&apos;</div><div class="line">(Pdb) !b=&apos;zzz&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;zzz&apos;</div><div class="line">(Pdb) n</div><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(6)&lt;module&gt;()</div><div class="line">-&gt; c=&apos;ccc&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;bbb&apos;</div><div class="line">(Pdb) !b=&apos;vvv&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;vvv&apos;</div><div class="line">(Pdb) c</div><div class="line">aaavvvccc</div></pre></td></tr></table></figure>
+<p><code>!变量名</code>可以改变调试的变量值，上面的示例是在b=bbb语句前就改变了变量值这样会被原语句赋值回来，所以我们要执行到断点在c=ccc处再对b赋值。</p>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2017/12/31/首页/"
-                     data-title="心如沟壑 后土难填"
-                     data-url="https://clayandmore.github.io/2017/12/31/首页/"
-                     data-images="https://clayandmore.github.io/2017/12/31/首页/blueWithe.jpg"
-                     data-content="当一个人的爱建立在占有和索取上，内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，他已经分... | Claymore&#39;s blog ">
+                     data-thread-key="2017/02/20/用pdb调试python代码/"
+                     data-title="使用pdb调试python代码"
+                     data-url="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/"
+                     data-images=""
+                     data-content="写在前面pdb 是 python 自带的一个包，为 python 程序提供了一种交互的源代码调... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -218,10 +285,15 @@
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2017/12/31/首页/" data-toggle="tooltip" data-placement="top"
+                           title="心如沟壑 后土难填">&larr; Previous Post</a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2017/02/20/用pdb调试python代码/" data-toggle="tooltip" data-placement="top"
-                           title="使用pdb调试python代码">Next Post &rarr;</a>
+                        <a href="/2017/02/16/vim/" data-toggle="tooltip" data-placement="top"
+                           title="vim">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -230,9 +302,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2017/12/31/首页/"
-                         data-title="心如沟壑 后土难填"
-                         data-url="https://clayandmore.github.io/2017/12/31/首页/">
+                         data-thread-key="2017/02/20/用pdb调试python代码/"
+                         data-title="使用pdb调试python代码"
+                         data-url="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -244,7 +316,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#当一个人的爱建立在占有和索取上，"><span class="toc-text">当一个人的爱建立在占有和索取上，</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，"><span class="toc-text">内在的匮乏感强迫他通过不停地获得，来填补内心的缺失感，</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#他已经分不出多余的爱去爱对方。"><span class="toc-text">他已经分不出多余的爱去爱对方。</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-text">基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打印变量"><span class="toc-text">打印变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#看当前代码所调试在的位置"><span class="toc-text">看当前代码所调试在的位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入函数"><span class="toc-text">进入函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调试中改变变量的值"><span class="toc-text">调试中改变变量的值</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -265,6 +337,9 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
                         
                     </div>
                 </section>

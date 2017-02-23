@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        linux进阶｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/02/22/linux进阶/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>linux进阶</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-02-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#linux"
+                           title="linux">linux</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            linux进阶
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="virtual-box虚拟机连接网络的方式"><a href="#virtual-box虚拟机连接网络的方式" class="headerlink" title="virtual box虚拟机连接网络的方式"></a>virtual box虚拟机连接网络的方式</h3><p>1、NAT 网络地址转换模式(NAT,Network Address Translation)<br>2、Bridged Adapter 桥接模式<br>3、Internal 内部网络模式<br>4、Host-only Adapter 主机模式 </p>
+<h4 id="第一种-NAT模式"><a href="#第一种-NAT模式" class="headerlink" title="第一种 NAT模式"></a>第一种 NAT模式</h4><p>解释：<br>NAT模式是最简单的实现虚拟机上网的方式，你可以这样理解：Vhost访问网络的所有数据都是由主机提供的，vhost并不真实存在于网络中，主机与网络中的任何机器都不能查看和访问到Vhost的存在。<br>虚拟机与主机关系：<br>只能单向访问，虚拟机可以通过网络访问到主机，主机无法通过网络访问到虚拟机。<br>虚拟机与网络中其他主机的关系：<br>只能单向访问，虚拟机可以访问到网络中其他主机，其他主机不能通过网络访问到虚拟机。<br>虚拟机与虚拟机之间的关系：<br>相互不能访问，虚拟机与虚拟机各自完全独立，相互间无法通过网络访问彼此。<br>IP:10.0.2.15<br>网关：10.0.2.2<br>DNS：10.0.2.3<br>一台虚拟机的多个网卡可以被设定使用 NAT， 第一个网卡连接了到专用网 10.0.2.0，第二个网卡连接到专用网络 10.0.3.0，等等。默认得到的客户端ip（IP Address）是10.0.2.15，网关（Gateway）是10.0.2.2，域名服务器（DNS）是10.0.2.3，可以手动参考这个进行修改。<br>NAT方案优缺点：<br>笔记本已插网线时： 虚拟机可以访问主机，虚拟机可以访问互联网，在做了端口映射后（最后有说明），主机可以访问虚拟机上的服务（如数据库）。<br>笔记本没插网线时： 主机的“本地连接”有红叉的，虚拟机可以访问主机，虚拟机不可以访问互联网，在做了端口映射后，主机可以访问虚拟机上的服务（如数据库）。 </p>
+<h4 id="第二种-Bridged-Adapter模式"><a href="#第二种-Bridged-Adapter模式" class="headerlink" title="第二种 Bridged Adapter模式"></a>第二种 Bridged Adapter模式</h4><p>解释：<br>网桥模式是我最喜欢的用的一种模式，同时，模拟度也是相当完美。你可以这样理解，它是通过主机网卡，架设了一条桥，直接连入到网络中了。因此，它使得虚拟机能被分配到一个网络中独立的IP，所有网络功能完全和在网络中的真实机器一样。<br>虚拟机与主机关系：<br>可以相互访问，因为虚拟机在真实网络段中有独立IP，主机与虚拟机处于同一网络段中，彼此可以通过各自IP相互访问。<br>虚拟机于网络中其他主机关系：<br>可以相互访问，同样因为虚拟机在真实网络段中有独立IP，虚拟机与所有网络其他主机处于同一网络段中，彼此可以通过各自IP相互访问。<br>虚拟机于虚拟机关系：<br>可以相互访问，原因同上。<br>IP：一般是DHCP分配的，与主机的“本地连接”的IP 是同一网段的。虚拟机就能与主机互相通信。<br>笔记本已插网线时：（若网络中有DHCP服务器）主机与虚拟机会通过DHCP分别得到一个IP，这两个IP在同一网段。 主机与虚拟机可以ping通，虚拟机可以上互联网。<br>笔记本没插网线时：主机与虚拟机不能通信。主机的“本地连接”有红叉，就不能手工指定IP。虚拟机也不能通过DHCP得到IP地址，手工指定IP后，也无法与主机通信，因为主机无IP。<br>这时主机的VirtualBox Host-Only Network 网卡是有ip的，192.168.56.1。虚拟机就算手工指定了IP 192.168.56.*，也ping不能主机。 </p>
+<h4 id="第三种-Internal模式"><a href="#第三种-Internal模式" class="headerlink" title="第三种 Internal模式"></a>第三种 Internal模式</h4><p>解释：<br>内网模式，顾名思义就是内部网络模式，虚拟机与外网完全断开，只实现虚拟机于虚拟机之间的内部网络模式。<br>虚拟机与主机关系：<br>不能相互访问，彼此不属于同一个网络，无法相互访问。<br>虚拟机与网络中其他主机关系：<br>不能相互访问，理由同上。<br>虚拟机与虚拟机关系：<br>可以相互访问，前提是在设置网络时，两台虚拟机设置同一网络名称。如上配置图中，名称为intnet。<br>IP: VirtualBox的DHCP服务器会为它分配IP ，一般得到的是192.168.56.101，因为是从101起分的，也可手工指定192.168.56.*。<br>笔记本已插网线时：虚拟机可以与主机的VirtualBox Host-Only Network 网卡通信<br>这种方案不受主机本地连接（网卡）是否有红叉的影响。 </p>
+<h4 id="第四种-Host-only-Adapter模式"><a href="#第四种-Host-only-Adapter模式" class="headerlink" title="第四种 Host-only Adapter模式"></a>第四种 Host-only Adapter模式</h4><p>解释：<br>主机模式，这是一种比较复杂的模式，需要有比较扎实的网络基础知识才能玩转。可以说前面几种模式所实现的功能，在这种模式下，通过虚拟机及网卡的设置都可以被实现。<br>我们可以理解为Vbox在主机中模拟出一张专供虚拟机使用的网卡，所有虚拟机都是连接到该网卡上的，我们可以通过设置这张网卡来实现上网及其他很多功能，比如（网卡共享、网卡桥接等）。<br>虚拟机与主机关系<br>默认不能相互访问，双方不属于同一IP段，host-only网卡默认IP段为192.168.56.X 子网掩码为255.255.255.0，后面的虚拟机被分配到的也都是这个网段。通过网卡共享、网卡桥接等，可以实现虚拟机于主机相互访问。<br>虚拟机与网络主机关系<br>默认不能相互访问，原因同上，通过设置，可以实现相互访问。<br>虚拟机与虚拟机关系<br>默认可以相互访问，都是同处于一个网段。<br>虚拟机访问主机 用的是主机的VirtualBox Host-Only Network网卡的IP：192.168.56.1 ，不管主机“本地连接”有无红叉，永远通。<br>主机访问虚拟机，用是的虚拟机的网卡3的IP： 192.168.56.101 ，不管主机“本地连接”有无红叉，永远通。<br>虚拟机访问互联网，用的是自己的网卡2， 这时主机要能通过“本地连接”有线上网，（无线网卡不行） </p>
+<p>通过对以上几种网络模式的了解，我们就可以灵活运用，模拟组建出我们所想要的任何一种网络环境了。<br>比如我想模拟出来一个一台主机，监控一个局域网上网情况的网络环境。<br>首先我开启了两台虚拟机vhost1与vhost2，当然如果硬件允许，我同样可以再增加vhost3、vhost4…<br>所有的vhost我都设置成internat内网模式，网络名称为intnal，网关为192.168.56.100，意思就是通过 192.168.56.100网卡上网。其中有一台vhost1我设置为双网卡，一张为内网模式（192.168.56.100），一张为网桥模式（192.168.1.101）。两张网卡设置双网卡共享上网<br>虚拟机之间为局域网，其中有一台虚拟机vhost1通过与外网相连，所有局域网中的虚拟机又通过vhost1来实现上外网。这样vhost1就可以监控整个虚拟机局域网上网情况了。 </p>
+<p>NAT 设置端口映射<br><a href="https://www.douban.com/link2/?url=http%3A%2F%2Fhuzhangsheng.blog.163.com%2Fblog%2Fstatic%2F34787784200802801435931%2F" target="_blank" rel="external">http://huzhangsheng.blog.163.com/blog/static/34787784200802801435931/</a><br>你可以设置一个虚拟机的服务（比如 WEB 服务），通过使用命令行工具 VboxManage 代理。你需要知道虚拟机的服务使用哪个端口，然后决定在主机上使用哪个端口（通常但不总是想要使虚拟机和主机使用同一个端口）。在主机上提供一个服务需要使用一个端口，你能使用在主机上没有准备用来提供服务的任何端口。一个怎样设置新的 NAT 例子，在虚拟机上连接到一个 ssh 服务器，需要下面的三个命令：<br>VBoxManage setextradata ‘Linux Guest’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/guestssh/Protocol’ TCP<br>VBoxManage setextradata ‘Linux Guest’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/guestssh/GuestPort’ 22<br>VBoxManage setextradata ‘Linux Guest’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/guestssh/HostPort’ 2222<br>说明：VboxManage 是一个命令行程序，请查询你的 VirtualBox 安装目录，’Linux Guest’ 是虚拟主机名。guestssh 是一个自定义的名称，你可以任意设置，通过上面的三个命令，把虚拟机的 22 端口 转发到主机的 2222 端口。<br>又比如，我在虚拟机 debian 上安装了 apache2 服务器，使用 80 端口，映射到主机的 80 端口。使用下面的命令。<br>‘C:\Program Files\innotek VirtualBox\VBoxManage.exe’ setextradata ‘debian’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/huzhangsheng/Protocol’ TCP<br>‘C:\Program Files\innotek VirtualBox\VBoxManage.exe’ setextradata ‘debian’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/huzhangsheng/GuestPort’ 80<br>‘C:\Program Files\innotek VirtualBox\VBoxManage.exe’ setextradata ‘debian’ ‘VBoxInternal/Devices/pcnet/0/LUN#0/Config/huzhangsheng/HostPort’ 80<br>注意：要使设置生效，请关掉 VirtualBox 再运行虚拟机，我把 VirtualBox 安装在 winxp 上，在虚拟机中安装 debian 4.02r ，虚拟机名是 debian ，并安装了 apache2 php5 mysql-server ，在主机上用IE浏览 <a href="http://localhost，成功转发到虚拟机" target="_blank" rel="external">http://localhost，成功转发到虚拟机</a> debian 的 apache2 web 服务器上 </p>
+<p>上文出处：<a href="http://www.cnblogs.com/coltiam/archive/2010/03/26/1696939.html" target="_blank" rel="external">http://www.cnblogs.com/coltiam/archive/2010/03/26/1696939.html</a> </p>
+<p>个人感觉通过使用端口映射的方式很不爽，还不如直接桥接来的快，现在多数情况下连接到网络是没问题的，端口映射还需要在宿主跟虚拟机都额外开某个服务，感觉不爽。 </p>
+<p>“网络”配置页面有4个方案： </p>
+<p>1：NAT 网络地址转换（Network Address Translation） </p>
+<p>2：Birdged Network 桥接 </p>
+<p>3：Internal Network 内部网络（可以是虚拟机与虚拟机之间） </p>
+<p>4：Host-Only 只与主机通信（大概吧） </p>
+<p>安装完VirtualBox2.2后，主机多了一个“VirtualBox Host-Only Network ”本地网卡。 </p>
+<hr>
+<h3 id="xshell连接ubuntu虚拟机"><a href="#xshell连接ubuntu虚拟机" class="headerlink" title="xshell连接ubuntu虚拟机"></a>xshell连接ubuntu虚拟机</h3><ul>
+<li>在vm中网络连接设置成上面所说的第二种模式bridge</li>
+<li>确保虚拟机上有网络，查看ip 命令：<code>ifconfig</code>注意是if不是ip,</li>
+</ul>
+<p><img src="http://ojynuthay.bkt.clouddn.com/ifconfig.png" alt=""></p>
+<ul>
+<li>安装openssh-server</li>
+</ul>
+<p>xshell连接不了ubuntu，原因没有安装openssh-server，解决方法： </p>
+<p>$:sudo apt-get install openssh-server </p>
+<p>查看server是否启动： </p>
+<p>$:ps -ef |grep ssh </p>
+<p>如果看到/usr/sbin/sshd -D，说明服务已经启动，否则服务尚未启动，那么需要启动server： </p>
+<p>$：/etc/init.d/ssh start </p>
+<h4 id="传送文件"><a href="#传送文件" class="headerlink" title="传送文件"></a>传送文件</h4><ul>
+<li>先下载rz和sz的工具包</li>
+</ul>
+<p><code>sudo apt install lrzsz</code></p>
+<ul>
+<li>从windows上传文件到linux</li>
+</ul>
+<p><code>rz</code>  回车后会提示上传的文件。</p>
+<p>上传的文件会在当前linux的目录</p>
+<ul>
+<li>从linux上传文件到windows</li>
+</ul>
+<p><code>sz</code>，后面跟要下载的文件名； 前提是要进入相关目录</p>
+<p>回车后会提示保存的位置</p>
+<h3 id="简单文件系统操作"><a href="#简单文件系统操作" class="headerlink" title="简单文件系统操作"></a>简单文件系统操作</h3><h4 id="查看磁盘容量-df"><a href="#查看磁盘容量-df" class="headerlink" title="查看磁盘容量-df"></a>查看磁盘容量-df</h4><p><code>$ df -h</code></p>
+<p>加上参数-h是以更易读的方式展示</p>
+<h4 id="查看目录容量-du"><a href="#查看目录容量-du" class="headerlink" title="查看目录容量 du"></a>查看目录容量 du</h4><p><code>$ du -h</code></p>
+<p><code>$ du -h -d 0</code> 只看一级目录的信息</p>
+<p><code>$ du -h -d 1</code>只看二级目录的信息</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/02/22/linux进阶/"
+                     data-title="linux进阶"
+                     data-url="https://clayandmore.github.io/2017/02/22/linux进阶/"
+                     data-images=""
+                     data-content="virtual box虚拟机连接网络的方式1、NAT 网络地址转换模式(NAT,Network... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/02/22/用标准库中的接口写一个python服务器 /" data-toggle="tooltip" data-placement="top"
+                           title="用标准库中的接口写一个python服务器">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/20/用pdb调试python代码/" data-toggle="tooltip" data-placement="top"
+                           title="使用pdb调试python代码">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/02/22/linux进阶/"
+                         data-title="linux进阶"
+                         data-url="https://clayandmore.github.io/2017/02/22/linux进阶/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#virtual-box虚拟机连接网络的方式"><span class="toc-text">virtual box虚拟机连接网络的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一种-NAT模式"><span class="toc-text">第一种 NAT模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种-Bridged-Adapter模式"><span class="toc-text">第二种 Bridged Adapter模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三种-Internal模式"><span class="toc-text">第三种 Internal模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四种-Host-only-Adapter模式"><span class="toc-text">第四种 Host-only Adapter模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xshell连接ubuntu虚拟机"><span class="toc-text">xshell连接ubuntu虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#传送文件"><span class="toc-text">传送文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单文件系统操作"><span class="toc-text">简单文件系统操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看磁盘容量-df"><span class="toc-text">查看磁盘容量-df</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看目录容量-du"><span class="toc-text">查看目录容量 du</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#linux"
+                           title="linux">linux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

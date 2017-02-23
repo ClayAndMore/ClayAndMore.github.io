@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        用标准库中的接口写一个python服务器｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/02/22/用标准库中的接口写一个python服务器 /">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/AboutMe/">aboutme</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>用标准库中的接口写一个python服务器</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-02-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            用标准库中的接口写一个python服务器
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>socket接口是实际上是<strong>操作系统</strong>提供的<strong>系统调用</strong>。socket的使用并不局限于Python语言，你可以用C或者JAVA来写出同样的socket服务器，而所有语言使用socket的方式都类似(Apache就是使用C实现的服务器)。而你不能跨语言的使用框架。框架的好处在于帮你处理了一些细节，从而实现快速开发，但同时受到Python本身性能的限制。我们已经看到，许多成功的网站都是利用动态语言(比如Python, Ruby或者PHP，比如twitter和facebook)快速开发，在网站成功之后，将代码转换成诸如C和JAVA这样一些效率比较高的语言，从而让服务器能更有效率的面对每天亿万次的请求。在这样一些时间，底层的重要性，就远远超过了框架。</p>
+<h3 id="TCP-socket"><a href="#TCP-socket" class="headerlink" title="TCP socket"></a>TCP socket</h3><p>在Python中，我们使用标准库中的<strong>socket包</strong>来进行底层的socket编程。</p>
+<p>服务端：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> socket</div><div class="line"></div><div class="line"><span class="comment"># 地址</span></div><div class="line">HOST=<span class="string">''</span></div><div class="line">PORT=<span class="number">8000</span></div><div class="line"></div><div class="line">reply=<span class="string">'Yes'</span></div><div class="line"></div><div class="line"><span class="comment">#socket.socket()创建一个socket对象，并说明socket使用的是IPv4(AF_INET，IP version 4)和TCP协议(SOCK_STREAM)。</span></div><div class="line">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</div><div class="line"></div><div class="line"><span class="comment"># 被动监听，连接队列中最大有三个连接数</span></div><div class="line">s.listen(<span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment"># 接受连接，并建立链接</span></div><div class="line">conn,addr=s.accept()</div><div class="line"></div><div class="line"><span class="comment"># 接受消息</span></div><div class="line">request=conn.recv(<span class="number">1024</span>)</div><div class="line"></div><div class="line">print(<span class="string">'request is:'</span>,request)</div><div class="line">print(<span class="string">'Connet bu'</span>,addr)</div><div class="line"></div><div class="line"><span class="comment">#发送消息</span></div><div class="line">conn.sendall(reply)</div><div class="line">conn.close()</div></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Written by Vamei</span></div><div class="line"><span class="comment"># Client side</span></div><div class="line"><span class="keyword">import</span> socket</div><div class="line"></div><div class="line"><span class="comment"># Address,没有两台计算机，用本地ip</span></div><div class="line">HOST = <span class="string">'127.0.0.1'</span></div><div class="line">PORT = <span class="number">8000</span></div><div class="line"></div><div class="line">request = <span class="string">'can you hear me?'</span></div><div class="line"></div><div class="line"><span class="comment"># configure socket</span></div><div class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</div><div class="line">s.connect((HOST, PORT))</div><div class="line"></div><div class="line"><span class="comment"># send message</span></div><div class="line">s.sendall(request)</div><div class="line"><span class="comment"># receive message</span></div><div class="line">reply  = s.recv(<span class="number">1024</span>)</div><div class="line">print(<span class="string">'reply is: '</span>,reply)</div><div class="line"><span class="comment"># close connection</span></div><div class="line">s.close()</div></pre></td></tr></table></figure>
+<h3 id="基于TCP-socket的http服务器"><a href="#基于TCP-socket的http服务器" class="headerlink" title="基于TCP socket的http服务器"></a>基于TCP socket的http服务器</h3><p>上面的例子中，我们已经可以使用TCP socket来为两台远程计算机建立连接。然而，socket传输自由度太高，从而带来很多安全和兼容的问题。我们往往利用一些应用层的协议(比如HTTP协议)来规定socket <strong>使用规则</strong>，以及所传输信息的<strong>格式</strong>。</p>
+<p><strong>HTTP</strong>协议利用<strong>请求-回应(request-response)</strong>的方式来使用TCP socket。客户端向服务器发一段文本作为request，服务器端在接收到request之后，向客户端发送一段文本作为response。在完成了这样一次request-response交易之后，TCP socket被废弃。下次的request将建立新的socket。request和response本质上说是两个文本，只是HTTP协议对这两个文本都有一定的格式要求。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> socket</div><div class="line"><span class="comment"># Address</span></div><div class="line">HOST = <span class="string">''</span></div><div class="line">PORT = <span class="number">8080</span></div><div class="line"></div><div class="line"><span class="comment"># Prepare HTTP response</span></div><div class="line">text_content = <span class="string">'''HTTP/1.x 200 OK</span></div><div class="line">Content-Type: text/html</div><div class="line"></div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;WOW&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;p&gt;Wow, Python Server&lt;/p&gt;</div><div class="line">&lt;IMG src="test.jpg"/&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">'''</div><div class="line"></div><div class="line"><span class="comment"># Read picture, put into HTTP format</span></div><div class="line">f = open(<span class="string">'test.jpg'</span>,<span class="string">'rb'</span>)<span class="comment">#encoding='gbk',errors='ignore'</span></div><div class="line">pic_content = <span class="string">'''</span></div><div class="line">HTTP/1.x 200 OK</div><div class="line">Content-Type: image/jpg</div><div class="line"></div><div class="line">'''</div><div class="line"><span class="comment"># s=f.read()</span></div><div class="line"><span class="comment"># print(chardet.detect(s))</span></div><div class="line"></div><div class="line"></div><div class="line">pic_content = pic_content.encode()+f.read()<span class="comment">#.decode('utf-8',errors='ignore')</span></div><div class="line">f.close()</div><div class="line"></div><div class="line"><span class="comment"># Configure socket</span></div><div class="line">s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)</div><div class="line">s.bind((HOST, PORT))</div><div class="line"></div><div class="line"><span class="comment"># infinite loop, server forever</span></div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    <span class="comment"># 3: maximum number of requests waiting</span></div><div class="line">    s.listen(<span class="number">3</span>)</div><div class="line">    conn, addr = s.accept()</div><div class="line">    request    = conn.recv(<span class="number">1024</span>)</div><div class="line">    temp=request.decode().split(<span class="string">' '</span>)[<span class="number">0</span>]</div><div class="line">    method = temp</div><div class="line">    temp2= request.decode().split(<span class="string">' '</span>)[<span class="number">1</span>]</div><div class="line">    src =temp2</div><div class="line"></div><div class="line">    <span class="comment"># deal with GET method</span></div><div class="line">    <span class="keyword">if</span> method == <span class="string">'GET'</span>:</div><div class="line">        <span class="comment"># ULR</span></div><div class="line">        <span class="keyword">if</span> src == <span class="string">'/test.jpg'</span>:</div><div class="line">            content = pic_content</div><div class="line">        <span class="keyword">else</span>: content = text_content.encode()</div><div class="line"></div><div class="line">        print(<span class="string">'Connected by'</span>, addr)</div><div class="line">        print(<span class="string">'Request is:'</span>, request)</div><div class="line">        conn.sendall(content)</div><div class="line">    <span class="comment"># close connection</span></div><div class="line">    conn.close()</div></pre></td></tr></table></figure>
+<h4 id="response"><a href="#response" class="headerlink" title="response"></a>response</h4><p>整个response分为<strong>起始行</strong>(start line), <strong>头信息</strong>(head)和<strong>主体</strong>(body)三部分。</p>
+<ul>
+<li>起始行就是第一行:<code>HTTP/1.x 200 OK</code></li>
+</ul>
+<p>HTTP/1.x表示所使用的HTTP版本，200表示状态(status code)，200是HTTP协议规定的，表示服务器正常接收并处理请求，OK是供人来阅读的status code。</p>
+<ul>
+<li>头信息</li>
+</ul>
+<p><code>Content-Type: text/html</code></p>
+<p>用来表示主题信息的类型为html文本。头信息和主体要有一行<strong>空行</strong>.</p>
+<p>而pic_content的头信息(Content-Type: image/jpg)说明主体的类型为jpg图片(image/jpg)。</p>
+<h4 id="request"><a href="#request" class="headerlink" title="request"></a>request</h4><p>尽管request也可以像response那样分为三部分，request的格式与response的格式并不相同。request由客户发送给服务器，比如下面是一个request：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">GET /test.jpg HTTP/1.x</div><div class="line">Accept: text/*</div></pre></td></tr></table></figure>
+<p>起始行可以分为三部分:</p>
+<ul>
+<li>第一部分为请求方法(<strong>request method</strong>)，第二部分是<strong>URL</strong>，第三部分为HTTP版本。request method可以有GET， PUT， POST， DELETE， HEAD。</li>
+<li>第二部分为URL，它通常指向一个资源(服务器上的资源或者其它地方的资源)。像现在这样，就是指向当前服务器的当前目录的test.jpg。</li>
+</ul>
+<p>浏览器访问：</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/httpserverpy.png" alt=""></p>
+<p>从终端，我们可以看到，浏览器实际上发出了两个请求。第一个请求为 (关键信息在<strong>起始行</strong>，这一个请求的主体为空)</p>
+<p>我们的Python程序根据这个请求，发送给服务器text_content的内容。</p>
+<p>浏览器接收到text_content之后，知道需要获得text.jpg文件来补充为图片，立即发出了第二个请求.</p>
+<p>我们的Python程序分析过起始行之后，发现/test.jpg符合if条件，所以将pic_content发送给客户。</p>
+<p>最后，浏览器根据html语言的语法，将html文本和图画以适当的方式显示出来。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/02/22/用标准库中的接口写一个python服务器 /"
+                     data-title="用标准库中的接口写一个python服务器"
+                     data-url="https://clayandmore.github.io/2017/02/22/用标准库中的接口写一个python服务器 /"
+                     data-images=""
+                     data-content="socket接口是实际上是操作系统提供的系统调用。socket的使用并不局限于Python语言... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/02/22/python的字符编码/" data-toggle="tooltip" data-placement="top"
+                           title="python的字符编码">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/22/linux进阶/" data-toggle="tooltip" data-placement="top"
+                           title="linux进阶">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/02/22/用标准库中的接口写一个python服务器 /"
+                         data-title="用标准库中的接口写一个python服务器"
+                         data-url="https://clayandmore.github.io/2017/02/22/用标准库中的接口写一个python服务器 /">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-socket"><span class="toc-text">TCP socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于TCP-socket的http服务器"><span class="toc-text">基于TCP socket的http服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#response"><span class="toc-text">response</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#request"><span class="toc-text">request</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/422516721">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -93,14 +93,6 @@
 							
 						
                     
-                        
-							
-                        <li>
-                            <a href="/AboutMe/">aboutme</a>
-                        </li>
-							
-						
-                    
 					
 					
                 </ul>
@@ -192,9 +184,17 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="linux桌面环境"><a href="#linux桌面环境" class="headerlink" title="linux桌面环境"></a>linux桌面环境</h3><p>本身是没有桌面环境的，桌面只是运行在系统之上的一款软件，这套软件以前是XFree86，现在则是 xorg（X.Org），而这套软件又是通过 X 窗口系统（X Window System，也常被称为X11或X）实现的，X 本身只是工具包及架构协议，而 xorg 便是 X 架构规范的一个实现体，也就是说它是实现了 X 协议规范的一个提供图形用户界面服务的服务器，就像实现了 http 协议提供 web 服务的 Apache。如果只有服务器也是不能实现一个完整的桌面环境的，当然还需要一个客户端，我们称为 X Client，像如下几个大家熟知也最流行的实现了客户端功能的桌面环境<strong>KDE</strong>，<strong>GNOME</strong>，<strong>XFCE</strong>，<strong>LXDE</strong></p>
+                <h3 id="linux启动流程"><a href="#linux启动流程" class="headerlink" title="linux启动流程"></a>linux启动流程</h3><p>通电一个默认的物理地址-&gt;bios-&gt;找到磁盘第一个扇区-&gt;引导程序-&gt;内核-&gt;挂载文件系统-&gt;系统服务-&gt;应用程序</p>
+<h3 id="linux桌面环境"><a href="#linux桌面环境" class="headerlink" title="linux桌面环境"></a>linux桌面环境</h3><p>本身是没有桌面环境的，桌面只是运行在系统之上的一款软件，这套软件以前是XFree86，现在则是 xorg（X.Org），而这套软件又是通过 X 窗口系统（X Window System，也常被称为X11或X）实现的，X 本身只是工具包及架构协议，而 xorg 便是 X 架构规范的一个实现体，也就是说它是实现了 X 协议规范的一个提供图形用户界面服务的服务器，就像实现了 http 协议提供 web 服务的 Apache。如果只有服务器也是不能实现一个完整的桌面环境的，当然还需要一个客户端，我们称为 X Client，像如下几个大家熟知也最流行的实现了客户端功能的桌面环境<strong>KDE</strong>，<strong>GNOME</strong>，<strong>XFCE</strong>，<strong>LXDE</strong></p>
 <h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>Shell 是指“提供给使用者使用界面”的软件（命令解析器），类似于 DOS 下的 command（命令行）和后来的 cmd.exe。普通意义上的 Shell 就是可以接受用户输入命令的程序。它之所以被称作 Shell 是因为它隐藏了操作系统底层的细节。同样的 Unix/Linux 下的图形用户界面 GNOME 和 KDE，有时也被叫做“虚拟 shell”或“图形 shell”。</p>
 <p>在 UNIX/Linux 中比较流行的常见的 Shell 有 bash，zsh，ksh，csh 等等，Ubuntu 终端默认使用的是 bash，</p>
+<h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><p>文件系统是一种存储和组织计算机文件和资料的方法，linux中一切皆文件，无扩展名。</p>
+<p>文件格式，正如window系统的FAT32,NTFS格式。</p>
+<p>linux有EXT3（主文件系统）和SWAP（交换文件系统）</p>
+<p>文件系统数据结构:引导块，超级块（定义数据单元大小）,</p>
+<p>data(文件数据)，inode (索引)</p>
+<p>ext3基于日志记录的文件系统，所有操作会记录日志，所以重新开机会发现关机前的东西还在。同mac</p>
+<p>swap概念同window的虚拟内存，在物理内存不够用时可用虚拟内存。</p>
 <h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>SSH 为 <a href="http://baike.baidu.com/view/2118359.htm" target="_blank" rel="external">Secure Shell</a> 的缩写，由 IETF 的网络小组（Network Working Group）所制定；SSH 为建立在应用层基础上的安全协议。SSH 是目前较可靠，专为<a href="http://baike.baidu.com/view/59099.htm" target="_blank" rel="external">远程登录</a>会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。SSH客户端适用于多种平台。几乎所有UNIX平台—包括<a href="http://baike.baidu.com/view/58963.htm" target="_blank" rel="external">HP-UX</a>、<a href="http://baike.baidu.com/view/1634.htm" target="_blank" rel="external">Linux</a>、<a href="http://baike.baidu.com/view/349664.htm" target="_blank" rel="external">AIX</a>、<a href="http://baike.baidu.com/subview/329359/5113665.htm" target="_blank" rel="external">Solaris</a>、<a href="http://baike.baidu.com/view/428214.htm" target="_blank" rel="external">Digital</a> <a href="http://baike.baidu.com/view/8095.htm" target="_blank" rel="external">UNIX</a>、<a href="http://baike.baidu.com/view/3373083.htm" target="_blank" rel="external">Irix</a>，以及其他平台，都可运行SSH。</p>
 <h3 id="yum和apt-get用法及区别"><a href="#yum和apt-get用法及区别" class="headerlink" title="yum和apt-get用法及区别"></a>yum和apt-get用法及区别</h3><p>RedHat 系列 </p>
 <p>1 常见的安装包格式 rpm包,安装rpm包的命令是“rpm -参数” </p>
@@ -308,9 +308,12 @@
 </tbody>
 </table>
 <h3 id="关机"><a href="#关机" class="headerlink" title="关机"></a>关机</h3><p>先将内存中的数据同步到银盘：<code>sync</code></p>
-<p>关机和重启：</p>
+<p>关机和重启：h =halt </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Shutdown –h now 立马关机</div><div class="line">Shutdown –h 20:25 系统会在今天20:25关机</div><div class="line">Shutdown –h +10 十分钟后关机</div><div class="line">Shutdown –r now 系统立马重启</div><div class="line">Shutdown –r +10 系统十分钟后重启</div></pre></td></tr></table></figure>
-<h3 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h3><h4 id="su-su-与sudo"><a href="#su-su-与sudo" class="headerlink" title="su,su-与sudo"></a>su,su-与sudo</h4><p><code>su</code>可以切换到用户user，执行时需要输入目标用户的密码，</p>
+<h3 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h3><h4 id="用户符号"><a href="#用户符号" class="headerlink" title="用户符号"></a>用户符号</h4><p>$表示没有root权限的用户</p>
+<p><code>#</code>表示有root权限的用户</p>
+<p><code>~</code>表示在home目录下</p>
+<h4 id="su-su-与sudo"><a href="#su-su-与sudo" class="headerlink" title="su,su-与sudo"></a>su,su-与sudo</h4><p><code>su</code>可以切换到用户user，执行时需要输入目标用户的密码，</p>
 <p><code>sudo</code>可以以特权级别运行cmd命令，需要当前用户属于sudo组，且需要输入当前用户密码。</p>
 <p><code>su -</code>命令也是切换用户，同时环境变量也会跟着改变成目标用户的环境变量。只打su - 会切换到root用户</p>
 <h4 id="当前用户更改root密码"><a href="#当前用户更改root密码" class="headerlink" title="当前用户更改root密码"></a>当前用户更改root密码</h4><p><code>sudo passwd root</code></p>
@@ -338,6 +341,23 @@
 <p>你看到上面的 password 字段为一个 ‘x’ 并不是说密码就是它，只是表示密码不可见而已。</p>
 <h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p>以往的 Windows 一直是以存储介质为主的，主要以盘符（C 盘，D 盘…）及分区的来实现文件管理，然后之下才是目录，目录就显得不是那么重要，除系统文件之外的用户文件放在任何地方任何目录也是没有多大关系。所以通常 Windows 在使用一段时间后，磁盘上面的文件目录会显得杂乱无章（少数善于整理的用户除外吧）。然而 UNIX/Linux 恰好相反，UNIX 是以目录为主的，Linux 也继承了这一优良特性。 Linux 是以树形目录结构的形式来构建整个系统的，可以理解为一个用户可操作系统的骨架。虽然本质上无论是目录结构还是操作系统内核都是存储在磁盘上的，但从逻辑上来说 Linux 的磁盘是“挂在”（挂载在）目录上的，每一个目录不仅能使用本地磁盘分区的文件系统，也可以使用网络上的文件系统。举例来说，可以利用网络文件系统（Network File System，NFS）服务器载入某特定目录等。</p>
 <p><img src="http://ojynuthay.bkt.clouddn.com/linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>/bin: 存放系统可执行文件</p>
+<p>/sbin: super bin 存放管理员可用的执行文件</p>
+<p>/etc: 系统配置文件</p>
+<p>/lib: 共享的类库</p>
+<p>/dev: 外设，设备</p>
+<p>/tmp: 临时文件</p>
+<p>/boot:  启动文件</p>
+<p>/root: root用户目录</p>
+<p>/home :  相当与win的users ，比如你的用户a,会有home/a</p>
+<p>/mnt: 设备挂载</p>
+<p>/opt: 优化目录，临时装一下的东西</p>
+<p>/usr: 用户程序目录，</p>
+<p>–/bin</p>
+<p>–/sbin </p>
+<p>/var: 系统变量</p>
+<p>/proc: 虚拟文件系统，vfs</p>
+<p>/lost and found 找回文件</p>
 <h3 id="目录和文件操作"><a href="#目录和文件操作" class="headerlink" title="目录和文件操作"></a>目录和文件操作</h3><h4 id="新建目录（mkdir）"><a href="#新建目录（mkdir）" class="headerlink" title="新建目录（mkdir）"></a>新建目录（mkdir）</h4><p><code>mkdir mydir</code>  创建一个名为mydir的空目录</p>
 <p><code>mkdir -p father/son/grandson</code>  -p创建一个多级目录</p>
 <h4 id="新建文件（touch"><a href="#新建文件（touch" class="headerlink" title="新建文件（touch)"></a>新建文件（touch)</h4><p><code>touch test</code>创建一个空白文件test</p>
@@ -367,6 +387,23 @@
 <p>会看到一些排列</p>
 <p>解释：<img src="http://ojynuthay.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png" alt=""></p>
 <p><img src="http://ojynuthay.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%902.png" alt=""></p>
+<ul>
+<li>linux的文件类型：</li>
+</ul>
+<p><code>·</code>一般文件</p>
+<p>d 目录文件</p>
+<p>l 链接文件（link)，如windows下的快捷方式</p>
+<p>b 块设备（block），以块为单位存储的文件</p>
+<p>c 字符设备 ，charactor,串口通信时用</p>
+<p>s 网络通信设备，socket</p>
+<p>p 管道，把一个文件的出口写入一个文件的入口</p>
+<ul>
+<li>权限设定</li>
+</ul>
+<p>r  read 设置为1</p>
+<p>w write 设置为2</p>
+<p>x 设置为4 </p>
+<p>这样可以简化文件的写法，如7（1+2+4）代表就有rwx的权限</p>
 <h3 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h3><h4 id="Tap补全命令"><a href="#Tap补全命令" class="headerlink" title="Tap补全命令"></a>Tap补全命令</h4><p>可补全命令或者文件路径，如果你忘了一些命令时，也可按下tap来看剩下可填的命令</p>
 <h4 id="通配符"><a href="#通配符" class="headerlink" title="通配符*"></a>通配符*</h4><p>可以匹配你想要的可变名称，比如看所有的.txt文件</p>
 <p><code>ls *.txt</code></p>
@@ -508,7 +545,10 @@
 </tr>
 </tbody>
 </table>
+<h4 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h4><p><code>whereis name</code>可看name文件所在的位置</p>
 <h4 id="目录"><a href="#目录" class="headerlink" title="~目录"></a>~目录</h4><p>cd ~ 进入家目录，这个目录在/home/username里,可用<code>pwd</code>，来看当前目录</p>
+<h4 id="top"><a href="#top" class="headerlink" title="top"></a>top</h4><p>可看系统的任务和进程。PR ，RI进程优先级(数字越小优先级越高)，最后优先级看PR+RI的值，也是越小越高。</p>
+<h4 id="free"><a href="#free" class="headerlink" title="free"></a>free</h4><p>当前内存的使用情况</p>
 
                 <hr>
                 
@@ -519,7 +559,7 @@
                      data-title="linux基本操作"
                      data-url="https://clayandmore.github.io/2017/02/15/linux基本操作/"
                      data-images=""
-                     data-content="linux桌面环境本身是没有桌面环境的，桌面只是运行在系统之上的一款软件，这套软件以前是XFr... | Claymore&#39;s blog ">
+                     data-content="linux启动流程通电一个默认的物理地址-&gt;bios-&gt;找到磁盘第一个扇区-&gt... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -568,7 +608,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux桌面环境"><span class="toc-text">linux桌面环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-text">shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH"><span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yum和apt-get用法及区别"><span class="toc-text">yum和apt-get用法及区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关机"><span class="toc-text">关机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户切换"><span class="toc-text">用户切换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#su-su-与sudo"><span class="toc-text">su,su-与sudo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#当前用户更改root密码"><span class="toc-text">当前用户更改root密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户和用户组"><span class="toc-text">用户和用户组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户组-groups命令"><span class="toc-text">用户组(groups命令)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件操作"><span class="toc-text">目录和文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新建目录（mkdir）"><span class="toc-text">新建目录（mkdir）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建文件（touch"><span class="toc-text">新建文件（touch)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复制-cp"><span class="toc-text">复制(cp)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除（rm"><span class="toc-text">删除（rm)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动-重命名（mv"><span class="toc-text">移动/重命名（mv)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看文件"><span class="toc-text">查看文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件权限"><span class="toc-text">文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看文件权限"><span class="toc-text">查看文件权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些技巧"><span class="toc-text">一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tap补全命令"><span class="toc-text">Tap补全命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通配符"><span class="toc-text">通配符*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#man命令"><span class="toc-text">man命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#who-命令"><span class="toc-text">who 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#目录"><span class="toc-text">~目录</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux启动流程"><span class="toc-text">linux启动流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux桌面环境"><span class="toc-text">linux桌面环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-text">shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统"><span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH"><span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yum和apt-get用法及区别"><span class="toc-text">yum和apt-get用法及区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关机"><span class="toc-text">关机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户切换"><span class="toc-text">用户切换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户符号"><span class="toc-text">用户符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#su-su-与sudo"><span class="toc-text">su,su-与sudo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#当前用户更改root密码"><span class="toc-text">当前用户更改root密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户和用户组"><span class="toc-text">用户和用户组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户组-groups命令"><span class="toc-text">用户组(groups命令)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件操作"><span class="toc-text">目录和文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新建目录（mkdir）"><span class="toc-text">新建目录（mkdir）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建文件（touch"><span class="toc-text">新建文件（touch)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复制-cp"><span class="toc-text">复制(cp)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除（rm"><span class="toc-text">删除（rm)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动-重命名（mv"><span class="toc-text">移动/重命名（mv)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看文件"><span class="toc-text">查看文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件权限"><span class="toc-text">文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看文件权限"><span class="toc-text">查看文件权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些技巧"><span class="toc-text">一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tap补全命令"><span class="toc-text">Tap补全命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通配符"><span class="toc-text">通配符*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#man命令"><span class="toc-text">man命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#who-命令"><span class="toc-text">who 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#whereis"><span class="toc-text">whereis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#目录"><span class="toc-text">~目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#top"><span class="toc-text">top</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#free"><span class="toc-text">free</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -670,15 +710,6 @@
                     </li>
                 
 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/422516721">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
                 
 
                 

@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        unity中的向量与数学｜Claymore&#39;s blog
+        python爬虫｜Claymore&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://clayandmore.github.io/2016/06/08/unity中的向量与数学/">
+    <link rel="canonical" href="https://clayandmore.github.io/2017/03/04/python爬虫/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,18 +153,15 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>unity中的向量与数学</h1>
+                    <h1>python爬虫</h1>
                     
                     <span class="meta">
                          作者 Claymore
                         <span>
-                          日期 2016-06-08
+                          日期 2017-03-04
                          </span>
                     </span>
                     <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#unity"
-                           title="unity">unity</a>
                         
                     </div>
                 </div>
@@ -173,7 +170,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            unity中的向量与数学
+            python爬虫
         </span>
     </div>
 </header>
@@ -184,102 +181,35 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>在Unity3D中提供了2D,3D,4D向量类Vector,这些类都提供了对向量的操作，如取模，向量单位化，点乘，叉乘等。还有几个预设变量属性：</p>
-<ul>
-<li>Vector3.zero    : [0,0,0]</li>
-<li>Vector3.up      : [0,1,0]   Y轴正方</li>
-<li>Vector3.forward : [0,0,1]   Z轴正方</li>
-<li>Vector3.right   : [1,0,0]   X轴正方<br>这些变量表示的值是始终固定的。<br>而Transform类中的transform.up,forward,right预设变量表示当前对象在世界坐标系中的朝向，会随着对象朝向的不同而改变。</li>
-<li><p>TransformDirection，会将局部坐标转换成世界坐标，保持对象坐标的一致。<br>如： 把当前对象的正面朝向从局部坐转换到世界坐标下：</p>
-<pre><code>_newForward = transform.TransformDirection ( Vector3.forward);
-</code></pre></li>
-</ul>
-<a id="more"></a>
-<p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/vector3.png" alt=""></p>
-<h3 id="向量减法"><a href="#向量减法" class="headerlink" title="向量减法"></a>向量减法</h3><p>两个对象之间的向量：</p>
-<pre><code>other.positon - ransform.position 
-</code></pre><p>求向量的长度（模）的平方：</p>
-<pre><code>var sqrLen = (Other.position - transform.position).sqrMagnitude;
-</code></pre><p>向量的magnitude属性是模，需要开方运算。有时不开放可用向量的sqrMagnitude属性。</p>
-<h3 id="标量与向量相称"><a href="#标量与向量相称" class="headerlink" title="标量与向量相称"></a>标量与向量相称</h3><p>可改变大小和方向</p>
-<h3 id="向量之间的点乘"><a href="#向量之间的点乘" class="headerlink" title="向量之间的点乘"></a>向量之间的点乘</h3><p>点乘反映了两个向量的相似程度，结果越大，两个向量就越相近。</p>
-<table>
-<thead>
-<tr>
-<th>a · b</th>
-<th>夹角范围</th>
-<th>a和b方向关系</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>大于0</td>
-<td>0 =&lt; 角度 &lt; 90</td>
-<td>方向基本相同</td>
-</tr>
-<tr>
-<td>= 0</td>
-<td>90</td>
-<td>ab正交，互相垂直</td>
-</tr>
-<tr>
-<td>&lt; 0</td>
-<td>90 &lt; 角度 &lt; 180</td>
-</tr>
-</tbody>
-</table>
-<p>向量中的Dot函数：</p>
-<pre><code>public Transform TraOther ; //其他物体的方位
-private Vector3 _VecForward ; // 前方
-private Vector3 _vecToOther ; //其他方向
-
-void Update(){
-    //使用TransformDirection把当前对象的正面朝向从局部坐标转换到世界坐标系下，使该向量与其他对象的位置向量在世界坐标下同一
-    //Vector3.forward表示当前对象的正方向向量
-    _VecForward = transform.TransformDirection(Vector3.forward);
-    //向量减法获得其他对象到当前对象之间的向量
-    _vecToOther = TraOther.position - transform.position;
-    //使用点乘计算结果的符号来判断其他对象是否在当前对象后方
-    if(Vector3.Dot(_VecForward,_vecToOther) &lt; 0){
-        print(&quot;其他对象在我后方&quot;)；
-    }else{
-        print(&quot;其他对象不在我后方&quot;);
-    }
-}
-</code></pre><h3 id="向量间的叉乘"><a href="#向量间的叉乘" class="headerlink" title="向量间的叉乘"></a>向量间的叉乘</h3><p>叉乘的结果是一个向量，这个向量垂直与原来的两个向量，在unity中一般去获得一个方向，它是Corss(Vector3 lhs,Vector3 rhs)函数。</p>
-<h4 id="单位向量化"><a href="#单位向量化" class="headerlink" title="单位向量化"></a>单位向量化</h4><p>Nomalize(),多代指方向。</p>
-<h3 id="向量间的夹角"><a href="#向量间的夹角" class="headerlink" title="向量间的夹角"></a>向量间的夹角</h3><p>要知道两个向量之际的夹角，可以使用向量类中的Angle(Vector3 from,Vector3 to)函数。该函数会计算from向量与to向量之间的夹角并返回度数值（不是弧度）。</p>
-<pre><code>public Transform TraTarget ; //目标
-private Vector3 _VectTargetDir; //本物体和目标之间的向量
-private Vector3 _VecForward ; // 前方
-private float _FloAngle  ; // 度数
-
-void Update(){
-
-  _VectTargetDir = TraTarget.position - transform.position ;
-  //当前对象的正前方向量
-  _VecForward = transform.forward;
-  //求夹角
-  _FloAngle = Vector3.Angle(_VectTargetDir,_VecForward);
-  if (_FloAngle &lt; 5.0f)
-  {
-      print(&quot;视线靠近了&quot;)；
-  }else{
-      print(&quot;视线没有靠近&quot;)；
-  }
-}
-</code></pre><p><img src="http://7xs1eq.com1.z0.glb.clouddn.com/angle.png" alt=""></p>
+                <h3 id="requests库"><a href="#requests库" class="headerlink" title="requests库"></a>requests库</h3><p>安装：</p>
+<p><code>pip install requests</code></p>
+<p>新建demo.py文件：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">r = requests.get(<span class="string">'https://unsplash.com'</span>) <span class="comment">#像目标url地址发送get请求，返回一个response对象</span></div><div class="line">print(r.text) <span class="comment">#r.text是http response的网页HTML</span></div></pre></td></tr></table></figure>
+<p>运行，网页的HTML内容会输出到控制台</p>
+<p>requests 文档：<a href="http://docs.python-requests.org/zh_CN/latest/user/quickstart.html" target="_blank" rel="external">http://docs.python-requests.org/zh_CN/latest/user/quickstart.html</a></p>
+<h3 id="BeautifulSoup库"><a href="#BeautifulSoup库" class="headerlink" title="BeautifulSoup库"></a>BeautifulSoup库</h3><p>Beautiful Soup 是一个可以从HTML或XML文件中提取数据的Python库.它能够通过你喜欢的转换器实现惯用的文档导航,查找,修改文档的方式.Beautiful Soup会帮你节省数小时甚至数天的工作时间.</p>
+<p>文档：<a href="http://beautifulsoup.readthedocs.io/zh_CN/latest/" target="_blank" rel="external">http://beautifulsoup.readthedocs.io/zh_CN/latest/</a></p>
+<p>安装：<code>pip install beautifulsoup4</code></p>
+<p>Beautiful Soup将复杂HTML文档转换成一个复杂的树形结构，每个节点都是Python对象。所有对象可以归纳为4种类型: Tag , NavigableString , BeautifulSoup , Comment 。</p>
+<h4 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h4><p>这个就跟HTML或者XML（还能解析XML？是的，能！）中的标签是一样一样的。我们使用find()方法返回的类型就是这个（插一句：使用find-all()返回的是多个该对象的集合，是可以用for循环遍历的。）。返回标签之后，还可以对提取标签中的信息。</p>
+<h6 id="提取标签的名字："><a href="#提取标签的名字：" class="headerlink" title="提取标签的名字："></a>提取标签的名字：</h6><p><code>tag.name</code></p>
+<h6 id="提取标签的属性："><a href="#提取标签的属性：" class="headerlink" title="提取标签的属性："></a>提取标签的属性：</h6><p><code>tag[&#39;attribute&#39;]</code><br>我们用一个例子来了解这个类型：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"></div><div class="line">html_doc = <span class="string">"""</span></div><div class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</div><div class="line">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</div><div class="line">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</div><div class="line">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</div><div class="line">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</div><div class="line">and they lived at the bottom of a well.&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;p class="story"&gt;...&lt;/p&gt;</div><div class="line">"""</div><div class="line">soup = BeautifulSoup(html_doc, <span class="string">'lxml'</span>)  <span class="comment">#声明BeautifulSoup对象</span></div><div class="line">find = soup.find(<span class="string">'p'</span>)  <span class="comment">#使用find方法查到第一个p标签</span></div><div class="line">print(<span class="string">"find's return type is "</span>, type(find))  <span class="comment">#输出返回值类型</span></div><div class="line">print(<span class="string">"find's content is"</span>, find)  <span class="comment">#输出find获取的值</span></div><div class="line">print(<span class="string">"find's Tag Name is "</span>, find.name)  <span class="comment">#输出标签的名字</span></div><div class="line">print(<span class="string">"find's Attribute(class) is "</span>, find[<span class="string">'class'</span>])  <span class="comment">#输出标签的class属性值</span></div></pre></td></tr></table></figure>
+<p>BeautifulSoup对象表示一个文档的全部内容。支持遍历文档树和搜索文档树。</p>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2016/06/08/unity中的向量与数学/"
-                     data-title="unity中的向量与数学"
-                     data-url="https://clayandmore.github.io/2016/06/08/unity中的向量与数学/"
+                     data-thread-key="2017/03/04/python爬虫/"
+                     data-title="python爬虫"
+                     data-url="https://clayandmore.github.io/2017/03/04/python爬虫/"
                      data-images=""
-                     data-content="写在前面在Unity3D中提供了2D,3D,4D向量类Vector,这些类都提供了对向量的操作... | Claymore&#39;s blog ">
+                     data-content="requests库安装：
+pip install requests
+新建demo.py文件：
+... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -298,14 +228,14 @@ void Update(){
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/06/10/unity中的协程/" data-toggle="tooltip" data-placement="top"
-                           title="unity中的协程">&larr; Previous Post</a>
+                        <a href="/2017/12/31/首页/" data-toggle="tooltip" data-placement="top"
+                           title="心如沟壑 后土难填">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2016/06/05/MonoBehavior生命周期/" data-toggle="tooltip" data-placement="top"
-                           title="MonoBehavior生命周期">Next Post &rarr;</a>
+                        <a href="/2017/02/22/python的字符编码/" data-toggle="tooltip" data-placement="top"
+                           title="python的字符编码">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -314,9 +244,9 @@ void Update(){
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2016/06/08/unity中的向量与数学/"
-                         data-title="unity中的向量与数学"
-                         data-url="https://clayandmore.github.io/2016/06/08/unity中的向量与数学/">
+                         data-thread-key="2017/03/04/python爬虫/"
+                         data-title="python爬虫"
+                         data-url="https://clayandmore.github.io/2017/03/04/python爬虫/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -328,7 +258,7 @@ void Update(){
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量减法"><span class="toc-text">向量减法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标量与向量相称"><span class="toc-text">标量与向量相称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量之间的点乘"><span class="toc-text">向量之间的点乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量间的叉乘"><span class="toc-text">向量间的叉乘</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单位向量化"><span class="toc-text">单位向量化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量间的夹角"><span class="toc-text">向量间的夹角</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#requests库"><span class="toc-text">requests库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeautifulSoup库"><span class="toc-text">BeautifulSoup库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的名字："><span class="toc-text">提取标签的名字：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的属性："><span class="toc-text">提取标签的属性：</span></a></li></ol></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -349,9 +279,6 @@ void Update(){
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
-                        
-                        <a class="tag" href="/tags/#unity"
-                           title="unity">unity</a>
                         
                     </div>
                 </section>

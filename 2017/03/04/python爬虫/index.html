@@ -181,7 +181,8 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="requests库"><a href="#requests库" class="headerlink" title="requests库"></a>requests库</h3><p>安装：</p>
+                <h3 id="requests库"><a href="#requests库" class="headerlink" title="requests库"></a>requests库</h3><p>python内置的<code>urllib</code>和<code>urllib2</code>其实已经算是蛮好用了，但是非有人不服，于是他做出了更好的一个http库，叫做<code>request</code></p>
+<p>安装：</p>
 <p><code>pip install requests</code></p>
 <p>新建demo.py文件：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line">r = requests.get(<span class="string">'https://unsplash.com'</span>) <span class="comment">#像目标url地址发送get请求，返回一个response对象</span></div><div class="line">print(r.text) <span class="comment">#r.text是http response的网页HTML</span></div></pre></td></tr></table></figure>
@@ -196,6 +197,27 @@
 <h6 id="提取标签的属性："><a href="#提取标签的属性：" class="headerlink" title="提取标签的属性："></a>提取标签的属性：</h6><p><code>tag[&#39;attribute&#39;]</code><br>我们用一个例子来了解这个类型：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"></div><div class="line">html_doc = <span class="string">"""</span></div><div class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</div><div class="line">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</div><div class="line">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</div><div class="line">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</div><div class="line">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</div><div class="line">and they lived at the bottom of a well.&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;p class="story"&gt;...&lt;/p&gt;</div><div class="line">"""</div><div class="line">soup = BeautifulSoup(html_doc, <span class="string">'lxml'</span>)  <span class="comment">#声明BeautifulSoup对象</span></div><div class="line">find = soup.find(<span class="string">'p'</span>)  <span class="comment">#使用find方法查到第一个p标签</span></div><div class="line">print(<span class="string">"find's return type is "</span>, type(find))  <span class="comment">#输出返回值类型</span></div><div class="line">print(<span class="string">"find's content is"</span>, find)  <span class="comment">#输出find获取的值</span></div><div class="line">print(<span class="string">"find's Tag Name is "</span>, find.name)  <span class="comment">#输出标签的名字</span></div><div class="line">print(<span class="string">"find's Attribute(class) is "</span>, find[<span class="string">'class'</span>])  <span class="comment">#输出标签的class属性值</span></div></pre></td></tr></table></figure>
 <p>BeautifulSoup对象表示一个文档的全部内容。支持遍历文档树和搜索文档树。</p>
+<h3 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy"></a>scrapy</h3><p>scrapy是python家族中最负盛名的爬虫框架，其他比较好使的是 <code>urllib</code>,<code>urllib2</code>,<code>requests</code>,<code>pyquery</code>等,另外，scrapy的操作很django有些很相似的地方，很方面有python的django经验的人上手。</p>
+<p><strong>scrapy分为以下几个部分：</strong></p>
+<p><img src="http://7xlen8.com1.z0.glb.clouddn.com/scrapy_work.jpeg" alt="scrapy"></p>
+<ul>
+<li>引擎(Scrapy): 用来处理整个系统的数据流处理, 触发事务(框架核心)</li>
+<li>调度器(Scheduler): 用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址</li>
+<li>下载器(Downloader): 用于下载网页内容, 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)</li>
+<li>爬虫(Spiders): 爬虫是主要干活的, 用于从特定的网页中提取自己需要的信息, 即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy继续抓取下一个页面</li>
+<li>项目管道(Pipeline): 负责处理爬虫从网页中抽取的实体，主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据。</li>
+<li>下载器中间件(Downloader Middlewares): 位于Scrapy引擎和下载器之间的框架，主要是处理Scrapy引擎与下载器之间的请求及响应。</li>
+<li>爬虫中间件(Spider Middlewares): 介于Scrapy引擎和爬虫之间的框架，主要工作是处理蜘蛛的响应输入和请求输出。</li>
+<li>调度中间件(Scheduler Middewares): 介于Scrapy引擎和调度之间的中间件，从Scrapy引擎发送到调度的请求和响应。</li>
+</ul>
+<p><strong>而scrapy的流程如图，并且可归纳如下：</strong></p>
+<ul>
+<li>首先下载器下载request回执的html等的response</li>
+<li>然后下载器传给爬虫解析</li>
+<li>接着爬虫解析后交给调度器过滤，查重等等</li>
+<li>最后交给管道，进行爬取数据的处理</li>
+</ul>
+<h4 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h4><p>XPath 是一门在 XML 文档中查找信息的语言。XPath 可用来在 XML 文档中对元素和属性进行遍历。</p>
 
                 <hr>
                 
@@ -206,10 +228,7 @@
                      data-title="python爬虫"
                      data-url="https://clayandmore.github.io/2017/03/04/python爬虫/"
                      data-images=""
-                     data-content="requests库安装：
-pip install requests
-新建demo.py文件：
-... | Claymore&#39;s blog ">
+                     data-content="requests库python内置的urllib和urllib2其实已经算是蛮好用了，但是非有... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -228,14 +247,14 @@ pip install requests
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/12/31/首页/" data-toggle="tooltip" data-placement="top"
-                           title="心如沟壑 后土难填">&larr; Previous Post</a>
+                        <a href="/2017/03/07/python中的异步和协程/" data-toggle="tooltip" data-placement="top"
+                           title="python中的异步和协程">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/02/22/python的字符编码/" data-toggle="tooltip" data-placement="top"
-                           title="python的字符编码">Next Post &rarr;</a>
+                        <a href="/2017/03/02/正则表达式/" data-toggle="tooltip" data-placement="top"
+                           title="正则表达式">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -258,7 +277,7 @@ pip install requests
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#requests库"><span class="toc-text">requests库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeautifulSoup库"><span class="toc-text">BeautifulSoup库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的名字："><span class="toc-text">提取标签的名字：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的属性："><span class="toc-text">提取标签的属性：</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#requests库"><span class="toc-text">requests库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeautifulSoup库"><span class="toc-text">BeautifulSoup库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的名字："><span class="toc-text">提取标签的名字：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#提取标签的属性："><span class="toc-text">提取标签的属性：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scrapy"><span class="toc-text">scrapy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XPath"><span class="toc-text">XPath</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

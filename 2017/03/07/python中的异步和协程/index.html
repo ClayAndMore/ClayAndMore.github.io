@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -241,6 +241,27 @@
 <li>此时customer()中r=’200 ok’,send()的返回值是下个yield表达式的参数。所以produce()中r=send(n)等于‘200 ok’</li>
 <li>close()关闭协程。</li>
 </ul>
+<h3 id="asynico"><a href="#asynico" class="headerlink" title="asynico"></a>asynico</h3><p><code>asyncio</code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
+<p>用<code>asyncio</code>提供的<code>@asyncio.coroutine</code>可以把一个generator标记为coroutine类型，然后在coroutine内部用<code>yield from</code>调用另一个coroutine实现异步操作。</p>
+<p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
+<p>用<code>asyncio</code>实现<code>Hello world</code>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> asyncio</div><div class="line"></div><div class="line"><span class="meta">@asyncio.coroutine #把一个generator标记为coroutine类型，然后，我们就把这个coroutine扔到EventLoop中执行。</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'Hello world'</span>)</div><div class="line">    r=<span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">3</span>)</div><div class="line">    print(<span class="string">'Hello again'</span>)</div><div class="line"></div><div class="line">loop=asyncio.get_event_loop()</div><div class="line">loop.run_until_complete(hello())</div><div class="line">loop.close()</div></pre></td></tr></table></figure>
+<p>两个coroutine:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> threading</div><div class="line"><span class="keyword">import</span> asyncio</div><div class="line"></div><div class="line"><span class="meta">@asyncio.coroutine</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'Hello world! (%s)'</span> % threading.currentThread())</div><div class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">1</span>)</div><div class="line">    print(<span class="string">'Hello again! (%s)'</span> % threading.currentThread())</div><div class="line"></div><div class="line">loop = asyncio.get_event_loop()</div><div class="line">tasks = [hello(), hello()]</div><div class="line">loop.run_until_complete(asyncio.wait(tasks))</div><div class="line">loop.close()</div></pre></td></tr></table></figure>
+<p><img src="http://ojynuthay.bkt.clouddn.com/asynchronous.png" alt=""></p>
+<p><code>hello()</code>会首先打印出<code>Hello world!</code>，然后，<code>yield from</code>语法可以让我们方便地调用另一个<code>generator</code>。由于<code>asyncio.sleep()</code>也是一个<code>coroutine</code>，所以线程不会等待<code>asyncio.sleep()</code>，而是直接中断并执行下一个消息循环。当<code>asyncio.sleep()</code>返回时，线程就可以从<code>yield from</code>拿到返回值（此处是<code>None</code>），然后接着执行下一行语句。</p>
+<p>把<code>asyncio.sleep(1)</code>看成是一个耗时1秒的IO操作，在此期间，主线程并未等待，而是去执行<code>EventLoop</code>中其他可以执行的<code>coroutine</code>了，因此可以实现并发执行。</p>
+<h3 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h3><p>用<code>asyncio</code>提供的<code>@asyncio.coroutine</code>可以把一个generator标记为coroutine类型，然后在coroutine内部用<code>yield from</code>调用另一个coroutine实现异步操作。</p>
+<p>为了简化并更好地标识异步IO，从Python 3.5开始引入了新的语法<code>async</code>和<code>await</code>，可以让coroutine的代码更简洁易读。</p>
+<p>请注意，<code>async</code>和<code>await</code>是针对coroutine的新语法，要使用新的语法，只需要做两步简单的替换：</p>
+<ol>
+<li>把<code>@asyncio.coroutine</code>替换为<code>async</code>；</li>
+<li>把<code>yield from</code>替换为<code>await</code>。</li>
+</ol>
+<p>让我们对比一下上一节的代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">@asyncio.coroutine</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">"Hello world!"</span>)</div><div class="line">    r = <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">1</span>)</div><div class="line">    print(<span class="string">"Hello again!"</span>)</div></pre></td></tr></table></figure>
+<p>用新语法重新编写如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">"Hello world!"</span>)</div><div class="line">    r = <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</div><div class="line">    print(<span class="string">"Hello again!"</span>)</div></pre></td></tr></table></figure>
 
                 <hr>
                 
@@ -275,8 +296,8 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/12/31/首页/" data-toggle="tooltip" data-placement="top"
-                           title="心如沟壑 后土难填">&larr; Previous Post</a>
+                        <a href="/2017/03/09/linux 进阶（二）/" data-toggle="tooltip" data-placement="top"
+                           title="linux 进阶（二）">&larr; Previous Post</a>
                     </li>
                     
                     
@@ -305,7 +326,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#异步IO"><span class="toc-text">异步IO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#何为异步"><span class="toc-text">何为异步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理解yield"><span class="toc-text">理解yield</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#next"><span class="toc-text">__next__()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yield是表达式"><span class="toc-text">yield是表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg"><span class="toc-text">send(msg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg-与-next-的返回值"><span class="toc-text">send(msg) 与 next()的返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中断Generator"><span class="toc-text">中断Generator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那和多线程比，协程有何优势？"><span class="toc-text">那和多线程比，协程有何优势？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者消费者模型"><span class="toc-text">生产者消费者模型</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#异步IO"><span class="toc-text">异步IO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#何为异步"><span class="toc-text">何为异步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理解yield"><span class="toc-text">理解yield</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#next"><span class="toc-text">__next__()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yield是表达式"><span class="toc-text">yield是表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg"><span class="toc-text">send(msg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg-与-next-的返回值"><span class="toc-text">send(msg) 与 next()的返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中断Generator"><span class="toc-text">中断Generator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那和多线程比，协程有何优势？"><span class="toc-text">那和多线程比，协程有何优势？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者消费者模型"><span class="toc-text">生产者消费者模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asynico"><span class="toc-text">asynico</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-await"><span class="toc-text">async/await</span></a></li></ol>
                 </div>
             </div>
         </div>

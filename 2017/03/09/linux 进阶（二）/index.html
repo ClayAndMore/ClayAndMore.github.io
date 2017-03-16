@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        使用pdb调试python代码｜Claymore&#39;s blog
+        linux 进阶（二）｜Claymore&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/">
+    <link rel="canonical" href="https://clayandmore.github.io/2017/03/09/linux 进阶（二）/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,18 +153,15 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>使用pdb调试python代码</h1>
+                    <h1>linux 进阶（二）</h1>
                     
                     <span class="meta">
                          作者 Claymore
                         <span>
-                          日期 2017-02-20
+                          日期 2017-03-09
                          </span>
                     </span>
                     <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#python"
-                           title="python">python</a>
                         
                     </div>
                 </div>
@@ -173,7 +170,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            使用pdb调试python代码
+            linux 进阶（二）
         </span>
     </div>
 </header>
@@ -184,82 +181,127 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>pdb 是 python 自带的一个包，为 python 程序提供了一种交互的源代码调试功能，主要特性包括设置断点、单步调试、进入函数调试、查看当前代码、查看栈片段、动态改变变量的值等。pdb 提供了一些常用的调试命令，详情见表 </p>
+                <h3 id="计划任务crontab"><a href="#计划任务crontab" class="headerlink" title="计划任务crontab"></a>计划任务crontab</h3><p>我们会有写定期定时的任务。</p>
+<p>该命令从输入设备读取指令，并将其放在crontab中，供之后读取和执行。</p>
+<p>通常，crontab储存的指令被守护进程激活，crond为其守护进程，常常在后台执行，每一分钟会检查一次是否有预定的作业要执行。</p>
+<ul>
+<li><p>启动日志rsyslog</p>
+<p>启动日志来看我们的任务是否真的被执行</p>
+<p><code>sudo service rsyslog start</code></p>
+</li>
+<li><p>启动crontab</p>
+<p><code>sudo cron -f &amp;</code></p>
+</li>
+<li><p>添加一个计划任务</p>
+<p><code>crontab -e</code></p>
+<p>第一次启动会让你选择一个编辑器，我们选择vim</p>
+</li>
+<li><p>后续会进入到一个编辑界面，这边是添加计划的地方，与一般的配置文档相同，以#开头的是注释</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/crontab11.png" alt=""></p>
+<p>最后一句便是我们添加的任务了，这个任务每分钟会在home/claymore/创建一个年月日时分秒为名字的空白文件</p>
+<p>前面五颗星：minute hour day month week (美好日月星辰)</p>
+</li>
+<li><p>查看添加了那些任务</p>
+<p><code>crontab -l</code></p>
+<p>虽然我们添加了任务，但是cron的守护进程没有启动不会检测到有任务，我们可以通过下面两种方式来确定我们的cron是否在后台启动：</p>
+<p><code>pa aux | grep cron</code></p>
+<p><code>pgrep cron</code></p>
+</li>
+<li><p>看执行任务命令在日志的信息</p>
+<p><code>sudo tail -f /var/log/syslog</code></p>
+</li>
+<li><p>删除任务</p>
+<p><code>crontab -r</code></p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="深入"><a href="#深入" class="headerlink" title="深入"></a>深入</h4><p>每次用<code>crontab -e</code>都会添加计划任务，都会在/var/spool/cron/crontabs中添加一个该用户自己的任务文档。这样是为了隔离</p>
+<p>所以，系统级别的任务需要sudo权限编辑/etc/crontab文件就可以。</p>
+<p>cron 服务监测时间最小单位是分钟，所以 cron 会每分钟去读取一次 /etc/crontab 与 /var/spool/cron/crontabs 里面的內容。</p>
+<p>在 /etc 目录下，cron 相关的目录有下面几个：</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/cron.png" alt=""></p>
+<p>每个目录的作用：</p>
+<ol>
+<li>/etc/cron.daily，目录下的脚本会每天执行一次，在每天的6点25分时运行；</li>
+<li>/etc/cron.hourly，目录下的脚本会每个小时执行一次，在每小时的17分钟时运行；</li>
+<li>/etc/cron.mouthly，目录下的脚本会每月执行一次，在每月1号的6点52分时运行；</li>
+<li>/etc/cron.weekly，目录下的脚本会每周执行一次，在每周第七天的6点47分时运行；</li>
+</ol>
+<p>系统默认执行时间可以根据需求进行修改。</p>
+<h3 id="命令执行顺序"><a href="#命令执行顺序" class="headerlink" title="命令执行顺序"></a>命令执行顺序</h3><p>比如可能进行以下部分操作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install some-tool</div><div class="line">some-tool</div></pre></td></tr></table></figure>
+<p>这几个命令之间有等待。我们可以一次性输入完：</p>
+<p><code>sudo apt-get update;sudo apt-get install some-tool;some-tool</code></p>
+<p>然后就可以让它一次性运行了</p>
+<p>但是前面的命令没成功怎么办？用which来查找是否安装了某个命令</p>
+<p><code>which cowsay&gt;/dev/null &amp;&amp; cowsay -f head-in ohch~</code></p>
+<p>没有安装cowsay，什么也不会发生，如果安装了cowsay则会发生。</p>
+<p> &amp;&amp;表示前面的命令执行状态（不是输出结果）为0，则执行后面的</p>
+<p>||表示前面的命令执行状态不为0，则执行后面的</p>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>管道是一种通信机制，常用于进程间的通信（也可以用socket网络通信），它表现出的形式就是将前面的每一个进程的输出直接作为下一个进程的输入。</p>
+<h4 id=""><a href="#" class="headerlink" title="|"></a><code>|</code></h4><p><code>ls -al /etc | less</code></p>
+<p>将ls命令的输出做下一个命令less的输入，然后可以一行一行的看。</p>
+<h4 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h4><p>打印每一行的某一字段 。打印/etc/passwd文件以：为分隔符的第一个字段和第六个字段：</p>
+<p><code>cut /etc/passwd -d &#39;:&#39; -f 1,6</code></p>
+<p>打印每一行的前N个字符：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># 前五个（包含第五个）</div><div class="line">$ cut /etc/passwd -c -5</div><div class="line"># 前五个之后的（包含第五个）</div><div class="line">$ cut /etc/passwd -c 5-</div><div class="line"># 第五个</div><div class="line">$ cut /etc/passwd -c 5</div><div class="line"># 2到5之间的（包含第五个）</div><div class="line">$ cut /etc/passwd -c 2-5</div></pre></td></tr></table></figure>
+<h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h4><p>在文本中或stdin（输入）中查找匹配字符串</p>
+<p>一般形式：</p>
+<p><code>grep [命令选项]... 用于匹配的表达式 [文件]...</code></p>
+<p>可结合正则表达式表现强大的功力：</p>
+<p>查看环境变量中以”yanlou”结尾的字符串</p>
+<p><code>$ export | grep &quot;.*yanlou$&quot;</code></p>
+<h4 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h4><p>用于输出文件中，行，单词，字节数。</p>
+<p>输出<code>/etc/passwd</code>文件的统计信息：</p>
+<p><code>wc /etc/passwd</code></p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>将输入按照一定方式排序，然后再输出,它支持的排序有按字典排序,数字排序，按月份排序，随机排序，反转排序，指定特定字段进行排序等等。 </p>
+<h4 id="uniq"><a href="#uniq" class="headerlink" title="uniq"></a>uniq</h4><p><code>uniq</code>命令可以用于过滤或者输出重复行。</p>
+<h3 id="数据流重定向"><a href="#数据流重定向" class="headerlink" title="数据流重定向"></a>数据流重定向</h3><p>经常用到的两个重定向操作：</p>
+<p><code>&gt;</code> 输出到文件，如果存在，则清空，不存在则创建</p>
+<p><code>&gt;&gt;</code>追加到文件，如果存在，则追加，不存在则创建</p>
+<p><code>&lt;</code> 的作用，就是将原本应该由键盘输入的数据经由文件读入。</p>
+<p>linux默认提供了三个特殊设备，用于终端的显示和输出，分别为<code>stdin</code>（标准输入,对应于你在终端的输入），<code>stdout</code>（标准输出，对应于终端的输出），<code>stderr</code>（标准错误输出，对应于终端的输出）。</p>
 <table>
 <thead>
 <tr>
-<th>命令</th>
-<th>解释</th>
+<th>文件描述符</th>
+<th>设备文件</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>break 或 b 设置断点</td>
-<td>设置断点</td>
+<td><code>0</code></td>
+<td><code>/dev/stdin</code></td>
+<td>标准输入</td>
 </tr>
 <tr>
-<td>continue 或 c</td>
-<td>继续执行程序，一直跑到下个断点</td>
+<td><code>1</code></td>
+<td><code>/dev/stdout</code></td>
+<td>标准输出</td>
 </tr>
 <tr>
-<td>list 或 l</td>
-<td>查看当前行的代码段</td>
-</tr>
-<tr>
-<td>step 或 s</td>
-<td>进入函数</td>
-</tr>
-<tr>
-<td>return 或 r</td>
-<td>执行代码直到从当前函数返回</td>
-</tr>
-<tr>
-<td>exit 或 q</td>
-<td>中止并退出</td>
-</tr>
-<tr>
-<td>next 或 n</td>
-<td>执行下一行</td>
-</tr>
-<tr>
-<td>p</td>
-<td>打印变量的值</td>
-</tr>
-<tr>
-<td>help</td>
-<td>帮助</td>
+<td><code>2</code></td>
+<td><code>/dev/stderr</code></td>
+<td>标准错误</td>
 </tr>
 </tbody>
 </table>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>一个python文件：pdbtest.py:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pdb</div><div class="line"></div><div class="line">a=<span class="string">'aaa'</span></div><div class="line">pdb.set_trace()</div><div class="line">b=<span class="string">'bbb'</span></div><div class="line">c=<span class="string">'ccc'</span></div><div class="line">final=a+b+c</div><div class="line">print(final)</div></pre></td></tr></table></figure>
-<p>执行：python pdbtest.py。</p>
-<p>out:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(5)&lt;module&gt;()</div><div class="line">-&gt; b=&apos;bbb&apos;</div></pre></td></tr></table></figure>
-<p>说明在这个文件的第五行代码<code>b= bbb</code>处停下，但是是这句代码的上面，这句话并没有执行。</p>
-<p>这时你的光标会停在（pdb）后面，输入上方表格指令，可实现相关操作。比如我输入：</p>
-<p><code>(pdb)n</code>按下回车就会执行<code>b=bbb</code>这条语句。</p>
-<p>other:再按下回车会执行上面一样的语句。</p>
-<h4 id="打印变量"><a href="#打印变量" class="headerlink" title="打印变量"></a>打印变量</h4><p><code>(pdb)p final</code></p>
-<p>则会输出最后final的值</p>
-<h4 id="看当前代码所调试在的位置"><a href="#看当前代码所调试在的位置" class="headerlink" title="看当前代码所调试在的位置"></a>看当前代码所调试在的位置</h4><p><code>(pdb)l</code> </p>
-<p>out:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">  1     import pdb</div><div class="line">  2</div><div class="line">  3     a=&apos;aaa&apos;</div><div class="line">  4     pdb.set_trace()</div><div class="line">  5  -&gt; b=&apos;bbb&apos;</div><div class="line">  6     c=&apos;ccc&apos;</div><div class="line">  7     final=a+b+c</div><div class="line">  8     print(final)</div><div class="line">[EOF]</div></pre></td></tr></table></figure>
-<p>箭头所指向的位置就是当前调试的位置。</p>
-<h4 id="进入函数"><a href="#进入函数" class="headerlink" title="进入函数"></a>进入函数</h4><p>输入n会直接执行函数的不会进入函数内部，在调试有函数语句的地方直接输入s,可进入函数进行单步调试。再按r退出函数</p>
-<h4 id="调试中改变变量的值"><a href="#调试中改变变量的值" class="headerlink" title="调试中改变变量的值"></a>调试中改变变量的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">(VirtualEnv16Y12M) D:\WorkSpace\pyWorkSpace\Follow&gt;python pd</div><div class="line">btest.py</div><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(5)&lt;module&gt;()</div><div class="line">-&gt; b=&apos;bbb&apos;</div><div class="line">(Pdb) !b=&apos;zzz&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;zzz&apos;</div><div class="line">(Pdb) n</div><div class="line">&gt; d:\workspace\pyworkspace\follow\pdbtest.py(6)&lt;module&gt;()</div><div class="line">-&gt; c=&apos;ccc&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;bbb&apos;</div><div class="line">(Pdb) !b=&apos;vvv&apos;</div><div class="line">(Pdb) p b</div><div class="line">&apos;vvv&apos;</div><div class="line">(Pdb) c</div><div class="line">aaavvvccc</div></pre></td></tr></table></figure>
-<p><code>!变量名</code>可以改变调试的变量值，上面的示例是在b=bbb语句前就改变了变量值这样会被原语句赋值回来，所以我们要执行到断点在c=ccc处再对b赋值。</p>
+<p>文件描述符：文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于 UNIX、Linux 这样的操作系统。</p>
+<h3 id="日志系统"><a href="#日志系统" class="headerlink" title="日志系统"></a>日志系统</h3><p>在 Linux 中大部分的发行版都内置使用 syslog 系统日志，那么通过前期的课程我们了解到常见的日志一般存放在 <code>/var/log</code>中：</p>
+<p><code>$ ll /var/log</code></p>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2017/02/20/用pdb调试python代码/"
-                     data-title="使用pdb调试python代码"
-                     data-url="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/"
+                     data-thread-key="2017/03/09/linux 进阶（二）/"
+                     data-title="linux 进阶（二）"
+                     data-url="https://clayandmore.github.io/2017/03/09/linux 进阶（二）/"
                      data-images=""
-                     data-content="写在前面pdb 是 python 自带的一个包，为 python 程序提供了一种交互的源代码调... | Claymore&#39;s blog ">
+                     data-content="计划任务crontab我们会有写定期定时的任务。
+该命令从输入设备读取指令，并将其放在cron... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -278,14 +320,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/02/22/linux进阶/" data-toggle="tooltip" data-placement="top"
-                           title="linux进阶">&larr; Previous Post</a>
+                        <a href="/2017/03/14/linux下python与mysql/" data-toggle="tooltip" data-placement="top"
+                           title="linux下python与mysql">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/02/16/vim/" data-toggle="tooltip" data-placement="top"
-                           title="vim">Next Post &rarr;</a>
+                        <a href="/2017/03/07/python中的异步和协程/" data-toggle="tooltip" data-placement="top"
+                           title="python中的异步和协程">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -294,9 +336,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2017/02/20/用pdb调试python代码/"
-                         data-title="使用pdb调试python代码"
-                         data-url="https://clayandmore.github.io/2017/02/20/用pdb调试python代码/">
+                         data-thread-key="2017/03/09/linux 进阶（二）/"
+                         data-title="linux 进阶（二）"
+                         data-url="https://clayandmore.github.io/2017/03/09/linux 进阶（二）/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -308,7 +350,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-text">基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打印变量"><span class="toc-text">打印变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#看当前代码所调试在的位置"><span class="toc-text">看当前代码所调试在的位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入函数"><span class="toc-text">进入函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调试中改变变量的值"><span class="toc-text">调试中改变变量的值</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#计划任务crontab"><span class="toc-text">计划任务crontab</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#深入"><span class="toc-text">深入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行顺序"><span class="toc-text">命令执行顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道"><span class="toc-text">管道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#"><span class="toc-text">|</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cut"><span class="toc-text">cut</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#grep"><span class="toc-text">grep</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#wc"><span class="toc-text">wc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort"><span class="toc-text">sort</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uniq"><span class="toc-text">uniq</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据流重定向"><span class="toc-text">数据流重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志系统"><span class="toc-text">日志系统</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -329,9 +371,6 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
-                        
-                        <a class="tag" href="/tags/#python"
-                           title="python">python</a>
                         
                     </div>
                 </section>

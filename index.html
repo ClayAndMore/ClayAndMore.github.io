@@ -305,6 +305,66 @@
 
 
 <div class="post-preview "
+     style="background-image: url('http://ojynuthay.bkt.clouddn.com/python')">
+    <a href="/2017/03/18/python2和3及pip等安装问题/">
+        <h2 class="post-title">
+            CentOS7-python2和3及pip等安装问题
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-18
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                这两天申请了一个云服务器，用的centOS,自带python2.7.5没有pip,
+为了做东西，更新了2.7到最新版本。装了python3.5,以及两个版本的pip,很繁琐，下面总结下：
+python 系统自带2.7升级到最新2.7.x下载python2.7.x:
+到官网 
+wget + 包的地..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/">
+        <h2 class="post-title">
+            flask+gunicorn+supervisorn+nginx项目部署
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                在腾讯云上申请了一个服务器，这里记录一下初次部署flask项目的经历：
+centOS7+python3.5
+虚拟环境
+安装
+pip install virtualenv
+
+当前目录创建名为myenv的虚拟环境
+virtualenv myenv
+
+进入虚拟环境：
+source myenv/bin/..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
      style="background-image: url('')">
     <a href="/2017/03/16/从web服务方式到nginx/">
         <h2 class="post-title">
@@ -342,13 +402,18 @@
         
         <div class="post-content-preview">
             <p>
-                python2和python3共存一般linux系统中自带python2，ubuntu下可用apt安装python3:
-sudo apt-get install python3
-同一文件用py2运行：
-py -2 hello.py
-用py3运行：
-py -3 hello.py
-如果每次运行都要加..
+                安装mysql
+更新源
+sudo apt-get update
+
+可以先看下mysql的版本，确定是否存在：
+mysql -V或mysql&gt; status
+
+安装服务
+sudo apt-get install mysql-server
+
+安装 python-dev
+sudo apt-get..
             </p>
         </div>
     </a>
@@ -496,53 +561,6 @@ r = requests.get('https://unspla..
 
 
 
-<div class="post-preview "
-     style="background-image: url('')">
-    <a href="/2017/02/22/用标准库中的接口写一个python服务器 /">
-        <h2 class="post-title">
-            用标准库中的接口写一个python服务器
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-22
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                socket接口是实际上是操作系统提供的系统调用。socket的使用并不局限于Python语言，你可以用C或者JAVA来写出同样的socket服务器，而所有语言使用socket的方式都类似(Apache就是使用C实现的服务器)。而你不能跨语言的使用框架。框架的好处在于帮你处理了一些细节，从而实现..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('')">
-    <a href="/2017/02/22/linux进阶/">
-        <h2 class="post-title">
-            linux进阶
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-22
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                virtual box虚拟机连接网络的方式1、NAT 网络地址转换模式(NAT,Network Address Translation)2、Bridged Adapter 桥接模式3、Internal 内部网络模式4、Host-only Adapter 主机模式 
-第一种 NAT模式解释：NAT..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
 
 <!-- 翻页 pager -->
 
@@ -628,23 +646,6 @@ r = requests.get('https://unspla..
                 <div class="tags">
                     
                     
-                    <a href="/tags/#前端" title="前端"
-                       rel="5">前端</a>
-                    
-                    
-                    
-                    
-                    
-                    <a href="/tags/#python" title="python"
-                       rel="9">python</a>
-                    
-                    
-                    
-                    <a href="/tags/#flask" title="flask"
-                       rel="3">flask</a>
-                    
-                    
-                    
                     <a href="/tags/#unity" title="unity"
                        rel="17">unity</a>
                     
@@ -655,10 +656,25 @@ r = requests.get('https://unspla..
                     
                     
                     
+                    <a href="/tags/#前端" title="前端"
+                       rel="5">前端</a>
+                    
+                    
+                    
+                    
+                    
                     <a href="/tags/#c#" title="c#"
                        rel="9">c#</a>
                     
                     
+                    
+                    <a href="/tags/#python" title="python"
+                       rel="10">python</a>
+                    
+                    
+                    
+                    <a href="/tags/#flask" title="flask"
+                       rel="4">flask</a>
                     
                     
                     
@@ -690,10 +706,6 @@ r = requests.get('https://unspla..
                     
                     
                     
-                    
-                    
-                    
-                    
                     <a href="/tags/#linux" title="linux"
                        rel="5">linux</a>
                     
@@ -708,8 +720,14 @@ r = requests.get('https://unspla..
                     
                     
                     
+                    
+                    
                     <a href="/tags/#数据库" title="数据库"
                        rel="2">数据库</a>
+                    
+                    
+                    
+                    
                     
                     
                     

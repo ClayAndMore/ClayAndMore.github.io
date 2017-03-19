@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        flask+gunicorn+supervisorn+nginx项目部署｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>flask+gunicorn+supervisorn+nginx项目部署</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-03-17
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            flask+gunicorn+supervisorn+nginx项目部署
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>在腾讯云上申请了一个服务器，这里记录一下初次部署flask项目的经历：</p>
+<p>centOS7+python3.5</p>
+<h3 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h3><ul>
+<li><p>安装</p>
+<p><code>pip install virtualenv</code></p>
+</li>
+<li><p>当前目录创建名为myenv的虚拟环境</p>
+<p><code>virtualenv myenv</code></p>
+</li>
+<li><p>进入虚拟环境：</p>
+<p><code>source myenv/bin/activate</code></p>
+</li>
+<li><p>退出</p>
+<p><code>deactivate</code></p>
+</li>
+</ul>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>run.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line"><span class="meta">@app.route('/') </span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;Hello World!&lt;/h1&gt;'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app.run()</div></pre></td></tr></table></figure>
+<p>我们用gunicorn来启动它：</p>
+<h3 id="gunicorn"><a href="#gunicorn" class="headerlink" title="gunicorn"></a>gunicorn</h3><p>gunicorn是一个python Wsgi http server，只支持在Unix系统上运行，来源于Ruby的unicorn项目。g.unicorn(读音)</p>
+<p>wsgi: web server gateway interface.是python语言定义的web服务器和web应用程序或框架之间的一种简单而通用的接口</p>
+<p>，是基于现存的CGI标准设计的。</p>
+<p>很多框架自带了WSGI server.比如Flask,Djanggo,等。当然性能都不好，多用于测试。</p>
+<h4 id="gunicorn的设计"><a href="#gunicorn的设计" class="headerlink" title="gunicorn的设计"></a>gunicorn的设计</h4><p>基于‘pre-fork worker’模型，意味着有一个中心主控master进程，用它来管理一组worker进程。</p>
+<p>worker进程可以支持不同的IO方式（sync,gevent,eventlet,tornado等）</p>
+<h4 id="gunicorn-Nginx"><a href="#gunicorn-Nginx" class="headerlink" title="gunicorn+Nginx"></a>gunicorn+Nginx</h4><p>gunicorn可以单独提供服务，但是会占用很多静态资源，它应该更关注业务请求和处理，所以用Nginx作为前端服务器处理一切静态文件请求，把动态请求给gunicorn后端服务器，让 nginx 作均衡负载转发请求给多个 gunicorn 进程从而提升服务器处理效率与处理能力。最后，nginx 还可以配置很多安全相关、认证相关等很多处理，可以让你的网站更专注业务的编写，把一些转发规则等其它业务无关的事情交给 nginx 做。</p>
+<h4 id="uWSGI"><a href="#uWSGI" class="headerlink" title="uWSGI"></a>uWSGI</h4><p>uWSGI是一个Web服务器，它实现了WSGI协议、uwsgi、http等协议。</p>
+<ul>
+<li>WSGI看前面很清楚了，是一种通信协议。</li>
+<li>uwsgi同WSGI一样是一种通信协议。</li>
+<li>而uWSGI是实现了uwsgi和WSGI两种协议的Web服务器。</li>
+</ul>
+<p>uwsgi协议是一个uWSGI服务器自有的协议，它用于定义传输信息的类型（type of information），每一个uwsgi packet前4byte为传输信息类型描述，它与WSGI相比是两样东西。</p>
+<p>为什么有了uWSGI为什么还需要nginx？</p>
+<p>因为nginx具备优秀的静态内容处理能力，然后将动态内容转发给uWSGI服务器，这样可以达到很好的客户端响应。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><code>pip install gunicorn</code></p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>前面介绍了那么多是为了更好的理解，我们看一下怎么启动，先进入到有run.py即你要运行的那个目录里：</p>
+<p><code>gunicorn -D -w 3 -b 127.0.0.1:8000 run:app</code></p>
+<ul>
+<li>D 表示后台运行 </li>
+<li>w 表示有3 个 工作线程（感觉有些类似 nginx 的 master-worker 模型） </li>
+<li>b 指定ip 和端口 </li>
+<li>这里采用本机访问， 主要是为了使用nginx 进行代理， 方便管理 ，可以用0.0.0.0来让其他主机访问，但是记得要看后面的防火墙端口，记得开启这里的8000</li>
+<li>run表存放 写着全局变量 app 的那个工程文件</li>
+<li>在我们的这个工程中， 即包含 <strong>init</strong>.py 的那个文件 </li>
+</ul>
+<h3 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h3><p>一个管理进程的工具，有一个进程需要每时每刻不断的跑，但是这个进程又有可能由于各种原因有可能中断。当进程中断的时候，希望能自动重新启动它。此时，我就需要使用到了Supervisor。</p>
+<p>安装：</p>
+<p><code>pip install supervisor</code></p>
+<p>进到工程目录，在项目目录添加supervisor的配置文件，</p>
+<p><code>echo_supervisord_conf &gt; supervisord.conf</code></p>
+<p>会生成一个配置文件</p>
+<p><code>vi supervisord.conf</code></p>
+<p>添加信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[program:myapp]  </div><div class="line">directory = /home/flask</div><div class="line">command = gunicorn -w4 -b 0.0.0.0:8000 run:app</div></pre></td></tr></table></figure>
+<p>myapp 自己起的项目名</p>
+<p>directory运行项目所在的工程文件</p>
+<p>command ,gunicorn 的启动命令</p>
+<p>同时可以开启supervisor的web管理页面:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[inet_http_server]</div><div class="line">port = 0.0.0.0:8002</div></pre></td></tr></table></figure>
+<h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">supervisord -c supervisor.conf                             通过配置文件启动supervisor</div><div class="line">supervisorctl -c supervisor.conf status                    察看supervisor的状态</div><div class="line">supervisorctl -c supervisor.conf reload                    重新载入 配置文件</div><div class="line">supervisorctl -c supervisor.conf start [all]|[appname]     启动指定/所有 supervisor管理的程序进程</div><div class="line">supervisorctl -c supervisor.conf stop [all]|[appname]      关闭指定/所有 supervisor管理的程序进程</div></pre></td></tr></table></figure>
+<h4 id="配置开机就启动我们的项目"><a href="#配置开机就启动我们的项目" class="headerlink" title="配置开机就启动我们的项目"></a>配置开机就启动我们的项目</h4><p><code>vi /etc/rc.d/rc.local</code></p>
+<p>在最后添加</p>
+<p><code>supervisord -c /home/flask/supervisord.conf</code></p>
+<h3 id="开启防火墙端口"><a href="#开启防火墙端口" class="headerlink" title="开启防火墙端口"></a>开启防火墙端口</h3><p><strong>CentOS 7.0默认使用的是firewall作为防火墙，使用iptables必须重新设置一下</strong></p>
+<p><code>systemctl stop firewalld.service</code>          #停止firewall</p>
+<p><code>systemctl disable firewalld.service</code>   #禁止firewall开机启动</p>
+<p><strong>设置 iptables service</strong>(两种方法）:</p>
+<ol>
+<li><p><code>yum -y install iptables-services</code></p>
+<p>如果要修改防火墙配置，如增加防火墙端口3306，这里也可以看开放端口状态</p>
+<p><code>vi /etc/sysconfig/iptables</code></p>
+<p>增加规则</p>
+<p><code>-A INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT</code></p>
+</li>
+<li><p><code>/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT</code>   写入修改</p>
+<p><code>service iptables save</code> 保存</p>
+</li>
+</ol>
+<p>保存退出后</p>
+<p><code>systemctl restart iptables.service</code>#重启防火墙使配置生效</p>
+<p><code>systemctl enable iptables.service</code> #设置防火墙开机启动</p>
+<p><strong>最后重启系统使设置生效即可.</strong></p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>安装:</p>
+<p><code>yum install nginx</code></p>
+<p>我的版本是：<code>nginx version: nginx/1.10.3</code></p>
+<p>安装完的nginx 在 <code>/usr/local/nginx</code> 目录下， 我们可以找到<code>conf</code>文件夹下的 <code>nginx.conf</code> 文件， 将其修改 :</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen 8001;</div><div class="line">    server_name _;</div><div class="line">    location /&#123;</div><div class="line">        proxy_pass http://127.0.0.1:8000;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们监听8001端口，将外部通过 8001 端口发送过来的请求， 代理给了 <code>127.0.0.1:8000</code> 也就是我们上面gunicorn启动的flask 项目。</p>
+<p>配置好启动：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[root@server ~]# service nginx start</div><div class="line">Starting nginx:                                            [  OK  ]</div><div class="line">[root@server ~]# nginx -s reload</div></pre></td></tr></table></figure>
+<p>ps：记得浏览器是有缓存的，有可能还是你原来的那个界面，换端口的时候记得换浏览器看，或者清理缓存，这个问题耽误了我两个下午。555…</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/"
+                     data-title="flask+gunicorn+supervisorn+nginx项目部署"
+                     data-url="https://clayandmore.github.io/2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/"
+                     data-images=""
+                     data-content="在腾讯云上申请了一个服务器，这里记录一下初次部署flask项目的经历：
+centOS7+pyt... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/03/18/python2和3及pip等安装问题/" data-toggle="tooltip" data-placement="top"
+                           title="CentOS7-python2和3及pip等安装问题">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/03/16/从web服务方式到nginx/" data-toggle="tooltip" data-placement="top"
+                           title="从web服务方式到nginx">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/"
+                         data-title="flask+gunicorn+supervisorn+nginx项目部署"
+                         data-url="https://clayandmore.github.io/2017/03/17/flask+gunicorn+supervisorn+nginx项目部署/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟环境"><span class="toc-text">虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn"><span class="toc-text">gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn的设计"><span class="toc-text">gunicorn的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn-Nginx"><span class="toc-text">gunicorn+Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uWSGI"><span class="toc-text">uWSGI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#supervisor"><span class="toc-text">supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置开机就启动我们的项目"><span class="toc-text">配置开机就启动我们的项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启防火墙端口"><span class="toc-text">开启防火墙端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx"><span class="toc-text">Nginx</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

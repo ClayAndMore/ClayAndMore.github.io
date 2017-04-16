@@ -198,6 +198,32 @@
 </li>
 </ul>
 <h2 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h2><p>SQL语言(Structured Query Language,结构化查询语言),是一种通用的关系型数据库访问语言。<br>SQL语句已经成为一种国际标准，它用于描述需要执行哪些操作，而没有描述如何执行，数据库引擎会解释SQL语句。<br>数据库CRUD(增查改删）。</p>
+<h3 id="SQL集成工具集"><a href="#SQL集成工具集" class="headerlink" title="SQL集成工具集"></a>SQL集成工具集</h3><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>工具集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>java</td>
+<td>JDBC(Java Database Connecivity)</td>
+</tr>
+<tr>
+<td>python</td>
+<td>Python DB</td>
+</tr>
+<tr>
+<td>c#</td>
+<td>ADO.NET</td>
+</tr>
+<tr>
+<td>c++</td>
+<td>Pro*C(oracle),MySql C Api and DB2</td>
+</tr>
+</tbody>
+</table>
 <h3 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h3><p><strong>Select 字段列表 From 数据表名 Where 查询条件 Order By 排序方式 Group By 分组方式</strong></p>
 <ul>
 <li>字段列表可以理解成竖着那一列啦</li>
@@ -314,6 +340,21 @@ Where ID = 20
 <li><p>消除重复<br>select distinct 列名 这样就是</p>
 </li>
 </ul>
+<h3 id="经典题"><a href="#经典题" class="headerlink" title="经典题"></a>经典题</h3><h4 id="三表联合查询"><a href="#三表联合查询" class="headerlink" title="三表联合查询"></a>三表联合查询</h4><p>A: Student(s_id,s_name)</p>
+<p>B: Course(c_id,c_cname)</p>
+<p>C:  Score(id,s_id,c_id,score）</p>
+<p>学生表，课程表，成绩表</p>
+<p>1，检索每个学生缺考的科目：</p>
+<p>其实这题看上去会以为缺考是成绩为0,其实是没有记录</p>
+<p>所以：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">select a.s_name ,b.c_name from a,b where not exists</div><div class="line">(select * from c where a.s_id=c.s_id and b.c_id = c.id)</div></pre></td></tr></table></figure>
+<p>2, 检索每个学生的平均成绩。</p>
+<p>一看这题一般人会写出这样的答案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">select a.s_name,avg(c.score) from a,c where a.s_id=c.s_id </div><div class="line">group by a.s_name</div></pre></td></tr></table></figure>
+<p>但是你没有考虑学生是否缺考的情况，这样的平均值只是现在现有的成绩的平均值</p>
+<p>应该把缺考考虑进去：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">select a.s_name,sum(c.score)/(select count(*) from b) </div><div class="line">from a,c</div><div class="line">where a.s_id=c.s_id </div><div class="line">group by a.s_name</div></pre></td></tr></table></figure>
+<p>这里除号后用了个子查询代替了count(b.id)，如果用count(b.id),from后就得跟b,where后得跟id判断。这时笛卡尔积的原因会导致整个符合条件的缺同学的平均成绩不是按总课程算。</p>
 
                 <hr>
                 
@@ -373,7 +414,7 @@ Where ID = 20
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库范式"><span class="toc-text">数据库范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#范式"><span class="toc-text">范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL语言"><span class="toc-text">SQL语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询语句"><span class="toc-text">查询语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增数据"><span class="toc-text">新增数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改数据库"><span class="toc-text">修改数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据"><span class="toc-text">删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL扩展"><span class="toc-text">SQL扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改表："><span class="toc-text">修改表：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select的修改"><span class="toc-text">select的修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些关键字"><span class="toc-text">一些关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套"><span class="toc-text">嵌套</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚集函数"><span class="toc-text">聚集函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左连接与右连接"><span class="toc-text">左连接与右连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多表查询"><span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#笛卡尔积"><span class="toc-text">笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多表连接"><span class="toc-text">多表连接</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库范式"><span class="toc-text">数据库范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#范式"><span class="toc-text">范式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL语言"><span class="toc-text">SQL语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL集成工具集"><span class="toc-text">SQL集成工具集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询语句"><span class="toc-text">查询语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增数据"><span class="toc-text">新增数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改数据库"><span class="toc-text">修改数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据"><span class="toc-text">删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL扩展"><span class="toc-text">SQL扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改表："><span class="toc-text">修改表：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select的修改"><span class="toc-text">select的修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些关键字"><span class="toc-text">一些关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套"><span class="toc-text">嵌套</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚集函数"><span class="toc-text">聚集函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左连接与右连接"><span class="toc-text">左连接与右连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多表查询"><span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#笛卡尔积"><span class="toc-text">笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多表连接"><span class="toc-text">多表连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#经典题"><span class="toc-text">经典题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#三表联合查询"><span class="toc-text">三表联合查询</span></a></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>

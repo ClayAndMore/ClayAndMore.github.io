@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        RabbitMQ｜Claymore&#39;s blog
+        Celery与消息队列｜Claymore&#39;s blog
         
     </title>
 
@@ -153,7 +153,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>RabbitMQ</h1>
+                    <h1>Celery与消息队列</h1>
                     
                     <span class="meta">
                          作者 Claymore
@@ -173,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            RabbitMQ
+            Celery与消息队列
         </span>
     </div>
 </header>
@@ -184,7 +184,13 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>需要下载两个运行文件</p>
+                <h3 id="Celery"><a href="#Celery" class="headerlink" title="Celery"></a>Celery</h3><h4 id="何为Celery"><a href="#何为Celery" class="headerlink" title="何为Celery"></a>何为Celery</h4><p>对于网站应用的缓慢操作时，我们拯救用户体验，尤其是在做一些复杂的数据库处理和图片应用时，可以用一个叫celery的任务队列工具，将这些操作移动到flask流程之外。</p>
+<p>Celery是用python编写的任务队列工具，用python的多任务库来<strong>并行</strong>的执行任务。</p>
+<p>这里我们可以把任务理解成我们定义的函数。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>消息队列可以理解成数据结构中的队列，在生产者和消费者模型中可以理解成仓库，</p>
+<p>当生产者生产出产品时会通知消费者去队列里拿最新的消息，而不是让消费者不停的与消息队列联系。类似ajax和webSocket的区别，ajax会反复的与服务器通信，而后者依赖于监听，基于持续的数据流。</p>
+<p>也可用nosql键值数据库来代替消息队列，处理较大的负载，还能将消息持久化。</p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>需要下载两个运行文件</p>
 <ul>
 <li>rabbitMQ <a href="http://www.rabbitmq.com/download.html" target="_blank" rel="external">http://www.rabbitmq.com/download.html</a></li>
 <li>erlang：<a href="http://www.erlang.org/download.html" target="_blank" rel="external">http://www.erlang.org/download.html</a></li>
@@ -206,12 +212,10 @@
                 <div class="ds-share"
                      style="text-align: right"
                      data-thread-key="2017/02/08/RabbitMQ/"
-                     data-title="RabbitMQ"
+                     data-title="Celery与消息队列"
                      data-url="https://clayandmore.github.io/2017/02/08/RabbitMQ/"
                      data-images=""
-                     data-content="RabbitMQ下载与安装windows需要下载两个运行文件
-
-rabbitMQ http:/... | Claymore&#39;s blog ">
+                     data-content="Celery何为Celery对于网站应用的缓慢操作时，我们拯救用户体验，尤其是在做一些复杂的数... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -247,7 +251,7 @@ rabbitMQ http:/... | Claymore&#39;s blog ">
                 <div class="comment">
                     <div class="ds-thread"
                          data-thread-key="2017/02/08/RabbitMQ/"
-                         data-title="RabbitMQ"
+                         data-title="Celery与消息队列"
                          data-url="https://clayandmore.github.io/2017/02/08/RabbitMQ/">
                     </div>
                 </div>
@@ -260,7 +264,7 @@ rabbitMQ http:/... | Claymore&#39;s blog ">
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载与安装"><span class="toc-text">下载与安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Celery"><span class="toc-text">Celery</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#何为Celery"><span class="toc-text">何为Celery</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载与安装"><span class="toc-text">下载与安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

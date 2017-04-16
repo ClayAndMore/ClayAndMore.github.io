@@ -211,11 +211,10 @@
 <p>  将数值类型的变量变成引用类型的过程叫做装箱，将引用类型的数据变成数值类型的过程叫做拆箱。<br>  装箱和拆箱都需要复制数据，会浪费性能，最好要避免装箱和拆箱的操作</p>
 <ul>
 <li><p><strong>类型转换</strong><br>  满足两个条件可以类型转换：</p>
-<ul>
-<li>数据类型要兼容 比如你double的肯定能转成 int 的啦，都是数，还有 string类型的”123”，也能转成数，它里面也是数啊<br><code>int i = int.Parse(str);</code><br>或：<br><code>int i = Convert.ToIn32(str);</code><br>这时，就要多说一句了，一道面试题，string str = ‘123’ 转成int类型，用上面两种方法有什么区别？<br>可以查库的api，convert就是调用的parse方法，不过在前判断了str=null的情况，如果为空，那么convert返回零，而parse会抛出异常。</li>
-<li>还有一点就是 目标类型要大于源类型 比如 int 转成 byte 是不行的，但是可以强制转换，<code>byte a = (byte) by;</code></li>
-</ul>
 </li>
+<li><p>数据类型要兼容 比如你double的肯定能转成 int 的啦，都是数，还有 string类型的”123”，也能转成数，它里面也是数啊<br>  <code>int i = int.Parse(str);</code><br>  或：<br>  <code>int i = Convert.ToIn32(str);</code><br>  这时，就要多说一句了，一道面试题，string str = ‘123’ 转成int类型，用上面两种方法有什么区别？<br>  可以查库的api，convert就是调用的parse方法，不过在前判断了str=null的情况，如果为空，那么convert返回零，而parse会抛出异常。</p>
+</li>
+<li>还有一点就是 目标类型要大于源类型 比如 int 转成 byte 是不行的，但是可以强制转换，<code>byte a = (byte) by;</code></li>
 </ul>
 <ul>
 <li>string<br>string是Systerm.String类型的别名，表示由零个或多个unicode字符组成的不可变序列，可用“[]”运算符访问string中的每个字符。<br><code>string a = &quot;hello&quot;</code><br>a存放在栈里，而“hello”存放在堆里，a中存的是地址。</li>
@@ -243,7 +242,7 @@
 var total=15;
 MyClass mec=new MyClass();
 var mec=new MyClass();
-</code></pre><p> 编译器可通过右边的类型推断左端的显示声明，避免冗余，可以用var关键字，它不是特定的类型符号，只是语法上的速记，表示任何可以初始化语句右边推断出的类型；<br>但只能用于<strong>本地变量</strong>，只能在声明变量初期包含初始化使用；</p>
+</code></pre><p>  编译器可通过右边的类型推断左端的显示声明，避免冗余，可以用var关键字，它不是特定的类型符号，只是语法上的速记，表示任何可以初始化语句右边推断出的类型；<br>  但只能用于<strong>本地变量</strong>，只能在声明变量初期包含初始化使用；</p>
 </li>
 <li><strong>本地常量</strong><br>在类型前加关键字<strong>const</strong>,声明后<strong>不能改变</strong>(不能赋值)，在方法体或者代码块里，随着块结束地方结束生命，编译期决定。<strong>在方法或者类里声明</strong></li>
 <li><p><strong>静态成员</strong><br> 静态成员是类内被<strong>static</strong>修饰的成员，它是属于类的，只能通过类名来访问，类名.成员。<br> 没有被static修饰的是实例成员，它是属于对象的，同过类的实例来访问。</p>
@@ -255,7 +254,7 @@ var mec=new MyClass();
 Common c = new Common();
 int numc = Common.num;
 int num1c = c.num1;
-</code></pre><p><img src="http://ojynuthay.bkt.clouddn.com/cshap%E9%9D%99%E6%80%81%E5%8C%BA.png" alt=""><br><strong>看图说话，静态成员不是在堆里已不是在栈里，它是在专门的静态存储区里，在类第一次声明时创建，并只创建一次，程序结束才会垃圾回收，而类是用完就回收。</strong></p>
+</code></pre><p> <img src="http://ojynuthay.bkt.clouddn.com/cshap%E9%9D%99%E6%80%81%E5%8C%BA.png" alt=""><br> <strong>看图说话，静态成员不是在堆里已不是在栈里，它是在专门的静态存储区里，在类第一次声明时创建，并只创建一次，程序结束才会垃圾回收，而类是用完就回收。</strong></p>
 </li>
 </ul>
 <p>另外，静态成员的意义是被共享，或多次利用。<br>还有，在静态方法中不能调用实例成员，this和base(父类)也不能在静态方法中使用，不确定实例是否存在，看图会懂的。<br>在实例方法中可以调用静态成员，因为此时静态成员肯定存在。</p>
@@ -325,7 +324,7 @@ int num1c = c.num1;
 只声明set访问器为只写属性，只声明get访问器的称为只读属性；
 不成文约定：属性用Pascal命名法，字段用Camel命名法；
 </code></pre><ul>
-<li><strong>构造函数</strong><br>   可以带参数，可以被重载，没有返回值<br>   静态构造函数，使用static修饰，只有一个，不能有访问修饰符。</li>
+<li><strong>构造函数</strong><br> 可以带参数，可以被重载，没有返回值<br> 静态构造函数，使用static修饰，只有一个，不能有访问修饰符。</li>
 <li><strong>readonly修饰符</strong><pre><code>作用类似于const，而readonly字段的值可以在运行时决定，只可以在构造函数中初始化。这种自有性允许在不同的环境不同的构造函数中设置不同的值。可以是实例字段，可以是静态字段，在内存中有储存位置。
 </code></pre></li>
 <li><strong>this关键字</strong><pre><code>是对当前实例的引用。
@@ -355,8 +354,8 @@ int num1c = c.num1;
 `public abstract int Sum(int a, int b);`
 抽象成员必须出项在抽象类中，而且在从抽象类派生新类型时，所有的抽象方法必须重写以填充方法体。
 **注：** 抽象成员和虚拟成员是有区别的：
-</code></pre><ul>
-<li><strong>抽象成员成员不能定义任何实质的功能，必须被重载。</strong></li>
+</code></pre></li>
+<li><strong>抽象成员成员不能定义任何实质的功能，必须被重载。</strong><ul>
 <li>虚拟成员必须包含完整的代码结构，可以包含实际功能，可以不被重载。</li>
 </ul>
 </li>
@@ -474,17 +473,16 @@ static void Test(ref int i){
 <li>类OtherClass继承Someclass的类：<br> <code>class OtherClass：SomeClass{};</code></li>
 <li>除了特殊的类object,所有的类都是派生类，么有基类规格说的类隐式的直接派生自object。</li>
 <li><p>可以用与基类成员相同的名称来屏蔽基类成员，要用new修饰符，告诉编译器故意屏蔽成员.</p>
-<pre><code>    class SomeClass{
-     public stirng Field1;
-     public void Method(string value){};
-     }
-     class OtherClass:SomeClass{
-     new public string Field1;
-     new public void Method(string value){};
-     }
-如果想访问隐藏的基类成员：
-`Console.WriteLine(&quot;{0}&quot;,base.Field);`
-</code></pre></li>
+<pre><code>class SomeClass{
+ public stirng Field1;
+ public void Method(string value){};
+ }
+ class OtherClass:SomeClass{
+ new public string Field1;
+ new public void Method(string value){};
+ }
+</code></pre><p>   如果想访问隐藏的基类成员：<br>   <code>Console.WriteLine(&quot;{0}&quot;,base.Field);</code></p>
+</li>
 <li><strong>里氏替换原则LSP</strong><pre><code>子类可以替换父类的位置，并且程序不受影响，就是子类有的功能，父类肯定有的，继承肯定没问题的
 </code></pre></li>
 <li><p><strong>运行时绑定</strong></p>
@@ -510,8 +508,9 @@ class Program{
 </code></pre></li>
 <li><p><strong>虚方法和覆写方法</strong></p>
 <pre><code>虚方法可使基类的引用调用派生类的方法。要求：
-</code></pre><ul>
-<li>基类和派生类的方法有相同的签名和返回类型。</li>
+</code></pre></li>
+<li><p>基类和派生类的方法有相同的签名和返回类型。</p>
+<ul>
 <li>基类的方法用virtual标注。派生类的方法用override标注。</li>
 <li><p>覆写和被覆写必须有相同的访问性。</p>
 <pre><code>class BaseClass{
@@ -593,7 +592,7 @@ internal：只能被自己的程序集内的类看到，默认的访问级别。
 <li>成员访问修饰符：<pre><code>private：只在类的内部可见。
 internal：对该程序集内所有的类可以访问。
 protected：所有继承该类的类可以访问。
-protect internal:所有继承该类或在该程序集内部声明的类可以访问。
+internal:所有继承该类或在该程序集内部声明的类可以访问。
 public：对任何类可见。
 </code></pre></li>
 <li><p><strong>抽象成员</strong>：被覆写的函数成员，必为<strong>函数</strong>成员，用abstract修饰符。</p>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="我在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://ojynuthay.bkt.clouddn.com/titleImg.png">
+    <link rel="alternate" type="application/atom+xml" title="Claymore" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Flask整理（三）｜Claymore&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://clayandmore.github.io/2017/03/30/Flask整理（三）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/backtest.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Claymore
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://ojynuthay.bkt.clouddn.com/moudleBack.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://ojynuthay.bkt.clouddn.com/moudleBack.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Flask整理（三）</h1>
+                    
+                    <span class="meta">
+                         作者 Claymore
+                        <span>
+                          日期 2017-03-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Flask整理（三）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="Itsdangerous"><a href="#Itsdangerous" class="headerlink" title="Itsdangerous"></a>Itsdangerous</h3><p>当我们注册一个网站的账号时，总会让我们点击注册邮箱的链接来确定认证，这个认证过成就用到了itsdangerous中的加密过程。</p>
+<p>官网：<a href="https://pythonhosted.org/itsdangerous/" target="_blank" rel="external">https://pythonhosted.org/itsdangerous/</a></p>
+<p>下面是一个为邮件加密的过程，</p>
+<p>fortoken.py：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> itsdangerous <span class="keyword">import</span>  URLSafeSerializer</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">generote_confirmation_token</span><span class="params">(app,email)</span>:</span></div><div class="line">    serializer=URLSafeSerializer(app.config[<span class="string">'SECRET_KEY'</span>],salt=app.config[<span class="string">'SECURITY_PASSWORD_SALT'</span>])</div><div class="line">    <span class="keyword">return</span> serializer.dumps(email)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">back_confirmation_token</span><span class="params">(app,token)</span>:</span></div><div class="line">    serializer=URLSafeSerializer(app.config[<span class="string">'SECRET_KEY'</span>],salt=app.config[<span class="string">'SECURITY_PASSWORD_SALT'</span>])</div><div class="line">    <span class="keyword">return</span> serializer.loads(token)  <span class="comment">#返回email</span></div></pre></td></tr></table></figure>
+<p>第一个函数是根据用户邮箱来生成token，第二个函数是根据上一个函数生成的token来反向获取邮箱达到确认的目的。</p>
+<h3 id="Flask-Mail"><a href="#Flask-Mail" class="headerlink" title="Flask_Mail"></a>Flask_Mail</h3><p>用qq邮箱发邮箱。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line"><span class="keyword">from</span> flask_mail <span class="keyword">import</span> Mail,Message</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"><span class="comment">#下面是SMTP服务器配置，可以在相关邮件代理查到，比如我这个用的就是腾讯的。</span></div><div class="line">app.config[<span class="string">'MAIL_SERVER'</span>] = <span class="string">'smtp.qq.com'</span> <span class="comment">#电子邮件服务器的主机名或IP地址</span></div><div class="line">app.config[<span class="string">'MAIL_PORT'</span>] = <span class="string">'465'</span> <span class="comment">#电子邮件服务器的端口</span></div><div class="line">app.config[<span class="string">'MAIL_USE_SSL'</span>] = <span class="keyword">True</span> <span class="comment">#启用安全套接层</span></div><div class="line">app.config[<span class="string">'MAIL_USERNAME'</span>] = <span class="string">'4xxxxxxx@qq.com'</span> <span class="comment">#你的邮件账户用户名</span></div><div class="line">app.config[<span class="string">'MAIL_PASSWORD'</span>] = <span class="string">'mnwasfnnmrnwbgdd'</span> <span class="comment">#邮件账户的授权码,会通过手机发送</span></div><div class="line"></div><div class="line">mail = Mail(app)</div><div class="line"></div><div class="line"><span class="meta">@app.route('/')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></div><div class="line">    msg = Message(<span class="string">'主题'</span>, sender=app.config[<span class="string">'MAIL_USERNAME'</span>], recipients=[<span class="string">'384399322@qq.com'</span>])</div><div class="line">    msg.body = <span class="string">'这是body'</span></div><div class="line">    msg.html = <span class="string">'&lt;b&gt;HTML,板砖板砖，我是熊猫，收到请回答，over&lt;/b&gt;'</span></div><div class="line">    mail.send(msg)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="string">'&lt;h1&gt;邮件发送成功&lt;/h1&gt;'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app.run()</div></pre></td></tr></table></figure>
+<h3 id="Flask-Security"><a href="#Flask-Security" class="headerlink" title="Flask_Security"></a>Flask_Security</h3><p>非常强大，提供：</p>
+<ul>
+<li>角色管理，权限管理</li>
+<li>用户东路，邮箱验证</li>
+<li>密码重置，密码加密</li>
+</ul>
+<p>安装：</p>
+<p><code>pip install flask-security</code></p>
+<p>官方文档：<a href="http://pythonhosted.org/Flask-Security/" target="_blank" rel="external">http://pythonhosted.org/Flask-Security/</a></p>
+<p>它集成了很多其他扩展：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Flask-Login</div><div class="line">Flask-Mail</div><div class="line">Flask-Principal</div><div class="line">Flask-Script</div><div class="line">Flask-WTF</div><div class="line">itsdangerous</div><div class="line">passlib</div></pre></td></tr></table></figure>
+<p>提供七种基本模板，要用的话，在模板目录下创建security的文件目录：添加相关模板：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">security/forgot_password.html</div><div class="line">security/login_user.html</div><div class="line">security/register_user.html</div><div class="line">security/reset_password.html</div><div class="line">security/change_password.html</div><div class="line">security/send_confirmation.html</div><div class="line">security/send_login.html</div></pre></td></tr></table></figure>
+<p>如果指定自己的页面，设置变量<code>SECURITY_LOGIN_USER_TEMPLATE</code>这是指定登陆界面，其他可到官网查。</p>
+<p>后续再写。这个扩展比较大。</p>
+<h3 id="Flask-Admin"><a href="#Flask-Admin" class="headerlink" title="Flask_Admin"></a>Flask_Admin</h3><ul>
+<li><p>安装：</p>
+<p><code>pip install Flask-Admin</code></p>
+</li>
+<li><p>初始化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin <span class="keyword">import</span> Admin</div><div class="line">admin=Admin(name=<span class="string">'导航栏显示的名字'</span>)</div><div class="line"><span class="comment">#注册到app中：</span></div><div class="line">admin.init_app(app)</div></pre></td></tr></table></figure>
+</li>
+<li><p>赋予视图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin.contrib.sqla <span class="keyword">import</span> ModelView</div><div class="line">admin.add_view(ModelView(User,db.session,name=<span class="string">'标签页名字'</span>))</div><div class="line">admin.add_view(ModelView(Role,db.session))</div></pre></td></tr></table></figure>
+<p>会加两个tab标签，是对应相应的数据管理。</p>
+<p>对其加密：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">needAdminView</span><span class="params">(ModelView)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_accessible</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="comment">#如果没有登陆</span></div><div class="line">        <span class="keyword">if</span> current_user.roles:</div><div class="line">            <span class="keyword">return</span> current_user.roles[<span class="number">0</span>].permissions==Permission.ADMINISTER</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">admin.add_view(needAdminView(User,db.session))</div><div class="line">admin.add_view(needAdminView(Role,db.session))</div></pre></td></tr></table></figure>
+<p><img src="http://ojynuthay.bkt.clouddn.com/flaskAdmin.png" alt=""></p>
+<p>具体例子：<a href="https://github.com/flask-admin/flask-admin/blob/master/examples/auth-flask-login" target="_blank" rel="external">https://github.com/flask-admin/flask-admin/blob/master/examples/auth-flask-login</a></p>
+</li>
+</ul>
+<ul>
+<li><p>渲染模板</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;% extends &apos;admin/master.html&apos; %&#125;</div><div class="line"></div><div class="line">&#123;% block body %&#125;</div><div class="line">  &lt;p&gt;Hello world&lt;/p&gt;</div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Flask-Uploads"><a href="#Flask-Uploads" class="headerlink" title="Flask_Uploads"></a>Flask_Uploads</h3><p><code>install flask-uploads</code></p>
+<p>初始：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> UploadSet</div><div class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> configure_uploads</div><div class="line"></div><div class="line">icon=UploadSet(<span class="string">'TEST'</span>)  <span class="comment">#uploadset是个集合，第一参数是名字，也就是你给这个要上传的功能取的名字</span></div><div class="line">configure_uploads(app,icon)  <span class="comment"># 这个可以放在工厂模式里</span></div></pre></td></tr></table></figure>
+<p>在config.py中的配置：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> IMAGES  </div><div class="line">  </div><div class="line">UPLOADED_TEST_DEST=<span class="string">r'E:\flasky\app\flask_upload'</span>  </div><div class="line">UPLOADED_TEST_ALLOW=IMAGES  <span class="comment">#允许上传的类型，这里只允许了图片</span></div></pre></td></tr></table></figure>
+<p>路由：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> werkzeug.utils <span class="keyword">import</span> secure_filename  <span class="comment"># 确认文件名，但是会摒弃带中文的文件名</span></div><div class="line"><span class="meta">@community_blue.route('/personalInfo.html',methods=['GET','POST'])</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">persionalInfo</span><span class="params">()</span>:</span></div><div class="line">    form=ChangeImage()</div><div class="line">    <span class="keyword">if</span> form.validate_on_submit():</div><div class="line">        file=form.browse.data     <span class="comment">#上传的文件</span></div><div class="line">        filename=secure_filename(file.filename) </div><div class="line">        icon.save(file,name=filename)</div><div class="line">        <span class="keyword">return</span> <span class="string">'上传完成'</span></div><div class="line">    <span class="keyword">return</span> render_template(<span class="string">'personalInfo.html'</span>,form=form)</div></pre></td></tr></table></figure>
+<p>filename需要以.+文件格式，如.jpg。不然会报<code>UploadNotAllowed()</code>的错误。</p>
+<p>表单：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChangeImage</span><span class="params">(FlaskForm)</span>:</span></div><div class="line">    browse=FileField(</div><div class="line">        <span class="string">'上传'</span>,</div><div class="line">        validators=[DataRequired()]</div><div class="line">    )</div><div class="line">    upload=SubmitField(</div><div class="line">        <span class="string">'完成'</span>,</div><div class="line">    )</div></pre></td></tr></table></figure>
+<p>模板：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;form action=&quot;&quot; method=post enctype=multipart/form-data&gt;</div><div class="line">        &#123;&#123; form.csrf_token &#125;&#125;</div><div class="line">        &#123;&#123; form.browse &#125;&#125;</div><div class="line">        </div><div class="line">        &#123;% if form.browse.errors %&#125;</div><div class="line">            &#123;% for e in form.browse.errors %&#125;</div><div class="line">                &lt;p class=&quot;help-block&quot; style=&quot;color: red&quot;&gt;&#123;&#123; e &#125;&#125;&lt;/p&gt;</div><div class="line">            &#123;% endfor %&#125;</div><div class="line">        &#123;% else %&#125;</div><div class="line">            &lt;br&gt;</div><div class="line">        &#123;% endif %&#125;</div><div class="line">        </div><div class="line">        &#123;&#123; form.upload &#125;&#125;</div><div class="line">    &lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>注意form中的enctype.</p>
+<p>设置上传文件的大小。</p>
+<p>设置这个的目的是，防止有人给你捣乱，消耗你的流量。</p>
+<p>放在manage.py里面执行，我把文件大小设置成了102400，也就是100KB，他默认是16MB</p>
+<p><code>flaskext.uploads.patch_request_class(app.size=102400)</code></p>
+<h3 id="PIL"><a href="#PIL" class="headerlink" title="PIL"></a>PIL</h3><p><code>pip install  Pillow</code></p>
+<p>pil 不是一个单独的库了，已经包含在pillow中。丰富的图片处理库。</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/03/30/Flask整理（三）/"
+                     data-title="Flask整理（三）"
+                     data-url="https://clayandmore.github.io/2017/03/30/Flask整理（三）/"
+                     data-images=""
+                     data-content="Itsdangerous当我们注册一个网站的账号时，总会让我们点击注册邮箱的链接来确定认证，这... | Claymore&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/04/网络协议/" data-toggle="tooltip" data-placement="top"
+                           title="网络协议">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/03/19/flask+gunicorn+supervisorn+nginx项目部署/" data-toggle="tooltip" data-placement="top"
+                           title="flask+gunicorn+supervisorn+nginx项目部署">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/03/30/Flask整理（三）/"
+                         data-title="Flask整理（三）"
+                         data-url="https://clayandmore.github.io/2017/03/30/Flask整理（三）/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Itsdangerous"><span class="toc-text">Itsdangerous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Mail"><span class="toc-text">Flask_Mail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Security"><span class="toc-text">Flask_Security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Admin"><span class="toc-text">Flask_Admin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Uploads"><span class="toc-text">Flask_Uploads</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIL"><span class="toc-text">PIL</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#flask"
+                           title="flask">flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://lfkid.github.io/">锋</a></li>
+                        
+                        <li><a href="https://clayandmore.github.io/">自我测试</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'claymoreforblog';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/claymoreTT">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/wangyu-1994">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/clayandmore">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Claymore 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://clayandmore.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://ojynuthay.bkt.clouddn.com/header.jpg">
+</body>
+
+</html>

@@ -262,6 +262,13 @@
 <li>作为邮件代理服务器: Nginx 同时也是一个非常优秀的邮件代理服务器（最早开发这个产品的目的之一也是作为邮件代理服务器）</li>
 <li>Nginx 安装非常的简单 , 配置文件非常简洁（还能够支持perl语法）,Bugs 非常少的服务器: Nginx 启动特别容易, 并且几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动. 你还能够 不间断服务的情况下进行软件版本的升级 。</li>
 </ul>
+<h3 id="正向代理与反向代理"><a href="#正向代理与反向代理" class="headerlink" title="正向代理与反向代理"></a>正向代理与反向代理</h3><p>正向代理：</p>
+<p>我们常说的代理也就是只正向代理，正向代理的过程，它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，知名的科学上网工具shadowsocks<br> 扮演的就是典型的正向代理角色。在天朝用浏览器访问 www.google.com<br>时，被残忍的拒绝了，于是你可以在国外搭建一台代理服务器，让代理帮我去请求google.com，代理把请求返回的相应结构再返回给我。</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png" alt=""></p>
+<p>反向代理：</p>
+<p>反向代理隐藏了真实的服务端，当我们请求 www.baidu.com<br>的时候，就像拨打10086一样，背后可能有成千上万台服务器为我们服务，但具体是哪一台，你不知道，也不需要知道，你只需要知道反向代理服务器是谁就好了，www.baidu.com<br> 就是我们的反向代理服务器，反向代理服务器会帮我们把请求转发到真实的服务器那里去。Nginx就是性能非常好的反向代理服务器，用来做负载均衡。</p>
+<p><img src="http://ojynuthay.bkt.clouddn.com/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png" alt=""></p>
+<p>两者的区别在于代理的对象不一样：<strong>正向代理</strong>代理的对象是客户端，<strong>反向代理</strong>代理的对象是服务端</p>
 
                 <hr>
                 
@@ -322,7 +329,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见web服务方式"><span class="toc-text">常见web服务方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个web请求的处理过程"><span class="toc-text">一个web请求的处理过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux-I-O-模型"><span class="toc-text">linux I/O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Http的工作模式"><span class="toc-text">Apache Http的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提高web服务器的并发连接处理能力"><span class="toc-text">提高web服务器的并发连接处理能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx优异之处"><span class="toc-text">Nginx优异之处</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作原理"><span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么选择Nginx"><span class="toc-text">为什么选择Nginx</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见web服务方式"><span class="toc-text">常见web服务方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个web请求的处理过程"><span class="toc-text">一个web请求的处理过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux-I-O-模型"><span class="toc-text">linux I/O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Http的工作模式"><span class="toc-text">Apache Http的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提高web服务器的并发连接处理能力"><span class="toc-text">提高web服务器的并发连接处理能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx优异之处"><span class="toc-text">Nginx优异之处</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作原理"><span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么选择Nginx"><span class="toc-text">为什么选择Nginx</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正向代理与反向代理"><span class="toc-text">正向代理与反向代理</span></a></li></ol>
                 </div>
             </div>
         </div>

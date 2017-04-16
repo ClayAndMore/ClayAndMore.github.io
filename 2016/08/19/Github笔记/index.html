@@ -214,8 +214,17 @@
 <li><p><strong>创建一个拉请求</strong><br>在上图第二个标签页pull requests<br><img src="http://7xs1eq.com1.z0.glb.clouddn.com/pullRequest.png" alt=""><br>可看到这是一个在pragmaticlearning/github和ClaymoreWY/github之间的请求，将一个分支的更改信息合并到另一分支的请求，你希望合并的修改所在的分支在右边，你希望合并的目标分支在左边。</p>
 </li>
 </ul>
-<h3 id="从本地已有项目，推送到github"><a href="#从本地已有项目，推送到github" class="headerlink" title="从本地已有项目，推送到github"></a>从本地已有项目，推送到github</h3><h4 id="ssh与公钥"><a href="#ssh与公钥" class="headerlink" title="ssh与公钥"></a>ssh与公钥</h4><ul>
-<li><p>先进入家目录看下有个.ssh文件（可能隐藏）,如果有，先删掉。</p>
+<h3 id="从本地已有项目，推送到github"><a href="#从本地已有项目，推送到github" class="headerlink" title="从本地已有项目，推送到github"></a>从本地已有项目，推送到github</h3><h4 id="客户端与github建立连接"><a href="#客户端与github建立连接" class="headerlink" title="客户端与github建立连接"></a>客户端与github建立连接</h4><p>先看下面的ssh与公钥。</p>
+<p>进入家目录 cd ~</p>
+<p>配置链接，用一个常用的邮箱：</p>
+<p><code>$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</code></p>
+<p>接下来让你输入什么的 一直回车就好</p>
+<ul>
+<li>到.ssh文件看下，会有两个文件，id_rsa和id_rsa.pub</li>
+<li>将id_rsa.pub用vi打开，复制其内容到github里setting-ssh keys-key中。</li>
+</ul>
+<h4 id="ssh与公钥"><a href="#ssh与公钥" class="headerlink" title="ssh与公钥"></a>ssh与公钥</h4><ul>
+<li><p>先进入家目录看下有个.ssh文件（可能隐藏）,如果有，先删掉。如果没有跳到客户端与github建立连接。</p>
 </li>
 <li><p>新建.ssh文件：</p>
 <p><code>mkdir .ssh</code></p>
@@ -247,7 +256,7 @@
 <p><code>git init</code></p>
 </li>
 <li><p>添加全部文件，准备commit提交</p>
-<p><code>git add</code></p>
+<p><code>git add .</code></p>
 </li>
 <li><p>将文件提交到本地仓库</p>
 <p><code>git commit -m&#39;提交说明&#39;</code></p>
@@ -269,11 +278,17 @@
 </li>
 </ul>
 <h4 id="后期继续提交"><a href="#后期继续提交" class="headerlink" title="后期继续提交"></a>后期继续提交</h4><ul>
-<li>git add</li>
-<li>git commit -m’提交说明’</li>
-<li>git pull # 如果有团队合作的话，先pull,再push</li>
-<li>git push 将代码推送到 github , 默认推送到 别名为 origin 的仓库中的 master 分支上。或<code>git push origin master</code></li>
-<li>注意事项：</li>
+<li><p>git add .</p>
+</li>
+<li><p>git commit -m’提交说明’</p>
+</li>
+<li><p>git pull # 如果有团队合作的话，先pull,再push</p>
+</li>
+<li><p>git push 将代码推送到 github , 默认推送到 别名为 origin 的仓库中的 master 分支上。</p>
+<p>或<code>git push origin master</code></p>
+</li>
+<li><p>注意事项：</p>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">如果有多个远程仓库 或者 多个分支， 并且需要将代码推送到指定仓库的指定分支上，那么在 pull 或者 push 的时候，就需要 按照下面的格式书写：</div><div class="line">git pull 仓库别名 仓库分支名</div><div class="line">git push 仓库别名 仓库分支名</div></pre></td></tr></table></figure>
 
@@ -335,7 +350,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概述"><span class="toc-text">基本概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从本地已有项目，推送到github"><span class="toc-text">从本地已有项目，推送到github</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh与公钥"><span class="toc-text">ssh与公钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化本地仓库，并提交内容"><span class="toc-text">初始化本地仓库，并提交内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接到远程仓库，并将代码同步"><span class="toc-text">连接到远程仓库，并将代码同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后期继续提交"><span class="toc-text">后期继续提交</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概述"><span class="toc-text">基本概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从本地已有项目，推送到github"><span class="toc-text">从本地已有项目，推送到github</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端与github建立连接"><span class="toc-text">客户端与github建立连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh与公钥"><span class="toc-text">ssh与公钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化本地仓库，并提交内容"><span class="toc-text">初始化本地仓库，并提交内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接到远程仓库，并将代码同步"><span class="toc-text">连接到远程仓库，并将代码同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后期继续提交"><span class="toc-text">后期继续提交</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

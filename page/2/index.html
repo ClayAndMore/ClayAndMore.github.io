@@ -281,6 +281,56 @@
 
 <div class="post-preview "
      style="background-image: url('')">
+    <a href="/2017/03/02/正则表达式/">
+        <h2 class="post-title">
+            正则表达式
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-02
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                写在前面正则表达式通过一个表达式来设定正确的规则，验证的时候只要询问输入的字符串是否符合这个表达式就可以了。
+规则先看一个只允许中文字符的正则表达：^[\u4e00-\u9fa5]{4,20}$
+
+^和$在正则表达式中分别代表开头和结尾，这里说必须以中文开头，中文结尾
+[]的目的是设定匹配的什么..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2017/02/22/python的字符编码/">
+        <h2 class="post-title">
+            python的字符编码
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-22
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                搞清字符编码问题：因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），如果要表示更大的整数，就必须用更多的字节。比如两个字..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
     <a href="/2017/02/22/用标准库中的接口写一个python服务器 /">
         <h2 class="post-title">
             用标准库中的接口写一个python服务器
@@ -442,7 +492,7 @@ linux桌面环境本身是没有桌面环境的，桌面只是运行在系统之
      style="background-image: url('')">
     <a href="/2017/02/08/RabbitMQ/">
         <h2 class="post-title">
-            RabbitMQ
+            Celery与消息队列
         </h2>
         <p class="post-meta">
             <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-08
@@ -450,12 +500,9 @@ linux桌面环境本身是没有桌面环境的，桌面只是运行在系统之
         
         <div class="post-content-preview">
             <p>
-                RabbitMQ下载与安装windows需要下载两个运行文件
-
-rabbitMQ http://www.rabbitmq.com/download.html
-erlang：http://www.erlang.org/download.html
-
-abbitMQ安装，查看安装文档：http://w..
+                Celery何为Celery对于网站应用的缓慢操作时，我们拯救用户体验，尤其是在做一些复杂的数据库处理和图片应用时，可以用一个叫celery的任务队列工具，将这些操作移动到flask流程之外。
+Celery是用python编写的任务队列工具，用python的多任务库来并行的执行任务。
+这里我们可..
             </p>
         </div>
     </a>
@@ -507,55 +554,6 @@ Vagrant并不提供虚拟化技术，本质上是一个虚拟机外挂，通过�
 下载
 
 到官网下载https://getbootstrap.com/，会有..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('')">
-    <a href="/2017/01/30/Flask整理(一)/">
-        <h2 class="post-title">
-            Flask整理(一)
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-01-30
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                使用FlaskSciptpip install flask-script
-使用它可以创建命令，在程序上下文中执行，这样能对Flask对象进行修改。扩展只有在Flask应用对象被创建后才会被初始化。
-flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些指令在 Flask..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('')">
-    <a href="/2017/01/30/python进阶整理/">
-        <h2 class="post-title">
-            python进阶整理
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-01-30
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                特殊方法python是多范式语言，既可以面向对象，也可以函数式，依赖于python的对象中的特殊方法。格式：_特殊方法名_()运算符（如+）、内置函数（如len()）、表元素（如list[3]），有特殊方法的函数可以被认为对象等。
-上下文管理器先看两段程序：# without context m..
             </p>
         </div>
     </a>
@@ -655,6 +653,16 @@ flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些
                 <div class="tags">
                     
                     
+                    <a href="/tags/#flask" title="flask"
+                       rel="5">flask</a>
+                    
+                    
+                    
+                    <a href="/tags/#python" title="python"
+                       rel="11">python</a>
+                    
+                    
+                    
                     <a href="/tags/#前端" title="前端"
                        rel="5">前端</a>
                     
@@ -672,22 +680,10 @@ flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些
                     
                     
                     
-                    <a href="/tags/#python" title="python"
-                       rel="10">python</a>
-                    
-                    
-                    
-                    <a href="/tags/#flask" title="flask"
-                       rel="4">flask</a>
-                    
-                    
-                    
                     
                     
                     <a href="/tags/#c#" title="c#"
                        rel="9">c#</a>
-                    
-                    
                     
                     
                     
@@ -712,6 +708,8 @@ flask-script 是 Flask 的一个扩展，它能够创建指令，并且让这些
                     
                     <a href="/tags/#java" title="java"
                        rel="4">java</a>
+                    
+                    
                     
                     
                     

@@ -185,19 +185,33 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><ul>
-<li>nodejs</li>
-<li>安装git</li>
-<li>hexo</li>
-<li>github账户，注意开启github page</li>
-<li>创建账户同名仓库 如：username.github.io</li>
-<li>何为rss</li>
+<li><p>下载安装nodejs</p>
+</li>
+<li><p>安装git </p>
+<p>尽量从这里下，<a href="https://git-for-windows.github.io/" target="_blank" rel="external">https://git-for-windows.github.io/</a></p>
+</li>
+<li><p>github账户，注意开启github page</p>
+</li>
+<li><p>创建账户同名仓库 如：username.github.io</p>
+</li>
+<li><p>何为rss</p>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">RSS就是一种用来分发和汇集网页内容的XML格式,</div><div class="line">1.订阅BLOG(BLOG上，你可以订阅你工作中所需的技术文章；也可以订阅与你有共同爱好的作者的日志，总之，BLOG上你对什么感兴趣你就可以订什么) </div><div class="line">2.订阅新闻(无论是奇闻怪事、明星消息、体坛风云，只要你想知道的，都可以订阅) </div><div class="line">你再也不用一个网站一个网站，一个网页一个网页去逛了。只要这将你需要的内容订阅在一个RSS阅读器中，这些内容就会自动出现你的阅读器里，你也不必为了一个急切想知道的消息而不断的刷新网页，因为一旦有了更新，RSS阅读器就会自己通知你！</div></pre></td></tr></table></figure>
 <h3 id="本地部署hexo"><a href="#本地部署hexo" class="headerlink" title="本地部署hexo"></a>本地部署hexo</h3><ul>
-<li>新建一个存放博客目录的文件夹，例如：blog</li>
-<li>进入到blog文件夹 <code>hexo init</code> ,博客安装完毕，这个命令需要翻墙</li>
-<li><code>hexo s</code> 启动博客</li>
-<li>打开浏览器 <a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a>:4000/ 即可访问</li>
+<li><p>新建一个存放博客目录的文件夹，例如：blog</p>
+</li>
+<li><p>进入到blog文件夹</p>
+</li>
+<li><p>执行如下命令安装Hexo：</p>
+<p><code>sudo npm install -g hexo</code></p>
+</li>
+<li><p>初始化hexo, <code>hexo init</code> ,博客安装完毕，这个命令需要翻墙</p>
+</li>
+<li><p><code>hexo s</code> 启动博客</p>
+</li>
+<li><p>打开浏览器 <a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a>:4000/ 即可访问</p>
+</li>
 </ul>
 <h3 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h3><p>配置blog目录下的_config.yml文件，修改deploy参数，其中repo换成刚刚新建项目的git地址，这里用的https，也可以用git形式</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: http://github.com/ClayAndMore/ClayAndMore.github.io</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
@@ -252,10 +266,10 @@
                      data-url="https://clayandmore.github.io/2017/01/21/hexo搭建/"
                      data-images="https://clayandmore.github.io/2017/01/21/hexo搭建/postBack.jpg"
                      data-content="前期准备
-nodejs
-安装git
-hexo
-github账户，注意开启github page... | Claymore&#39;s blog ">
+下载安装nodejs
+
+安装git 
+尽量从这里下，https://git-for-... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>

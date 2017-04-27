@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -214,20 +214,30 @@
 <li><p>初始化：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin <span class="keyword">import</span> Admin</div><div class="line">admin=Admin(name=<span class="string">'导航栏显示的名字'</span>)</div><div class="line"><span class="comment">#注册到app中：</span></div><div class="line">admin.init_app(app)</div></pre></td></tr></table></figure>
 </li>
-<li><p>赋予视图</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin.contrib.sqla <span class="keyword">import</span> ModelView</div><div class="line">admin.add_view(ModelView(User,db.session,name=<span class="string">'标签页名字'</span>))</div><div class="line">admin.add_view(ModelView(Role,db.session))</div></pre></td></tr></table></figure>
-<p>会加两个tab标签，是对应相应的数据管理。</p>
-<p>对其加密：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">needAdminView</span><span class="params">(ModelView)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_accessible</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="comment">#如果没有登陆</span></div><div class="line">        <span class="keyword">if</span> current_user.roles:</div><div class="line">            <span class="keyword">return</span> current_user.roles[<span class="number">0</span>].permissions==Permission.ADMINISTER</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">admin.add_view(needAdminView(User,db.session))</div><div class="line">admin.add_view(needAdminView(Role,db.session))</div></pre></td></tr></table></figure>
-<p><img src="http://ojynuthay.bkt.clouddn.com/flaskAdmin.png" alt=""></p>
-<p>具体例子：<a href="https://github.com/flask-admin/flask-admin/blob/master/examples/auth-flask-login" target="_blank" rel="external">https://github.com/flask-admin/flask-admin/blob/master/examples/auth-flask-login</a></p>
-</li>
 </ul>
+<p>启动服务，访问/admin 就可以看到效果</p>
 <ul>
-<li><p>渲染模板</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;% extends &apos;admin/master.html&apos; %&#125;</div><div class="line"></div><div class="line">&#123;% block body %&#125;</div><div class="line">  &lt;p&gt;Hello world&lt;/p&gt;</div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure>
-</li>
+<li>有三种视图类：</li>
 </ul>
+<h4 id="BaseView-基础视图"><a href="#BaseView-基础视图" class="headerlink" title="BaseView: 基础视图"></a>BaseView: 基础视图</h4><p>能够生成最基本的视图, 并添加到 Admin 页面上, 如果你希望在 Admin 页面上加入一些 JavaScript 图表的话, 就可以使用 BaseView.</p>
+<p>webapp/controllers/admin.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin <span class="keyword">import</span> BaseView, expose</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomView</span><span class="params">(BaseView)</span>:</span></div><div class="line"><span class="meta">    @expose('/')       #和bluprint.route一样，每个BaseView必须有根视图函数</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.render(<span class="string">'admin/custom.html'</span>)  <span class="comment">#self.render和renter_template使用方法一样</span></div><div class="line"></div><div class="line"><span class="meta">    @expose('/second_page')</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">second_page</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.render(<span class="string">'admin/second_page.html'</span>)</div></pre></td></tr></table></figure>
+<p>模板文件/templates/admin/custom.html：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;% extends &apos;admin/master.html&apos; %&#125;</div><div class="line">&#123;% block body %&#125;</div><div class="line">  This is the custom view!</div><div class="line">  &lt;a href=&quot;&#123;&#123; url_for(&apos;customview.second_page&apos;) &#125;&#125;&quot;&gt;Link&lt;/a&gt; #注意这里可以跳转视图函数</div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure>
+<p>将 CustiomView 注册到 flask_admin 对象中：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">(objet_name)</span>:</span></div><div class="line">...</div><div class="line">    <span class="comment">#### Init the Flask-Admin via app object</span></div><div class="line">    flask_admin.init_app(app)</div><div class="line">    <span class="comment"># Register view function `CustomView` into Flask-Admin</span></div><div class="line">    flask_admin.add_view(CustomView(name=<span class="string">'Custom'</span>))<span class="comment">#这个名字是显示的名字</span></div></pre></td></tr></table></figure>
+<h4 id="ModelView-模型视图"><a href="#ModelView-模型视图" class="headerlink" title="ModelView: 模型视图"></a>ModelView: 模型视图</h4><p>webapp/extensions.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin <span class="keyword">import</span> Admin,ModeView</div><div class="line">admin=Admin(name=<span class="string">'后台管理'</span>, template_mode=<span class="string">'bootstrap3'</span>)</div><div class="line"></div><div class="line">admin.add_view(ModeView(User,db.session,name=<span class="string">'用户'</span>))</div><div class="line">admin.add_view(ModeView(Role,db.session,name=<span class="string">'权限'</span>))</div></pre></td></tr></table></figure>
+<p>剩下的在工厂函数中初始化就可以了：<code>admin.init_app(app)</code></p>
+<p>这时启动服务就会看到相关的数据和操作了。</p>
+<p>加管理员权限认证：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">needAdminView</span><span class="params">(ModelView)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_accessible</span><span class="params">(self)</span>:</span></div><div class="line">        role_list=current_user.roles</div><div class="line">        <span class="keyword">if</span> role_list:</div><div class="line">            <span class="comment">#遍历用户所有的权限：</span></div><div class="line">            <span class="keyword">for</span> role <span class="keyword">in</span> role_list:</div><div class="line">               <span class="keyword">if</span> role.permissions==Permission.ADMINISTER:</div><div class="line">                   <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">            <span class="comment"># 没有管理员权限</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="comment"># 如果没有登陆</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">admin.add_view(needAdminView(User,db.session,name=<span class="string">'用户'</span>))</div><div class="line">admin.add_view(needAdminView(Role,db.session,name=<span class="string">'权限'</span>))</div></pre></td></tr></table></figure>
+<p>上面的方式，是导航栏中会添加每一项数据模型，如果把这些数据模型放到下拉列表：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">models = [Role, Tag, Reminder, BrowseVolume]</div><div class="line">    <span class="keyword">for</span> model <span class="keyword">in</span> models:</div><div class="line">        admin.add_view(</div><div class="line">            needAdmin	(model, db.session, category=<span class="string">'Models'</span>))</div></pre></td></tr></table></figure>
+<p>category 关键字参数会告诉 Flask-Admin 将拥有相同 category 值的对象放进同一个下拉框中. EG. 这里的 Role, Tag, Reminder, BrowseVolume 对象, 它们会出现在同一个下拉框中.</p>
+<h4 id="FileAdmin-本地文件系统管理"><a href="#FileAdmin-本地文件系统管理" class="headerlink" title="FileAdmin: 本地文件系统管理"></a>FileAdmin: 本地文件系统管理</h4><p>提供文件管理的内容。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_admin <span class="keyword">import</span> FileAdmin</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomFileAdmin</span><span class="params">(FileAdim)</span>:</span></div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="comment">#初始化</span></div><div class="line"><span class="keyword">from</span> webapp/controllers <span class="keyword">import</span> admin</div><div class="line"></div><div class="line">    <span class="comment">#### Init the Flask-Admin via app object</span></div><div class="line">    flask_admin.init_app(app)</div><div class="line">...</div><div class="line">    <span class="comment"># Register and define path of File System for Flask-Admin</span></div><div class="line">    admin.add_view(</div><div class="line">        CustomFileAdmin(</div><div class="line">            os.path.join(os.path.dirname(__file__), <span class="string">'static'</span>),</div><div class="line">            <span class="string">'/static'</span>,</div><div class="line">            name=<span class="string">'Static Files'</span>))</div></pre></td></tr></table></figure>
+<p><code>os.path.join(os.path.dirname(__file__), &#39;static&#39;)</code> 的值为 你需要管理的文件目录在系统中的全路径. name 参数指定了在管理页面显示 Label 的名字.</p>
 <h3 id="Flask-Uploads"><a href="#Flask-Uploads" class="headerlink" title="Flask_Uploads"></a>Flask_Uploads</h3><p><code>install flask-uploads</code></p>
 <p>初始：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> UploadSet</div><div class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> configure_uploads</div><div class="line"></div><div class="line">icon=UploadSet(<span class="string">'TEST'</span>)  <span class="comment">#uploadset是个集合，第一参数是名字，也就是你给这个要上传的功能取的名字</span></div><div class="line">configure_uploads(app,icon)  <span class="comment"># 这个可以放在工厂模式里</span></div></pre></td></tr></table></figure>
@@ -306,7 +316,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Itsdangerous"><span class="toc-text">Itsdangerous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Mail"><span class="toc-text">Flask_Mail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Security"><span class="toc-text">Flask_Security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Admin"><span class="toc-text">Flask_Admin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Uploads"><span class="toc-text">Flask_Uploads</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIL"><span class="toc-text">PIL</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Itsdangerous"><span class="toc-text">Itsdangerous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Mail"><span class="toc-text">Flask_Mail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Security"><span class="toc-text">Flask_Security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Admin"><span class="toc-text">Flask_Admin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BaseView-基础视图"><span class="toc-text">BaseView: 基础视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ModelView-模型视图"><span class="toc-text">ModelView: 模型视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FileAdmin-本地文件系统管理"><span class="toc-text">FileAdmin: 本地文件系统管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Uploads"><span class="toc-text">Flask_Uploads</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIL"><span class="toc-text">PIL</span></a></li></ol>
                 </div>
             </div>
         </div>

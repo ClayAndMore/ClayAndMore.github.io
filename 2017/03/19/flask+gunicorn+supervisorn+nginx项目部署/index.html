@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -279,7 +279,20 @@
 <p><code>systemctl restart iptables.service</code>#重启防火墙使配置生效</p>
 <p><code>systemctl enable iptables.service</code> #设置防火墙开机启动</p>
 <p><strong>最后重启系统使设置生效即可.</strong></p>
-<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>安装:</p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>Nginx由内核和模块组成，其中，内核的设计非常微小和简洁，完成的工作也非常简单，仅仅通过查找配置文件将客户端请求映射到一个location block（location是Nginx配置中的一个指令，用于URL匹配），而在这个location中所配置的每个指令将会启动不同的模块去完成相应的工作。</p>
+<p>Nginx的模块从结构上分为核心模块、基础模块和第三方模块</p>
+<h4 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h4><p>两种工作方式：</p>
+<ul>
+<li>单进程工作方式，主进程（master)+工作进程worker（单线程）</li>
+<li>多进程工作模式，主进程（master)+工作进程worker（多线程，一个主线程）</li>
+</ul>
+<p>master进程：</p>
+<p>要用来管理worker进程，包含：接收来自外界的信号，向各worker进程发送信号，监控worker进程的运行状态，当worker进程退出后(异常情况下)，会自动重新启动新的worker进程。</p>
+<p>master进程充当整个进程组与用户的交互接口，同时对进程进行监护。它不需要处理网络事件，不负责业务的执行，只会通过管理worker进程来实现重启服务、平滑升级、更换日志文件、配置文件实时生效等功能。</p>
+<p>work进程：</p>
+<p>每个进程之间都是平等的，多个worker进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。一个请求，只可能在一个worker进程中处理。</p>
+<p>worker进程的个数是可以设置的，一般我们会设置与机器cpu核数一致，这里面的原因与nginx的进程模型以及事件处理模型是分不开的。</p>
+<h4 id="多进程时间模型：异步非阻塞"><a href="#多进程时间模型：异步非阻塞" class="headerlink" title="多进程时间模型：异步非阻塞"></a>多进程时间模型：异步非阻塞</h4><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>安装:</p>
 <p><code>yum install nginx</code></p>
 <p>我的版本是：<code>nginx version: nginx/1.10.3</code></p>
 <p>安装完的nginx 在 <code>/usr/local/nginx</code> 目录下， 我们可以找到<code>conf</code>文件夹下的 <code>nginx.conf</code> 文件， 将其修改 :</p>
@@ -348,7 +361,7 @@ centOS7+pyt... | Claymore&#39;s blog ">
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟环境"><span class="toc-text">虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn"><span class="toc-text">gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn的设计"><span class="toc-text">gunicorn的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn-Nginx"><span class="toc-text">gunicorn+Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uWSGI"><span class="toc-text">uWSGI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#supervisor"><span class="toc-text">supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置开机就启动我们的项目"><span class="toc-text">配置开机就启动我们的项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#出现的问题"><span class="toc-text">出现的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启防火墙端口"><span class="toc-text">开启防火墙端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx"><span class="toc-text">Nginx</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟环境"><span class="toc-text">虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn"><span class="toc-text">gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn的设计"><span class="toc-text">gunicorn的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gunicorn-Nginx"><span class="toc-text">gunicorn+Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uWSGI"><span class="toc-text">uWSGI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#supervisor"><span class="toc-text">supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置开机就启动我们的项目"><span class="toc-text">配置开机就启动我们的项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#出现的问题"><span class="toc-text">出现的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启防火墙端口"><span class="toc-text">开启防火墙端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx"><span class="toc-text">Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程模型"><span class="toc-text">进程模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多进程时间模型：异步非阻塞"><span class="toc-text">多进程时间模型：异步非阻塞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

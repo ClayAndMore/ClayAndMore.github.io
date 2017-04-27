@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        python中的异步和协程｜Claymore&#39;s blog
+        python整理（三）｜Claymore&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://clayandmore.github.io/2017/03/07/python中的异步和协程/">
+    <link rel="canonical" href="https://clayandmore.github.io/2017/04/07/python（三）/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -153,12 +153,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>python中的异步和协程</h1>
+                    <h1>python整理（三）</h1>
                     
                     <span class="meta">
                          作者 Claymore
                         <span>
-                          日期 2017-03-07
+                          日期 2017-04-07
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -173,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            python中的异步和协程
+            python整理（三）
         </span>
     </div>
 </header>
@@ -184,26 +184,19 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><h4 id="何为异步"><a href="#何为异步" class="headerlink" title="何为异步"></a>何为异步</h4><p>先谈下什么为异步：</p>
-<p>有三个任务正常按时间顺序执行：</p>
-<p><img src="http://ojynuthay.bkt.clouddn.com/asyncPy.png" alt=""></p>
-<p>多线程去做：</p>
-<p><img src="http://ojynuthay.bkt.clouddn.com/asyncPy2.png" alt=""></p>
-<p>异步去做：</p>
-<p><img src="http://ojynuthay.bkt.clouddn.com/asyncPy3.png" alt=""></p>
-<p>首先，你要知道，一个任务，可能会堵塞在某个地方，比如硬盘读写，数据库操作等等，这样一个程序就必须等待你的操作完成，才能继续下去，这无疑是对计算资源的极大浪费:</p>
-<p><img src="http://ojynuthay.bkt.clouddn.com/asyncPy4.png" alt=""></p>
-<p>那么如果，你在堵塞的时候，用某种机制，能使你快速脱离堵塞的状态，开启下一个程序，等待你的操作完成，在来继续上一个程序的工作，这个模型就是不堵塞的，这样资源的到了极大的利用，我们的效率自然提升.</p>
-<p>异步IO。当代码需要执行一个耗时的IO操作时，它只发出IO指令，并不等待IO结果，然后就去执行其他代码了。一段时间后，当IO返回结果时，再通知CPU进行处理。</p>
-<h4 id="在理解并发和并行"><a href="#在理解并发和并行" class="headerlink" title="在理解并发和并行"></a>在理解并发和并行</h4><p>系统中有多个任务同时存在可称之为“并发”，系统内有多个任务同时执行可称之为“并行”；</p>
-<p>并发是并行的子集。</p>
-<p>比如在单核CPU系统上，只可能存在并发而不可能存在并行。上面的异步是就说明了单核的并发。</p>
-<p>多核：</p>
-<p>并行： 就是等于号</p>
-<p>并发： 就是大于号</p>
-<p>通俗点说 并发就是不同线程同时干一件事情<br>并行就是不同线程同时干不同的事情</p>
-<p>所以并发会引起资源的竞争。</p>
-<h4 id="理解yield"><a href="#理解yield" class="headerlink" title="理解yield"></a>理解yield</h4><p>粗略知道yield可以作为一个函数返回值：</p>
+                <h3 id="常用内建模块"><a href="#常用内建模块" class="headerlink" title="常用内建模块"></a>常用内建模块</h3><h4 id="datetime"><a href="#datetime" class="headerlink" title="datetime"></a>datetime</h4><h4 id="collections"><a href="#collections" class="headerlink" title="collections"></a>collections</h4><h4 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h4><h4 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h4><h4 id="hashlib"><a href="#hashlib" class="headerlink" title="hashlib"></a>hashlib</h4><h4 id="itertools"><a href="#itertools" class="headerlink" title="itertools"></a>itertools</h4><h4 id="contextlib"><a href="#contextlib" class="headerlink" title="contextlib"></a>contextlib</h4><h4 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h4><h4 id="HTMLParser"><a href="#HTMLParser" class="headerlink" title="HTMLParser"></a>HTMLParser</h4><h4 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a>urllib</h4><h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><p>可变类型：list , set , dict</p>
+<p>不可变类型：int, str , float , tuple</p>
+<p>不可变类型是谈不上拷贝的，只有可变类型能谈得上拷贝。</p>
+<p>浅复制方法：[:] , copy.copy() ,<br>深复制方法：copy.deepcopy()</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> copy</div><div class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>]]  <span class="comment">#原始对象</span></div><div class="line"> </div><div class="line">b = a  <span class="comment">#赋值，传对象的引用</span></div><div class="line">c = copy.copy(a)  <span class="comment">#对象拷贝，浅拷贝</span></div><div class="line">d = copy.deepcopy(a)  <span class="comment">#对象拷贝，深拷贝</span></div><div class="line"> </div><div class="line">a.append(<span class="number">5</span>)  <span class="comment">#修改对象a</span></div><div class="line">a[<span class="number">4</span>].append(<span class="string">'c'</span>)  <span class="comment">#修改对象a中的['a', 'b']数组对象</span></div><div class="line"> </div><div class="line"><span class="keyword">print</span> <span class="string">'a = '</span>, a</div><div class="line"><span class="keyword">print</span> <span class="string">'b = '</span>, b</div><div class="line"><span class="keyword">print</span> <span class="string">'c = '</span>, c</div><div class="line"><span class="keyword">print</span> <span class="string">'d = '</span>, d</div><div class="line"> </div><div class="line">输出结果：</div><div class="line">a =  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>], <span class="number">5</span>]</div><div class="line">b =  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>], <span class="number">5</span>]</div><div class="line">c =  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]]</div><div class="line">d =  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>]]</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>hasattr(object, name)</strong></li>
+</ul>
+<p>说明：判断对象object是否包含名为name的特性（hasattr是通过调用getattr(ojbect, name)是否抛出异常来实现的）。</p>
+<h3 id="python自省"><a href="#python自省" class="headerlink" title="python自省"></a>python自省</h3><p>这个也是python彪悍的特性.</p>
+<p>自省就是面向对象的语言所写的程序在运行时,所能知道对象的类型.简单一句就是运行时能够获得对象的类型.比如type(),dir(),getattr(),hasattr(),isinstance().</p>
+<h3 id="python2和python3区别"><a href="#python2和python3区别" class="headerlink" title="python2和python3区别"></a>python2和python3区别</h3><p><a href="http://python.jobbole.com/80006/" target="_blank" rel="external">http://python.jobbole.com/80006/</a></p>
+<h3 id="python中的异步"><a href="#python中的异步" class="headerlink" title="python中的异步"></a>python中的异步</h3><h4 id="理解yield"><a href="#理解yield" class="headerlink" title="理解yield"></a>理解yield</h4><p>粗略知道yield可以作为一个函数返回值：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">addlist</span><span class="params">(alist)</span>:</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> alist:</div><div class="line">		<span class="keyword">yield</span> i+<span class="number">1</span></div><div class="line">	</div><div class="line">alist=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> addlist(alist):</div><div class="line">	print(x)</div></pre></td></tr></table></figure>
 <p>输出：2，3，4，5</p>
 <p>某个函数包含了yield，这意味着这个函数已经是一个Generator，它的执行会和其他普通的函数有很多不同。</p>
@@ -270,22 +263,35 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">@asyncio.coroutine</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">"Hello world!"</span>)</div><div class="line">    r = <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">1</span>)</div><div class="line">    print(<span class="string">"Hello again!"</span>)</div></pre></td></tr></table></figure>
 <p>用新语法重新编写如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">"Hello world!"</span>)</div><div class="line">    r = <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</div><div class="line">    print(<span class="string">"Hello again!"</span>)</div></pre></td></tr></table></figure>
+<h3 id="python-面试题"><a href="#python-面试题" class="headerlink" title="python 面试题"></a>python 面试题</h3><h4 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">a = <span class="number">1</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></div><div class="line">    a = <span class="number">2</span></div><div class="line">fun(a)</div><div class="line">print(a)  <span class="comment">#1</span></div><div class="line"></div><div class="line">a=[]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></div><div class="line">    a.append(<span class="number">1</span>)</div><div class="line">fun(a)</div><div class="line">print(a) <span class="comment">#a[1]</span></div></pre></td></tr></table></figure>
+<p>传递时是引用传递，如果是不可变对象，如第一个例子，会复制一个引用传入参数，而原来的引用不变。</p>
+<p>如果是可变对象，如第二个例子，会直接操作引用的地址。</p>
+<p>下面的例子也是一样的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></div><div class="line">    name=<span class="string">"aaa"</span></div><div class="line"> </div><div class="line">p1=Person()</div><div class="line">p2=Person()</div><div class="line">p1.name=<span class="string">"bbb"</span></div><div class="line"><span class="keyword">print</span> p1.name  <span class="comment"># bbb</span></div><div class="line"><span class="keyword">print</span> p2.name  <span class="comment"># aaa</span></div><div class="line"><span class="keyword">print</span> Person.name  <span class="comment"># aaa</span></div><div class="line">====================</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></div><div class="line">    name=[]</div><div class="line"> </div><div class="line">p1=Person()</div><div class="line">p2=Person()</div><div class="line">p1.name.append(<span class="number">1</span>)</div><div class="line"><span class="keyword">print</span> p1.name  <span class="comment"># [1]</span></div><div class="line"><span class="keyword">print</span> p2.name  <span class="comment"># [1]</span></div><div class="line"><span class="keyword">print</span> Person.name  <span class="comment"># [1]</span></div></pre></td></tr></table></figure>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p><code>__new__</code>版本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(object)</span>:</span></div><div class="line">    _instance=<span class="keyword">None</span> <span class="comment">#保存实例的引用</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cls._instance:</div><div class="line">            cls._instance=super(Singleton,cls).__new__(cls,*args,**kwargs)</div><div class="line">        <span class="keyword">return</span> cls._instance</div><div class="line"></div><div class="line">one=Singleton()</div><div class="line">two=Singleton()</div><div class="line"></div><div class="line">print(one <span class="keyword">is</span> two)</div></pre></td></tr></table></figure>
+<p>在上面的代码中，我们将类的实例和一个类变量 <code>_instance</code> 关联起来，如果 <code>cls._instance</code> 为 None 则创建实例，否则直接返回 <code>cls._instance</code>。</p>
+<p>import版本</p>
+<p> mysingle.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">My_Single</span><span class="params">(object)</span>:</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">pass</span></div><div class="line">my_single=My_Single()</div><div class="line"></div><div class="line"><span class="keyword">from</span> mysingle <span class="keyword">import</span> my_single</div><div class="line"></div><div class="line">my_single.foo()</div></pre></td></tr></table></figure>
+<p>装饰器版本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">single</span><span class="params">(cls)</span>:</span></div><div class="line">	instances=&#123;&#125;</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">getinstance</span><span class="params">(*args,**kwargs)</span>:</span></div><div class="line">		<span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> instances:</div><div class="line">			instances[cls]=cls(*args,**kwargs)</div><div class="line">		<span class="keyword">return</span> instances[cls]</div><div class="line">	<span class="keyword">return</span> getinstance</div><div class="line"></div><div class="line"><span class="meta">@single</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">(object)</span>:</span></div><div class="line">    a=<span class="number">1</span></div><div class="line"></div><div class="line">a=MyClass()</div><div class="line">b=MyClass()</div><div class="line">print(a <span class="keyword">is</span> b)</div></pre></td></tr></table></figure>
+<h4 id="read-readline-readlines"><a href="#read-readline-readlines" class="headerlink" title="read,readline,readlines"></a>read,readline,readlines</h4><ul>
+<li>read 读取整个文件</li>
+<li>readline 读取下一行,使用生成器方法</li>
+<li>readlines 读取整个文件到一个迭代器以供我们遍历</li>
+</ul>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2017/03/07/python中的异步和协程/"
-                     data-title="python中的异步和协程"
-                     data-url="https://clayandmore.github.io/2017/03/07/python中的异步和协程/"
+                     data-thread-key="2017/04/07/python（三）/"
+                     data-title="python整理（三）"
+                     data-url="https://clayandmore.github.io/2017/04/07/python（三）/"
                      data-images=""
-                     data-content="异步IO何为异步先谈下什么为异步：
-有三个任务正常按时间顺序执行：
-
-多线程去做：
-
-异步去做... | Claymore&#39;s blog ">
+                     data-content="常用内建模块datetimecollectionsbase64structhashlibite... | Claymore&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -304,14 +310,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/03/09/linux 进阶（二）/" data-toggle="tooltip" data-placement="top"
-                           title="linux 进阶（二）">&larr; Previous Post</a>
+                        <a href="/2017/04/27/IO模型/" data-toggle="tooltip" data-placement="top"
+                           title="IO模型">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/03/04/python爬虫/" data-toggle="tooltip" data-placement="top"
-                           title="python爬虫">Next Post &rarr;</a>
+                        <a href="/2017/04/04/网络协议/" data-toggle="tooltip" data-placement="top"
+                           title="网络协议">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -320,9 +326,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2017/03/07/python中的异步和协程/"
-                         data-title="python中的异步和协程"
-                         data-url="https://clayandmore.github.io/2017/03/07/python中的异步和协程/">
+                         data-thread-key="2017/04/07/python（三）/"
+                         data-title="python整理（三）"
+                         data-url="https://clayandmore.github.io/2017/04/07/python（三）/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -334,7 +340,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#异步IO"><span class="toc-text">异步IO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#何为异步"><span class="toc-text">何为异步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在理解并发和并行"><span class="toc-text">在理解并发和并行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理解yield"><span class="toc-text">理解yield</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#next"><span class="toc-text">__next__()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yield是表达式"><span class="toc-text">yield是表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg"><span class="toc-text">send(msg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg-与-next-的返回值"><span class="toc-text">send(msg) 与 next()的返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中断Generator"><span class="toc-text">中断Generator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那和多线程比，协程有何优势？"><span class="toc-text">那和多线程比，协程有何优势？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者消费者模型"><span class="toc-text">生产者消费者模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asynico"><span class="toc-text">asynico</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-await"><span class="toc-text">async/await</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用内建模块"><span class="toc-text">常用内建模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#datetime"><span class="toc-text">datetime</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#collections"><span class="toc-text">collections</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#base64"><span class="toc-text">base64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#struct"><span class="toc-text">struct</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hashlib"><span class="toc-text">hashlib</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#itertools"><span class="toc-text">itertools</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#contextlib"><span class="toc-text">contextlib</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XML"><span class="toc-text">XML</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTMLParser"><span class="toc-text">HTMLParser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#urllib"><span class="toc-text">urllib</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝和深拷贝"><span class="toc-text">浅拷贝和深拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python自省"><span class="toc-text">python自省</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python2和python3区别"><span class="toc-text">python2和python3区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python中的异步"><span class="toc-text">python中的异步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#理解yield"><span class="toc-text">理解yield</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#next"><span class="toc-text">__next__()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yield是表达式"><span class="toc-text">yield是表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg"><span class="toc-text">send(msg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#send-msg-与-next-的返回值"><span class="toc-text">send(msg) 与 next()的返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中断Generator"><span class="toc-text">中断Generator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那和多线程比，协程有何优势？"><span class="toc-text">那和多线程比，协程有何优势？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生产者消费者模型"><span class="toc-text">生产者消费者模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asynico"><span class="toc-text">asynico</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-await"><span class="toc-text">async/await</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-面试题"><span class="toc-text">python 面试题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参数传递"><span class="toc-text">参数传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单例模式"><span class="toc-text">单例模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#read-readline-readlines"><span class="toc-text">read,readline,readlines</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
